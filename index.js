@@ -1,11 +1,17 @@
-/* global Highcharts */ 
 import './css/styles.scss';
 import cloneDeep from 'lodash.clonedeep';
 import defaultsDeep from 'lodash.defaultsdeep';
-import SeriesLabel from './series-label-es6.js';
 
-console.log(SeriesLabel);
-SeriesLabel(Highcharts);
+import Highcharts from 'highcharts';
+import 'highcharts/highcharts-more';
+import HCAnnotations from 'highcharts/modules/annotations';
+import HCData from 'highcharts/modules/data';
+//import HCSeriesLabel from 'highcharts/modules/series-label';
+
+
+HCAnnotations(Highcharts);
+HCData(Highcharts);
+//HCSeriesLabel(Highcharts);
 
 const _ = {
     cloneDeep,
@@ -226,7 +232,8 @@ const chartsCollection = [];
                 spacingLeft: 0,
                 events: {
                     render: config.datalabelsAllowOverlap ? relaxLabels : undefined
-                }
+                },
+                styledMode: true
             },
             data: {
                 table,
