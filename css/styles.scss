@@ -1,0 +1,306 @@
+@import './vendor/highcharts6_1.css';
+
+body {
+        
+    }
+    figure {
+        margin-top: 1em;
+    }
+    
+    figure figcaption:first-child {
+        font-weight: bold;
+        font-size: 1.2rem;
+        line-height: 1.3;
+    }
+    figure figcaption:first-child span {
+        display: block;
+        font-weight: normal;
+        font-size: 1.15rem;
+    }
+    figure figcaption:first-child span:first-child {
+        font-size: 1rem;
+    }
+    table caption {
+        margin-top: 1rem;
+    }
+
+    .griffin-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 800px; /* TO DO: ALLOW OVERWRITE IN JAVASCRIPT */;
+    }
+    .griffin-wrapper figure {
+       min-width: 320px; /* TO DO: can be overridden in js at multiple levels */      
+    }
+
+    .shareTooltip .highcharts-tooltip text {
+        font-weight: bold;
+        fill: #767676;
+    }
+    .shareTooltip .highcharts-tooltip .highcharts-strong  {
+        fill: #000;
+    }
+
+    /* chart specific */
+
+    .griffin-bar {
+    }
+    .griffin-donut {
+        max-width: 400px;
+    }
+    .griffin-slope {
+        .highcharts-grid-line {
+            stroke-width: 0;
+        }
+        /*.highcharts-xaxis-labels text {
+            display: none;
+            &:first-child, &:last-child {
+                display: block;
+                font-weight: bold;
+            }
+        }*/
+        .highcharts-axis-line, .highcharts-tick {
+            display:none;
+        }
+        .highcharts-xaxis-labels {
+            font-weight: bold;
+            font-size: 1em;
+            fill: #000;
+        }
+        text.highcharts-data-label, .highcharts-data-label text {
+            fill: #333;
+            font-weight:normal;
+        }
+        .highcharts-data-label:first-child text {
+            text-anchor: end;
+            transform: translateX(-16px);
+        }
+        .highcharts-point {
+            fill: #fff !important;
+            stroke-width: 2px;
+        }
+       
+    }
+
+    .griffin-line {
+         .highcharts-data-label {
+            @media screen {
+                visibility: hidden;
+            }
+         }
+
+         .highcharts-data-label:first-child {
+            visibility: visible;
+            opacity: 1;
+            text {
+                 text-anchor: end;
+                 transform: translateX(-16px);
+             }
+         }
+         .highcharts-data-label:last-child {
+            visibility: visible;
+            opacity: 1;
+            
+         }
+    }
+
+    /* highcharts overrides */
+
+    .highcharts-tracker-line {
+        display: none;
+        @media screen {
+            display: block;
+        }
+    }
+
+    .highcharts-graph {
+        stroke-width: 4px;
+    }
+
+    .highcharts-axis-labels {
+        font-size: 1em;
+    }
+
+/* default palette */
+
+    .highcharts-color-0 {
+        fill:#296EC3;
+        stroke:#296EC3;
+    }
+    .highcharts-color-1 {
+        fill:#444;
+        stroke:#444;
+    }
+    .highcharts-color-4 {
+        fill:#229DC6;
+        stroke:#229DC6;
+    }
+    .highcharts-color-3 {
+        fill:#5AC7BE;
+        stroke:#5AC7BE;
+    }
+    .highcharts-color-2 {
+        fill:#ff7f49;
+        stroke:#ff7f49;
+    }
+    .highcharts-color-5 {
+        fill:#d55555;
+        stroke:#d55555;
+    }
+
+    .highcharts-data-label-color-0 text, .highcharts-label-series-0 text {
+        fill:#296EC3;
+    }
+    .highcharts-data-label-color-1 text, .highcharts-label-series-1 text {
+        fill:#444;
+    }
+    .highcharts-data-label-color-4 text, .highcharts-label-series-4 text {
+        fill:#229DC6;
+    }
+    .highcharts-data-label-color-3 text, .highcharts-label-series-3 text {
+        fill:#5AC7BE;
+    }
+    .highcharts-data-label-color-2 text, .highcharts-label-series-2 text {
+        fill:#ff7f49;
+    }
+    .highcharts-data-label-color-5 text, .highcharts-label-series-5 text {
+        fill:#d55555;
+    }
+    
+   
+/* teal palette */
+
+    .paletteTeal .highcharts-color-0 {
+        fill:#297676;
+        stroke:#297676;
+    }
+    .paletteTeal .highcharts-color-1 {
+        fill:#B9B082;
+        stroke:#B9B082;
+    }
+    .paletteTeal .highcharts-color-2 {
+        fill:#9ABEBE;
+        stroke:#9ABEBE;
+    }
+    .paletteTeal .highcharts-color-3 {
+        fill:#D0CBB5;
+        stroke:#D0CBB5;
+    }
+    .paletteTeal .highcharts-color-4 {
+        fill:#B4CFCD;
+        stroke:#B4CFCD;
+    }
+    .paletteTeal .highcharts-color-5 {
+        fill:#E9E6D7;
+        stroke:#E9E6D7;
+    }
+
+    .paletteTeal .highcharts-data-label-color-0, .paletteTeal .highcharts-label-series-0 text {
+        fill:#297676;
+    }
+    .paletteTeal .highcharts-data-label-color-1, .paletteTeal .highcharts-label-series-1 text {
+        fill:#B9B082;
+    }
+    .paletteTeal .highcharts-data-label-color-2, .paletteTeal .highcharts-label-series-2 text {
+        fill:#9ABEBE;
+    }
+    .paletteTeal .highcharts-data-label-color-3, .paletteTeal .highcharts-label-series-3 text {
+        fill:#D0CBB5;
+    }
+    .paletteTeal .highcharts-data-label-color-4, .paletteTeal .highcharts-label-series-4 text {
+        fill:#B4CFCD;
+    }
+    .paletteTeal .highcharts-data-label-color-5, .paletteTeal .highcharts-label-series-5 text {
+        fill:#E9E6D7;
+    }
+
+    .paletteMonoTeal .highcharts-color-0 {
+        fill:#084744;
+        stroke:#084744;
+    }
+    .paletteMonoTeal .highcharts-color-1 {
+        fill:desaturate(lighten(#084744, 10%), 10%);
+        stroke:desaturate(lighten(#084744, 10%), 10%);
+    }
+    .paletteMonoTeal .highcharts-color-2 {
+        fill:desaturate(lighten(#084744, 20%), 20%);
+        stroke:desaturate(lighten(#084744, 20%), 20%);
+    }
+    .paletteMonoTeal .highcharts-color-3 {
+        fill:desaturate(lighten(#084744, 30%), 30%);
+        stroke:desaturate(lighten(#084744, 30%), 30%);  
+    }
+    .paletteMonoTeal .highcharts-color-4 {
+        fill:desaturate(lighten(#084744, 40%), 40%);
+        stroke:desaturate(lighten(#084744, 40%), 40%);
+    }
+    .paletteMonoTeal .highcharts-color-5 {
+        fill:desaturate(lighten(#084744, 50%), 50%);
+        stroke:desaturate(lighten(#084744, 50%), 50%);
+    }
+
+    .paletteMonoTeal .highcharts-data-label-color-0, .paletteMonoTeal .highcharts-label-series-0 text {
+        fill:#084744;
+    }
+    .paletteMonoTeal .highcharts-data-label-color-1, .paletteMonoTeal .highcharts-label-series-1 text {
+        fill:desaturate(lighten(#084744, 10%), 10%);
+    }
+    .paletteMonoTeal .highcharts-data-label-color-2, .paletteMonoTeal .highcharts-label-series-2 text {
+        fill:desaturate(lighten(#084744, 20%), 20%);
+    }
+    .paletteMonoTeal .highcharts-data-label-color-3, .paletteMonoTeal .highcharts-label-series-3 text {
+        fill:desaturate(lighten(#084744, 30%), 30%);
+    }
+    .paletteMonoTeal .highcharts-data-label-color-4, .paletteMonoTeal .highcharts-label-series-4 text {
+        fill:desaturate(lighten(#084744, 40%), 40%);
+    }
+    .paletteMonoTeal .highcharts-data-label-color-5, .paletteMonoTeal .highcharts-label-series-5 text {
+        fill:desaturate(lighten(#084744, 50%), 50%);
+    }
+
+/* data labels */
+
+    .griffin-donut .highcharts-data-label text {
+        font-size:18px;
+        font-weight: bold;
+    }
+
+    .invertDataLabels .highcharts-data-label text, .invertDataLabels text.highcharts-data-label {
+        fill: #fff;
+    }
+
+
+    .highcharts-container {
+        height: auto;
+        font-family: lato;
+        font-size: 13.5px;
+    }
+    .highcharts-container .highcharts-legend {
+        visibility: hidden;
+    }
+    .showLegend .highcharts-legend {
+        visibility: visible;
+    }
+
+    .highcharts-legend-item text {
+        transform: translate(0,-1px);
+    }
+    .highcharts-credits {
+        display: none;
+    }
+    .highcharts-title {
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+    .highcharts-annotation-label text {
+        fill: #000;
+    }
+
+/*    .highcharts-yaxis text {
+        text-anchor: start;
+        transform: translate(-10px,0);
+        font-style: italic;
+    }*/
+
+        

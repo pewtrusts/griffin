@@ -1,0 +1,31 @@
+{
+  "name": "griffin",
+  "version": "1.0.0",
+  "description": "Library for creating charts from HTML table data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pewtrusts/griffin.git"
+  },
+  "keywords": [
+    "Highcharts",
+    "charts",
+    "dtaa",
+    "HTML",
+    "tables"
+  ],
+  "author": "John Osterman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pewtrusts/griffin/issues"
+  },
+  "homepage": "https://github.com/pewtrusts/griffin#readme",
+  "dependencies": {
+    "highcharts": "^7.0.3",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.defaultsdeep": "^4.6.0"
+  }
+}
