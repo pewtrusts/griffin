@@ -6,12 +6,12 @@ import Highcharts from 'highcharts';
 import 'highcharts/highcharts-more';
 import HCAnnotations from 'highcharts/modules/annotations';
 import HCData from 'highcharts/modules/data';
-//import HCSeriesLabel from 'highcharts/modules/series-label';
+import HCSeriesLabel from 'highcharts/modules/series-label';
 
 
 HCAnnotations(Highcharts);
 HCData(Highcharts);
-//HCSeriesLabel(Highcharts);
+HCSeriesLabel(Highcharts);
 
 const _ = {
     cloneDeep,
@@ -111,7 +111,7 @@ const chartsCollection = [];
     var classNameKeys = ['showLegend','shareTooltip', 'paletteTeal', 'paletteMonoTeal', 'invertDataLabels'];
    
     function returnBaseConfig(table, config){
-        console.log(arguments[0].parentNode);
+        console.log(config);
         var className = classNameKeys.reduce((acc, cur) => {
             var addClass = config[cur] === 'true' ? ' ' + cur : '';
             return acc + addClass;
@@ -154,8 +154,9 @@ const chartsCollection = [];
                         formatter: returnNumberFormatter()
                     },
                     visible: config.yAxisVisible === false ? false : true,
-                    max: config.yAxisMax || undefined,
-                    min: config.yAxisMin || undefined
+                    max: config.yAxisMax !== undefined ? config.yAxisMax : undefined,
+                    min: config.yAxisMin !== undefined ? config.yAxisMin : undefined,
+                    tickInterval: +config.yAxisTickInterval || undefined
                     
                 };
             } else {
@@ -245,6 +246,7 @@ const chartsCollection = [];
                     /*arguments.forEach(each => {
                         console.log(each);
                     });*/
+
                     console.log(this);
                     console.log('arguments', arguments, this);
                     var seriesTypes, seriesNumberFormats;
@@ -290,12 +292,15 @@ const chartsCollection = [];
                                 formatter:  config.dataLabelsFormatter || function(){ return useNumericSymbol.call(this, config);},
                                 align: config.dataLabelsAlign || 'center',
                                 verticalAlign: config.dataLabelsVerticalAlign || 'bottom',
-                                y: config.dataLabelsY || -10,
-                                x: config.dataLabelsX || 0,
+                                y: config.dataLabelsY !== undefined ? config.dataLabelsY : -10,
+                                x: config.dataLabelsX !== undefined ? config.dataLabelsX : 0,
                                 allowOverlap: config.datalabelsAllowOverlap || false,
                                 overflow: config.dataLabelsOverflow || 'allow',
                                 crop: config.dataLabelsCrop || false,
                                 
+                            },
+                            label: {
+                                enabled: config.labelEnabled || false
                             },
                             showInLegend: true,
                             stacking: config.stacking ? config.stacking : undefined,
@@ -431,6 +436,7 @@ const chartsCollection = [];
             yAxis: returnYAxes(),
             xAxis: {
 
+                categories: config.xAxisCategories !== undefined ? JSON.parse(config.xAxisCategories) : undefined,
                 title: {
                     text: config.xAxisTitleText || undefined
                 },
@@ -445,8 +451,8 @@ const chartsCollection = [];
                 labels: {
                     y: config.xAxisLabelY !== undefined ? config.xAxisLabelY : undefined
                 },
-                max: config.xAxisMax !== undefined ? config.xAxisMax : undefined,
-                min: config.xAxisMin !== undefined ? config.xAxisMin : undefined
+                max: config.xAxisMax !== undefined ? +config.xAxisMax : undefined,
+                min: config.xAxisMin !== undefined ? +config.xAxisMin : undefined
 
 
             }
@@ -492,6 +498,8 @@ const chartsCollection = [];
                 yAxisTitleText: groupDataset.yAxisTitleText ? groupDataset.yAxisTitleText : 'Values',
                 xAxisTickWidth: 0,
                 xAxisTickLength: 0,
+                dataLabelsX: groupDataset.dataLabelsX !== undefined ? groupDataset.dataLabelsX : 30,
+                dataLabelsY: groupDataset.dataLabelsY !== undefined ? groupDataset.dataLabelsY : 5,
                 isStacked: groupDataset.stacked || false
 
             };
@@ -515,6 +523,7 @@ const chartsCollection = [];
                     return undefined;
                 }
             }*/
+            console.log(groupDataset);
             return {
                 dataLabelsEnabled: ( groupDataset.dataLabelsEnabled === 'true' ) || false,
                // dataLabelsFormatter,
@@ -523,7 +532,8 @@ const chartsCollection = [];
                 dataLabelsVerticalAlign: 'middle',
                 dataLabelsY: -2,
                 dataLabelsX: 2,
-                showLegend: false
+                showLegend: false,
+                yAxisTitleText: groupDataset.yAxisTitleText ? groupDataset.yAxisTitleText : '',
             };
         },
         slope(groupDataset){
