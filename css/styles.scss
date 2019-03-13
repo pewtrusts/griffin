@@ -24,6 +24,10 @@ body {
         margin-top: 1rem;
     }
 
+    .highcharts-data-label-connector {
+        fill: none !important;
+    }
+
     .griffin-wrapper {
         display: flex;
         flex-wrap: wrap;

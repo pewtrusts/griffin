@@ -228,8 +228,8 @@ const chartsCollection = [];
                 height: config.chartHeight || '56%', // TO DO: is there an aspect ration that would work with all social channels?
                 type: config.chartType === 'donut' ? 'pie' : config.chartType === 'slope' ? 'line' : config.chartType || 'line',
                 spacingTop: 30,
-                spacingRight: 30,
-                spacingLeft: 0,
+                spacingLeft: config.spacingLeft !== undefined ? +config.spacingLeft : 0,
+                spacingRight: config.spacingRight !== undefined ? +config.spacingRight : 30,
                 events: {
                     render: config.datalabelsAllowOverlap ? relaxLabels : undefined
                 },
@@ -430,6 +430,7 @@ const chartsCollection = [];
             },
             yAxis: returnYAxes(),
             xAxis: {
+
                 title: {
                     text: config.xAxisTitleText || undefined
                 },
@@ -443,7 +444,10 @@ const chartsCollection = [];
                 tickLength: config.xAxisTickLength !== undefined ? config.xAxisTickLength : 10,
                 labels: {
                     y: config.xAxisLabelY !== undefined ? config.xAxisLabelY : undefined
-                }
+                },
+                max: config.xAxisMax !== undefined ? config.xAxisMax : undefined,
+                min: config.xAxisMin !== undefined ? config.xAxisMin : undefined
+
 
             }
         };
@@ -561,6 +565,7 @@ const chartsCollection = [];
             };
         },
         donut(groupDataset) {
+            
             //var fixed = groupDataset.decimals ? parseInt(groupDataset.decimals) : 0;
            /* function defaultTooltipFormatter(){
                 console.log(this);
@@ -575,8 +580,9 @@ const chartsCollection = [];
                 return header + body;
             }*/
             function dataLabelsFormatter(){
-                var fixed = groupDataset.decimals ? parseInt(groupDataset.decimals) : 0;
-                return this.percentage.toFixed(fixed) + '%';
+               var fixed = groupDataset.decimals ? parseInt(groupDataset.decimals) : 0;
+               console.log('donut', this);
+               return this.key + '<br>' + this.percentage.toFixed(fixed) + '%';
             }
             return {
                 chartHeight: '100%',
@@ -586,6 +592,7 @@ const chartsCollection = [];
                // tooltipFormatter: groupDataset.shareTooltip ? sharedTooltipFormatter : defaultTooltipFormatter,
                 dataLabelsEnabled: groupDataset.dataLabelsEnabled ? groupDataset.dataLabelsEnabled : true,
                 dataLabelsFormatter
+
             };
         }
     };
