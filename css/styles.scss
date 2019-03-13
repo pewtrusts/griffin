@@ -20,6 +20,10 @@ body {
     figure figcaption:first-child span:first-child {
         font-size: 1rem;
     }
+    figure figcaption:first-child span:nth-child(2) {
+        color: inherit;
+        opacity: .9;
+    }
     table caption {
         margin-top: 1rem;
     }
