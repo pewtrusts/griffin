@@ -304,6 +304,7 @@ const chartsCollection = [];
                             },
                             showInLegend: true,
                             stacking: config.stacking ? config.stacking : undefined,
+                            startAngle: config.startAngle !== undefined ? +config.startAngle : 0,
                             yAxis: returnAxisIndex(i),
                             lineWidth: config.lineWidth ? parseInt(config.lineWidth) : 4,
                             visible: config.hideSeries && JSON.parse(config.hideSeries).indexOf(i) !== -1 ? false : true,
@@ -567,11 +568,12 @@ const chartsCollection = [];
                 //seriesLabelsEnabled: groupDataset.seriesLabelsEnabled === 'false' ? false : true
             }
         },
-        pie(){
+        pie(groupDataset){
             return {
                 chartHeight: '100%',
                 chartType: 'pie',
                 colorByPoint: true,
+                startAngle: groupDataset.startAngle !== undefined ? groupDataset.startAngle : 0
             };
         },
         donut(groupDataset) {
@@ -601,7 +603,8 @@ const chartsCollection = [];
                 innerSize: '56%',
                // tooltipFormatter: groupDataset.shareTooltip ? sharedTooltipFormatter : defaultTooltipFormatter,
                 dataLabelsEnabled: groupDataset.dataLabelsEnabled ? groupDataset.dataLabelsEnabled : true,
-                dataLabelsFormatter
+                dataLabelsFormatter,
+                startAngle: groupDataset.startAngle !== undefined ? groupDataset.startAngle : 0
 
             };
         }
