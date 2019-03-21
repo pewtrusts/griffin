@@ -445,8 +445,9 @@ const chartsCollection = [];
                 minPadding: config.xAxisMinPadding || 0.1,
                 maxPadding: config.xAxisMaxPadding || 0.1,
                 tickAmount: config.xAxisTickAmount || undefined,
-               // startOnTick: config.xAxisStartOnTick || false,
-                tickPositions: config.tickPositions || undefined,
+                startOnTick: config.xAxisStartOnTick || false,
+                endOnTick: config.xAxisEndOnTick || false,
+                //tickPositions: config.xAxisTickPositions || undefined,
                 opposite: config.xAxisOpposite || false,
                 tickLength: config.xAxisTickLength !== undefined ? config.xAxisTickLength : 10,
                 labels: {
