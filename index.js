@@ -450,7 +450,8 @@ const chartsCollection = [];
                 opposite: config.xAxisOpposite || false,
                 tickLength: config.xAxisTickLength !== undefined ? config.xAxisTickLength : 10,
                 labels: {
-                    y: config.xAxisLabelY !== undefined ? config.xAxisLabelY : undefined
+                    y: config.xAxisLabelY !== undefined ? config.xAxisLabelY : undefined,
+                    enabled: config.xAxisLabelsEnabled !== undefined ? config.xAxisLabelsEnabled : true
                 },
                 max: config.xAxisMax !== undefined ? +config.xAxisMax : undefined,
                 min: config.xAxisMin !== undefined ? +config.xAxisMin : undefined
@@ -538,20 +539,18 @@ const chartsCollection = [];
             };
         },
         slope(groupDataset){
-            function dataLabelsFormatter(){
-                console.log(this);
-                var value = groupDataset.numberFormat === 'percentage' ? Highcharts.numberFormatter(this.y, -1) + '%' : Highcharts.numberFormatter(this.y, -1);
-                return `${this.series.name} ${value}`;
-                //return value;
+             function dataLabelsFormatter(){
+               var fixed = groupDataset.decimals ? parseInt(groupDataset.decimals) : 0;
+               return this.key + '<br>' + this.y.toFixed(fixed) + '%'; // TO DO. cct programmatically for other vale types
             }
             return {
-                chartHeight: groupDataset.chartHeight || '100%', 
+                chartHeight: groupDataset.chartHeight || '56%', 
                 chartType: 'line',
-                dataLabelsEnabled: groupDataset.dataLabelsEnabled ? groupDataset.dataLabelsEnabled : true,
-                
-                tickPositions: [2006,2016], // TODO: AVOID HARDCODING. IN DATASET OR SOMEHOW PROGRAMMATICALLY
+                dataLabelsEnabled: true,
+                //tickPositions: groupDataset.tickPositions, 
                 xAxisMinPadding: groupDataset.xAxisMinPadding || 0.7,
                 xAxisMaxPadding: groupDataset.xAxisMaxPadding || 0.7,
+                xAxisLabelsEnabled: false,
                 dataLabelsFormatter,
                 dataLabelsAlign: 'left',
                 dataLabelsVerticalAlign: 'middle',
