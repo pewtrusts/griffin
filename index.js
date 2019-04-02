@@ -249,7 +249,7 @@ const chartsCollection = [];
 
                     console.log(this);
                     console.log('arguments', arguments, this);
-                    var seriesTypes, seriesNumberFormats;
+                    var seriesTypes, seriesNumberFormats, zones;
                     if ( config.seriesTypes ){
                         seriesTypes = JSON.parse(config.seriesTypes);
                     } else {
@@ -262,6 +262,14 @@ const chartsCollection = [];
                     } else {
                         seriesNumberFormats = arguments[0].series.map(() => {
                             return config.numberFormat || 'normal';
+                        });
+                    }
+                    if ( config.zoneEnds ) {
+                        zones = JSON.parse(config.zoneEnds).map(function(value, index){
+                            return {
+                                className: 'zone-' + index,
+                                value: value === 'undefined' ? undefined : value
+                            };
                         });
                     }
 
@@ -311,7 +319,9 @@ const chartsCollection = [];
                             marker: {
                                 symbol: config.seriesMarker || 'circle'
                             },
-                            maxPointWidth: config.maxPointWidth || undefined
+                            maxPointWidth: config.maxPointWidth || undefined,
+                            zoneAxis: config.zoneAxis || 'y',
+                            zones: zones || []
                             
                             
 
