@@ -8,6 +8,16 @@ import HCAnnotations from 'highcharts/modules/annotations';
 import HCData from 'highcharts/modules/data';
 import HCSeriesLabel from 'highcharts/modules/series-label';
 
+import { publishWindowResize } from './submodules/UTILS';
+import { stateModule as S } from 'stateful-dead';
+import PS from 'pubsub-setter';
+
+publishWindowResize(S);
+
+PS.setSubs([
+    ['resize', resizeHandler]
+]);
+
 
 HCAnnotations(Highcharts);
 HCData(Highcharts);
@@ -31,6 +41,18 @@ Highcharts.setOptions({
         numericSymbols: ['k','m','b','t']
     }
 });
+
+function resizeHandler(msg, data){
+    chartsCollection.forEach(chart => {
+        console.log(chart[0].userOptions.chart);
+        if ( chart[0].userOptions.chart.lockHeightThreshold && chart[0].userOptions.chart.height.indexOf('%') !== -1 ){
+        console.log('resize handler', msg, data, +chart[0].userOptions.chart.lockHeightThreshold);
+            var newHeight = data[0] < +chart[0].userOptions.chart.lockHeightThreshold ? (( parseInt(chart[0].userOptions.chart.height) / 100 ) * chart[0].userOptions.chart.lockHeightThreshold ) + 'px' : chart[0].userOptions.chart.height;
+            console.log(newHeight);
+            chart[0].update({chart:{height: newHeight}}, true, false, false);
+        }
+    });
+}
 
 function relaxLabels(){ // HT http://jsfiddle.net/thudfactor/B2WBU/ adapted technique
                         // adjusts placement of labels depending on vertical overlap
@@ -234,7 +256,8 @@ const chartsCollection = [];
                 events: {
                     render: config.datalabelsAllowOverlap ? relaxLabels : undefined
                 },
-                styledMode: true
+                styledMode: true,
+                lockHeightThreshold: config.lockHeightThreshold
             },
             data: {
                 table,
