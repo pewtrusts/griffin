@@ -691,4 +691,9 @@ const chartsCollection = [];
             //shareTooltip(i);
         }
     });
+    if ( window.navigator.msPointerEnabled ) { // is >=IE 10
+        document.querySelectorAll('.griffin-line .highcharts-data-label:first-child text').forEach(label => {
+            label.setAttribute('transform', 'translate(-16, 0)');
+        });
+    }
     console.log(chartsCollection);
