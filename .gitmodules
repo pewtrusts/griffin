@@ -1,3 +1,4 @@
 [submodule "submodules/UTILS"]
 	path = submodules/UTILS
 	url = git@github.com:pewtrusts/UTILS.git
+    branch = v2
