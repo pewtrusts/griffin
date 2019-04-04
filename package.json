@@ -28,8 +28,5 @@
     "lodash.clonedeep": "^4.5.0",
     "lodash.defaultsdeep": "^4.6.0"
   },
-  "devDependencies": {
-    "pubsub-setter": "^1.0.2",
-    "stateful-dead": "^0.1.5"
-  }
+  "devDependencies": {}
 }
