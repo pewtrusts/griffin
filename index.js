@@ -229,12 +229,13 @@ const chartsCollection = [];
                 className,
                 height: config.chartHeight || '56%', // TO DO: is there an aspect ration that would work with all social channels?
                 type: config.chartType === 'donut' ? 'pie' : config.chartType === 'slope' ? 'line' : config.chartType || 'line',
-                spacingTop: 30,
+                spacingTop: config.spacingTop !== undefined ? + config.spacingTop : 30,
                 spacingLeft: config.spacingLeft !== undefined ? +config.spacingLeft : 0,
                 spacingRight: config.spacingRight !== undefined ? +config.spacingRight : 30,
                 events: {
                     render: config.datalabelsAllowOverlap ? relaxLabels : undefined
                 },
+
                 styledMode: true
             },
             data: {
@@ -442,6 +443,16 @@ const chartsCollection = [];
                     },
                     condition: {
                         maxHeight: config.minHeight
+                    }
+                },
+                {
+                    chartOptions: {
+                        chart: {
+                            height: config.chartHeight || '56%'
+                        }
+                    },
+                    condition: {
+                        minHeight: +config.minHeight + 1
                     }
                 }]
             } : {},
