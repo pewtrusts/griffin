@@ -39,7 +39,7 @@ body {
         max-width: 990px; /* TO DO: ALLOW OVERWRITE IN JAVASCRIPT */;
     }
     .griffin-wrapper figure {
-       min-width: 320px; /* TO DO: can be overridden in js at multiple levels */      
+       //min-width: 320px; /* TO DO: can be overridden in js at multiple levels */      
     }
 
     .shareTooltip .highcharts-tooltip text {
@@ -272,6 +272,9 @@ body {
     .griffin-donut .highcharts-data-label text {
         font-size:18px;
         font-weight: bold;
+        @media (max-width: 475px){
+            font-size: 14px;
+        }
     }
 
     .invertDataLabels .highcharts-data-label text, .invertDataLabels text.highcharts-data-label {
