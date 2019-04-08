@@ -232,6 +232,7 @@ const chartsCollection = [];
                 spacingTop: 30,
                 spacingLeft: config.spacingLeft !== undefined ? +config.spacingLeft : 0,
                 spacingRight: config.spacingRight !== undefined ? +config.spacingRight : 30,
+                spacingBottom: config.spacingBottom !== undefined ? +config.spacingBottom : 15,
                 events: {
                     render: config.datalabelsAllowOverlap ? relaxLabels : undefined
                 },
@@ -297,6 +298,9 @@ const chartsCollection = [];
                             dataLabels: {
                                 //allowOverlap: config.datalabelsAllowOverlap || false,
                                 //distance: -30,
+                                connectorPadding: config.dataLabelsConnectorWidth == 0 ? 0 : undefined, 
+                                padding: config.dataLabelsConnectorWidth == 0 ? 0 : undefined, 
+                                connectorWidth: config.dataLabelsConnectorWidth !== undefined ? config.dataLabelsConnectorWidth : 1,
                                 enabled: config.dataLabelsEnabled || false,
                                 formatter:  config.dataLabelsFormatter || function(){ return useNumericSymbol.call(this, config);},
                                 align: config.dataLabelsAlign || 'center',
@@ -431,7 +435,7 @@ const chartsCollection = [];
 
             },
             legend: {
-                enabled: true
+                enabled: config.showLegend ? true : false  // to do . no longer reserving space for legends.
             },
             responsive: config.minHeight ? {
                 rules: [{
@@ -626,7 +630,8 @@ const chartsCollection = [];
                // tooltipFormatter: groupDataset.shareTooltip ? sharedTooltipFormatter : defaultTooltipFormatter,
                 dataLabelsEnabled: groupDataset.dataLabelsEnabled ? groupDataset.dataLabelsEnabled : true,
                 dataLabelsFormatter,
-                startAngle: groupDataset.startAngle !== undefined ? groupDataset.startAngle : 0
+                startAngle: groupDataset.startAngle !== undefined ? groupDataset.startAngle : 0,
+                dataLabelsConnectorWidth: groupDataset.dataLabelsConnectorWidth !== undefined ? groupDataset.dataLabelsConnectorWidth : 0
 
             };
         }
