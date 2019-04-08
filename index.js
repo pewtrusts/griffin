@@ -28,7 +28,7 @@ console.log(_);
 Highcharts.setOptions({
     lang: {
         thousandsSep: ',',
-        numericSymbols: ['k','m','b','t']
+        numericSymbols: ['K','M','B','T']
     }
 });
 
@@ -231,7 +231,7 @@ const chartsCollection = [];
                 type: config.chartType === 'donut' ? 'pie' : config.chartType === 'slope' ? 'line' : config.chartType || 'line',
                 spacingTop: config.spacingTop !== undefined ? + config.spacingTop : 30,
                 spacingLeft: config.spacingLeft !== undefined ? +config.spacingLeft : 0,
-                spacingRight: config.spacingRight !== undefined ? +config.spacingRight : 30,
+                spacingRight: config.spacingRight !== undefined ? +config.spacingRight : 10,
                 spacingBottom: config.spacingBottom !== undefined ? +config.spacingBottom : 15,
                 events: {
                     render: config.datalabelsAllowOverlap ? relaxLabels : undefined
@@ -319,6 +319,14 @@ const chartsCollection = [];
                             showInLegend: true,
                             stacking: config.stacking ? config.stacking : undefined,
                             startAngle: config.startAngle !== undefined ? +config.startAngle : 0,
+                            states: {
+                                hover: {
+                                    enabled: false,
+                                    halo: {
+                                        size: 0
+                                    }
+                                }
+                            },
                             yAxis: returnAxisIndex(i),
                             lineWidth: config.lineWidth ? parseInt(config.lineWidth) : 4,
                             visible: config.hideSeries && JSON.parse(config.hideSeries).indexOf(i) !== -1 ? false : true,
@@ -714,7 +722,9 @@ const chartsCollection = [];
                 if ( this.currentResponsive && this.chartHeight < this.currentResponsive.mergedOptions.chart.height ){ //  Highcharts responsive rules seem to only take effect
                                                                                                                        // on window resize, not on load. this checks if the chart's
                                                                                                                        // height is too small and calls reflow if so
+                   setTimeout(() => {
                     this.reflow();
+                });
                 }
             });
             chart.collectionIndex = i;
