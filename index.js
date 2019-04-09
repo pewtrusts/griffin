@@ -508,7 +508,9 @@ const chartsCollection = [];
                 tickLength: config.xAxisTickLength !== undefined ? config.xAxisTickLength : 10,
                 labels: {
                     y: config.xAxisLabelY !== undefined ? config.xAxisLabelY : undefined,
-                    enabled: config.xAxisLabelsEnabled !== undefined ? config.xAxisLabelsEnabled : true
+                    enabled: config.xAxisLabelsEnabled !== undefined ? config.xAxisLabelsEnabled : true,
+                    rotation: config.xAxisLabelsRotation !== undefined ? config.xAxisLabelsRotation : 0,
+                    
                 },
                 max: config.xAxisMax !== undefined ? +config.xAxisMax : undefined,
                 min: config.xAxisMin !== undefined ? +config.xAxisMin : undefined
