@@ -232,12 +232,19 @@ const chartsCollection = [];
                 spacingTop: config.spacingTop !== undefined ? + config.spacingTop : 30,
                 spacingLeft: config.spacingLeft !== undefined ? +config.spacingLeft : 0,
                 spacingRight: config.spacingRight !== undefined ? +config.spacingRight : 15,
-                spacingBottom: config.spacingBottom !== undefined ? +config.spacingBottom : 15,
+                spacingBottom: config.spacingBottom !== undefined ? +config.spacingBottom : 30,
                 events: {
                     render: config.datalabelsAllowOverlap ? relaxLabels : undefined
                 },
 
                 styledMode: true
+            },
+            credits: {
+                href: null,
+                text: config.showCopyright == true ? '© ' + new Date().getFullYear() + ' The Pew Charitable Trusts' : '',
+                position: {
+                    y: 0
+                }
             },
             data: {
                 table,
