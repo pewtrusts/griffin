@@ -344,6 +344,7 @@ const chartsCollection = [];
                     };
                     console.log(arguments, this);
                     function parseNondataColumns(nondataColumns, originalArguments){
+                        console.log(nondataColumns, config.xAxisAnnotations, config.endColumn);
                         nondataColumns.forEach((column, i) => {
                             console.log(config.xAxisPlotbands,i + config.endColumn);
                             if ( config.xAxisPlotbands == i + +config.endColumn ){ // i.e. endColumn = 1; index = 0;
@@ -367,7 +368,8 @@ const chartsCollection = [];
                                 originalArguments[0].xAxis.plotBands = plotBands;
                                 console.log(originalArguments,'plotBands!',plotBands);
                             }
-                            if ( config.xAxisAnnotations == i + +config.endColumn ){ // i.e. endColumn = 1; index = 0;
+                                    // ie 2                 //0  //1
+                            if ( config.xAxisAnnotations == i + +config.endColumn + 1){ // i.e. endColumn = 1; index = 0;
                                 console.log('annotations!');
                                 originalArguments[0].annotations = originalArguments[0].annotations || [];
                                 originalArguments[0].annotations[0] = originalArguments[0].annotations[0] || {};
@@ -376,18 +378,20 @@ const chartsCollection = [];
 
                                 column.data.forEach((d,j) => {
                                     if ( d[1] !== null ){
+                                        console.log(d);
                                         console.log(originalArguments[0].series[0].data[j]);
                                         originalArguments[0].annotations[0].labels.push({
                                             align: 'right',
                                             text: d[1],
                                             point: {
-                                                x: j,
+                                                x: d[0],
                                                 xAxis: 0,
                                                 y: originalArguments[0].series[0].data[j][1],
                                                 yAxis: 0
                                             }, //TODO: ALLOW FOR MULTIPLE AXES?
                                             shape: 'connector',
-                                           // y: 50
+                                            y: 50,
+                                            padding:0
                                             
                                         });
                                     }
