@@ -231,7 +231,7 @@ const chartsCollection = [];
                 type: config.chartType === 'donut' ? 'pie' : config.chartType === 'slope' ? 'line' : config.chartType || 'line',
                 spacingTop: config.spacingTop !== undefined ? + config.spacingTop : 30,
                 spacingLeft: config.spacingLeft !== undefined ? +config.spacingLeft : 0,
-                spacingRight: config.spacingRight !== undefined ? +config.spacingRight : 10,
+                spacingRight: config.spacingRight !== undefined ? +config.spacingRight : 15,
                 spacingBottom: config.spacingBottom !== undefined ? +config.spacingBottom : 15,
                 events: {
                     render: config.datalabelsAllowOverlap ? relaxLabels : undefined
