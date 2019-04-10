@@ -299,6 +299,7 @@ const chartsCollection = [];
                         }
                         console.log(numberFormatter);
                         return {
+                            animation: config.animation || false,
                             type: seriesTypes[i],
                             colorByPoint: config.colorByPoint,
                             colorIndex: config.colorIndeces ? JSON.parse(config.colorIndeces)[i] : undefined,
