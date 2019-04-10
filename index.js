@@ -299,7 +299,7 @@ function useNumericSymbol(config){
                         }
                         console.log(numberFormatter);
                         return {
-                            animation: config.animation || false,
+                            animation: config.animation !== undefined ? config.animation : true,
                             type: seriesTypes[i],
                             colorByPoint: config.colorByPoint,
                             colorIndex: config.colorIndeces ? JSON.parse(config.colorIndeces)[i] : undefined,
@@ -726,17 +726,24 @@ function useNumericSymbol(config){
                     return acc + addStyle;
                 },'');
                 griffin.setAttribute('style',styleString);
+                
                 if (!config.lazy){
                     this.construct(griffin,i)
+                } else {
+                    if ( !griffin.dataset.chartHeight ) {
+                        griffin.style.paddingBottom = '56%'
+                    } else {
+                        griffin.style.paddingBottom = griffin.dataset.chartHeight;
+                    }
+                    griffin.isPending = true;
+                    griffin.classList.add('griffin-pending');
                 }
             });
-            /*if ( window.navigator.msPointerEnabled ) { // is >=IE 10
-                document.querySelectorAll('.griffin-line .highcharts-data-label:first-child text').forEach(label => {
-                    label.setAttribute('transform', 'translate(-16, 0)');
-                });
-            }*/
         },
         construct(griffin, i){
+            griffin.isPending = false;
+            griffin.classList.remove('griffin-pending');
+            griffin.style.paddingBottom = 0;
             this.chartsCollection[i] = []; // an array of arrays. each inner array will hold indiv. charts
                                           // this is so each chart can access its siblings
             var groupConfig = setProperties(Object.create(defaultConfigs[griffin.dataset.chartType || 'line'](griffin.dataset)), griffin.dataset);
@@ -764,6 +771,12 @@ function useNumericSymbol(config){
                 chart.indexInCollection = j;
                 this.chartsCollection[i].push(chart);
                 console.log(chart);
+                if ( window.navigator.msPointerEnabled ) { // is >=IE 10
+                    document.querySelectorAll('.griffin-line .highcharts-data-label:first-child text').forEach(label => {
+                        label.setAttribute('transform', 'translate(-16, 0)');
+                    });
+                }
+            
             });
         }
     }
