@@ -108,7 +108,7 @@ function useNumericSymbol(config){
     }
 }
 
-const chartsCollection = [];
+
     var classNameKeys = ['showLegend','shareTooltip', 'paletteTeal', 'paletteMonoTeal', 'invertDataLabels'];
    
     function returnBaseConfig(table, config){
@@ -708,51 +708,62 @@ const chartsCollection = [];
         return str.replace(/([A-Z])/g, function(v){return '-' + v.toLowerCase()});
     }
 
-    griffins.forEach((griffin, i) => {
-        chartsCollection[i] = []; // an array of arrays. each inner array will hold indiv. charts
-                                  // this is so each chart can access its siblings
-        console.log(griffin.dataset);
-        // pass wrapper-level dataset to setProperties fn which returns an obj with own properties
-        // from the dataset and prototypical properties from the defaults defined above
-        var styleString = styleKeys.reduce((acc,cur) => {
-            var addStyle = griffin.dataset[cur] ? `${undoCamelCase(cur)}: ${griffin.dataset[cur]}; ` : '';
-            return acc + addStyle;
-        },'');
-        griffin.setAttribute('style',styleString);
-        console.log(styleString);
-        var groupConfig = setProperties(Object.create(defaultConfigs[griffin.dataset.chartType || 'line'](griffin.dataset)), griffin.dataset);
-        var tables = griffin.querySelectorAll('.js-griffin-table');
-        tables.forEach((table, j, array) => {
-            console.log(table.dataset);
-            var indivConfig = setProperties(Object.create(groupConfig), table.dataset);
-            var container = table.parentNode;
-            var highchartsConfig = returnBaseConfig(table, indivConfig); // TO DO: use defaultsdeep here
-            console.log(highchartsConfig);
-            container.classList.add('griffin-' + griffin.dataset.chartType);
-            container.style.width = 100 / array.length + '%';
-            console.log(highchartsConfig);
-            var chart = Highcharts.chart(table.parentNode, highchartsConfig, function(){
-                console.log(this);
-                if ( this.currentResponsive && this.chartHeight < this.currentResponsive.mergedOptions.chart.height ){ //  Highcharts responsive rules seem to only take effect
-                                                                                                                       // on window resize, not on load. this checks if the chart's
-                                                                                                                       // height is too small and calls reflow if so
-                   setTimeout(() => {
-                    this.reflow();
-                });
+    
+   
+   
+
+    export const Griffin = {
+        griffins,
+        chartsCollection: [],
+        init(config = {}){
+            this.griffins.forEach((griffin, i) => {
+                
+                console.log(griffin.dataset);
+                // pass wrapper-level dataset to setProperties fn which returns an obj with own properties
+                // from the dataset and prototypical properties from the defaults defined above
+                var styleString = styleKeys.reduce((acc,cur) => {
+                    var addStyle = griffin.dataset[cur] ? `${undoCamelCase(cur)}: ${griffin.dataset[cur]}; ` : '';
+                    return acc + addStyle;
+                },'');
+                griffin.setAttribute('style',styleString);
+                if (!config.lazy){
+                    this.construct(griffin,i)
                 }
             });
-            chart.collectionIndex = i;
-            chart.indexInCollection = j;
-            chartsCollection[i].push(chart);
-            console.log(chart);
-        });
-        if ( groupConfig.shareTooltip === 'true' ){
-            //shareTooltip(i);
+            /*if ( window.navigator.msPointerEnabled ) { // is >=IE 10
+                document.querySelectorAll('.griffin-line .highcharts-data-label:first-child text').forEach(label => {
+                    label.setAttribute('transform', 'translate(-16, 0)');
+                });
+            }*/
+        },
+        construct(griffin, i){
+            this.chartsCollection[i] = []; // an array of arrays. each inner array will hold indiv. charts
+                                          // this is so each chart can access its siblings
+            var groupConfig = setProperties(Object.create(defaultConfigs[griffin.dataset.chartType || 'line'](griffin.dataset)), griffin.dataset);
+            var tables = griffin.querySelectorAll('.js-griffin-table');
+            tables.forEach((table, j, array) => {
+                console.log(table.dataset);
+                var indivConfig = setProperties(Object.create(groupConfig), table.dataset);
+                var container = table.parentNode;
+                var highchartsConfig = returnBaseConfig(table, indivConfig); // TO DO: use defaultsdeep here
+                console.log(highchartsConfig);
+                container.classList.add('griffin-' + griffin.dataset.chartType);
+                container.style.width = 100 / array.length + '%';
+                console.log(highchartsConfig);
+                var chart = Highcharts.chart(table.parentNode, highchartsConfig, function(){
+                    console.log(this);
+                    if ( this.currentResponsive && this.chartHeight < this.currentResponsive.mergedOptions.chart.height ){ //  Highcharts responsive rules seem to only take effect
+                                                                                                                           // on window resize, not on load. this checks if the chart's
+                                                                                                                           // height is too small and calls reflow if so
+                       setTimeout(() => {
+                        this.reflow();
+                    });
+                    }
+                });
+                chart.collectionIndex = i;
+                chart.indexInCollection = j;
+                this.chartsCollection[i].push(chart);
+                console.log(chart);
+            });
         }
-    });
-    if ( window.navigator.msPointerEnabled ) { // is >=IE 10
-        document.querySelectorAll('.griffin-line .highcharts-data-label:first-child text').forEach(label => {
-            label.setAttribute('transform', 'translate(-16, 0)');
-        });
     }
-    console.log(chartsCollection);
