@@ -725,22 +725,58 @@ function useNumericSymbol(config){
                     var addStyle = griffin.dataset[cur] ? `${undoCamelCase(cur)}: ${griffin.dataset[cur]}; ` : '';
                     return acc + addStyle;
                 },'');
-                griffin.setAttribute('style',styleString);
+                griffin.parentNode.setAttribute('style',styleString);
                 
-                if (!config.lazy){
+                if (!config.lazy){ // if eager mode (not lazy), construct all the charts right away
                     this.construct(griffin,i)
-                } else {
-                    if ( !griffin.dataset.minHeight || griffin.dataset.chartHeight.indexOf('%') === -1) {
-                        griffin.style.paddingBottom = griffin.dataset.chartHeight;
-                    } else {
-                        if ( griffin.dataset.chartHeight.indexOf('%') !== -1 ){
-                            let calcHeight = ( parseInt(griffin.dataset.chartHeight) / 100 ) * griffin.offsetWidth;
-                            griffin.style.paddingBottom = griffin.dataset.minHeight && calcHeight < griffin.dataset.minHeight ? griffin.dataset.minHeight : griffin.dataset.chartHeight;
-                        } else {
-                            griffin.style.paddingBottom = griffin.dataset.chartHeight;
-                        }
+                } else {           // if not, allow the main app that's importing Griffin to handle the construction of the charts, for instance when the element is in view
+                                   // also, set the padding of the placeholder divs to match the height of the chart so that the page doesn't need to reflow  
+                    
+                    switch(griffin.dataset.minHeight){
+                        case undefined:
+                            if ( griffin.dataset.chartHeight.indexOf('%') !== -1){
+                                griffin.style.paddingBottom = griffin.dataset.chartHeight; 
+                            } else {
+                                griffin.style.paddingBottom = griffin.dataset.chartHeight + 'px'; 
+                            }
+                            break;
+                        default: // is not undefined
+                            if ( griffin.dataset.chartHeight.indexOf('%') !== -1){ // chartHeight is percentage, need to compare chartHeight at x width to minHeight
+                                let calcHeight = ( parseInt(griffin.dataset.chartHeight) / 100 ) * griffin.offsetWidth; // calculated height is xx% of the width of the container
+                                                              // the calculated height is less than minHeigh, use minHeight              else use chartHeight
+                                griffin.style.paddingBottom = calcHeight < griffin.dataset.minHeight ? griffin.dataset.minHeight + 'px' : griffin.dataset.chartHeight;
+
+                            } else { // chartHeight is absolute pixel, padding should be chartHeigth (ie chartHeight overrides minHeigh if both are pixel)
+                                griffin.style.paddingBottom = griffin.dataset.chartHeight + 'px'; 
+                            }
+
+
                     }
 
+
+
+
+               /*     if ( !griffin.dataset.minHeight ){
+                        if ()
+
+
+                    }
+                    || griffin.dataset.chartHeight.indexOf('%') === -1) { // if no minHeight has been set or if the chart height is absolute (no %)
+                                                                                                          // set the padding to the chartHeight
+                        griffin.style.paddingBottom = griffin.dataset.chartHeight + 'px';
+                    } else if (!griffin.dataset.minHeight && griffin.dataset.chartHeight.indexOf('%') !== -1) {
+                        griffin.style.paddingBottom = griffin.dataset.chartHeight;
+                    } else {
+                        if ( griffin.dataset.chartHeight.indexOf('%') !== -1 ){ // if chartHeight is a percentage
+                            let calcHeight = ( parseInt(griffin.dataset.chartHeight) / 100 ) * griffin.offsetWidth; // calculated height is xx% of the width of the container
+                            console.log(calcHeight);
+                                                        // minHeight is set  and        the calculated height is less than minHeigh, use minHeight              else use chartHeight
+                            griffin.style.paddingBottom = griffin.dataset.minHeight && calcHeight < griffin.dataset.minHeight ? griffin.dataset.minHeight + 'px' : griffin.dataset.chartHeight;
+                        } else {
+                            griffin.style.paddingBottom = griffin.dataset.chartHeight + 'px';
+                        }
+                    }
+*/
                     griffin.isPending = true;
                     griffin.classList.add('griffin-pending');
                 }
