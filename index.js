@@ -717,7 +717,7 @@ function useNumericSymbol(config){
         chartsCollection: [],
         init(config = {}){
             this.griffins.forEach((griffin, i) => {
-                
+                griffin.dataset.chartHeight = griffin.dataset.chartHeight || '56%';
                 console.log(griffin.dataset);
                 // pass wrapper-level dataset to setProperties fn which returns an obj with own properties
                 // from the dataset and prototypical properties from the defaults defined above
@@ -730,11 +730,17 @@ function useNumericSymbol(config){
                 if (!config.lazy){
                     this.construct(griffin,i)
                 } else {
-                    if ( !griffin.dataset.chartHeight ) {
-                        griffin.style.paddingBottom = '56%'
-                    } else {
+                    if ( !griffin.dataset.minHeight || griffin.dataset.chartHeight.indexOf('%') === -1) {
                         griffin.style.paddingBottom = griffin.dataset.chartHeight;
+                    } else {
+                        if ( griffin.dataset.chartHeight.indexOf('%') !== -1 ){
+                            let calcHeight = ( parseInt(griffin.dataset.chartHeight) / 100 ) * griffin.offsetWidth;
+                            griffin.style.paddingBottom = griffin.dataset.minHeight && calcHeight < griffin.dataset.minHeight ? griffin.dataset.minHeight : griffin.dataset.chartHeight;
+                        } else {
+                            griffin.style.paddingBottom = griffin.dataset.chartHeight;
+                        }
                     }
+
                     griffin.isPending = true;
                     griffin.classList.add('griffin-pending');
                 }
