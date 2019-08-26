@@ -1,33 +1,30 @@
 @import './vendor/highcharts6_1.css';
 
-body {
-        
-    }
-    .griffin-pending {
+figure.griffin {
+    margin-top: 1em;
+    margin-bottom: 1em;
+
+
+    &.griffin-pending {
         background-color: #f0f0f0;
         table {
             display: none;
         }
     }
-    figure.griffin {
-        margin-top: 1em;
-        margin-bottom: 1em;
-    }
-    
-    figure.griffin figcaption:first-child {
+    figcaption:first-of-type {
         font-weight: bold;
         font-size: 1.2rem;
         line-height: 1.3;
     }
-    figure.griffin figcaption:first-child span {
+    figcaption:first-of-type span {
         display: block;
         font-weight: normal;
         font-size: 1.15rem;
     }
-    figure.griffin figcaption:first-child span:first-child {
+    figcaption:first-of-type span:first-of-type {
         font-size: 1rem;
     }
-    figure.griffin figcaption:first-child span:nth-child(2) {
+    figcaption:first-of-type span:nth-of-type(2) {
         color: inherit;
         opacity: .9;
     }
@@ -44,10 +41,6 @@ body {
         flex-wrap: wrap;
         max-width: 990px; /* TO DO: ALLOW OVERWRITE IN JAVASCRIPT */;
     }
-    .griffin-wrapper figure {
-       //min-width: 320px; /* TO DO: can be overridden in js at multiple levels */      
-    }
-
     .shareTooltip .highcharts-tooltip text {
         font-weight: bold;
         fill: #767676;
@@ -136,7 +129,7 @@ body {
         font-size: 1em;
     }
 
-/* default palette */
+    /* default palette */
 
     .highcharts-color-0 {
         fill:#296EC3;
@@ -181,9 +174,9 @@ body {
     .highcharts-data-label-color-5 text, .highcharts-label-series-5 text {
         fill:#d55555;
     }
-    
-   
-/* teal palette */
+
+
+    /* teal palette */
 
     .paletteTeal .highcharts-color-0 {
         fill:#297676;
@@ -273,7 +266,7 @@ body {
         fill:desaturate(lighten(#084744, 50%), 50%);
     }
 
-/* data labels */
+    /* data labels */
 
     .griffin-donut .highcharts-data-label text {
         font-size:18px;
@@ -320,11 +313,4 @@ body {
     .highcharts-annotation-label text {
         fill: #000;
     }
-
-/*    .highcharts-yaxis text {
-        text-anchor: start;
-        transform: translate(-10px,0);
-        font-style: italic;
-    }*/
-
-        
+}

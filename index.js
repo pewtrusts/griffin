@@ -254,7 +254,7 @@ function useNumericSymbol(config){
                 
                 complete: function(){
                     /*arguments.forEach(each => {
-                        console.log(each);
+                        console.log(each); 
                     });*/
 
                     console.log(this);
@@ -301,6 +301,7 @@ function useNumericSymbol(config){
                         return {
                             animation: config.animation !== undefined ? config.animation : true,
                             type: seriesTypes[i],
+                            connectNulls: config.connectNulls,
                             colorByPoint: config.colorByPoint,
                             colorIndex: config.colorIndeces ? JSON.parse(config.colorIndeces)[i] : undefined,
                             innerSize: config.innerSize,
@@ -322,7 +323,8 @@ function useNumericSymbol(config){
                                 
                             },
                             label: {
-                                enabled: config.labelEnabled || false
+                                enabled: config.labelEnabled || false,
+                                connectorAllowed: config.labelConnectorAllowed || false
                             },
                             showInLegend: true,
                             stacking: config.stacking ? config.stacking : undefined,
@@ -354,8 +356,8 @@ function useNumericSymbol(config){
                     function parseNondataColumns(nondataColumns, originalArguments){
                         console.log(nondataColumns, config.xAxisAnnotations, config.endColumn);
                         nondataColumns.forEach((column, i) => {
-                            console.log(config.xAxisPlotbands,i + config.endColumn);
-                            if ( config.xAxisPlotbands == i + +config.endColumn ){ // i.e. endColumn = 1; index = 0;
+                            console.log(config.xAxisPlotbands,i + +config.endColumn + 1);
+                            if ( config.xAxisPlotbands == i + +config.endColumn + 1){ // i.e. endColumn = 1; index = 0;
                                 let begin, end, plotBandInProgress = false, plotBands = [];
                                 column.data.forEach((d,j) => {
                                     if ( d[1] === 1 && !plotBandInProgress ){
@@ -502,6 +504,7 @@ function useNumericSymbol(config){
                 minPadding: config.xAxisMinPadding || 0.1,
                 maxPadding: config.xAxisMaxPadding || 0.1,
                 tickAmount: config.xAxisTickAmount || undefined,
+                tickmarkPlacement: config.xAxisTickmarkPlacement || 'between',
                 startOnTick: config.xAxisStartOnTick || false,
                 endOnTick: config.xAxisEndOnTick || false,
                 //tickPositions: config.xAxisTickPositions || undefined,
@@ -511,6 +514,7 @@ function useNumericSymbol(config){
                     y: config.xAxisLabelY !== undefined ? config.xAxisLabelY : undefined,
                     enabled: config.xAxisLabelsEnabled !== undefined ? config.xAxisLabelsEnabled : true,
                     rotation: config.xAxisLabelsRotation !== undefined ? config.xAxisLabelsRotation : 0,
+                    staggerLines: config.xAxisLabelsStaggerLines || 0
                     
                 },
                 max: config.xAxisMax !== undefined ? +config.xAxisMax : undefined,
@@ -588,7 +592,7 @@ function useNumericSymbol(config){
             console.log(groupDataset);
             return {
                 dataLabelsEnabled: ( groupDataset.dataLabelsEnabled === 'true' ) || false,
-               // dataLabelsFormatter,
+                connectNulls: ( groupDataset.connectNulls === 'true' ) || false,
                 chartType: 'line',
                 dataLabelsAlign: 'left',
                 dataLabelsVerticalAlign: 'middle',
@@ -596,6 +600,7 @@ function useNumericSymbol(config){
                 dataLabelsX: 2,
                 showLegend: false,
                 yAxisTitleText: groupDataset.yAxisTitleText ? groupDataset.yAxisTitleText : '',
+                xAxisTickmarkPlacement: groupDataset.xAxisTickmarkPlacement || 'between'
             };
         },
         slope(groupDataset){

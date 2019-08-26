@@ -1,0 +1,103 @@
+<style type="text/css">
+    * {
+        box-sizing: border-box;
+    }
+    body {
+        margin: 10px auto;
+        max-width: 990px;
+        padding: 0 20px;
+        width: 100%;
+    }
+    p, label, legend, fieldset {
+        font-size: 1.2rem;
+    }
+    fieldset {
+        margin-bottom: 1rem;
+    }
+    fieldset input {
+        bottom: 2px;
+        position: relative;
+    }
+    textarea {
+        font-size: 1.05rem;
+        height: 300px;
+        width: 100%;
+    }
+    input {
+        background-color: #000;
+        border-radius: 0;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        margin: 1rem 0 2rem 0;
+        text-transform: uppercase;
+    }
+    th {
+        background-color: #767676;
+        color: #fff;
+    }
+    td, th {
+        padding: 2px 5px;
+        text-align: right;
+    }
+</style>
+
+<h1>Excel2html (tsv2html)</h1>
+<form id="tsv2html">
+    <fieldset id="options">
+        <legend>Options</legend>
+        <input type="checkbox" id="is-header" value="isHeader" checked> First row is header
+    </fieldset>
+    <label id="input-label">Paste table from Excel below</label>
+    <textarea labelledby="input-label" id="tsv" name="tsv"></textarea>
+    <input id="submit" type="submit" />
+</form>
+<label id="results-label">Use the code below</label>
+<textarea labelledby="results-label" id="results"></textarea>
+<p>Preview:</p>
+<script type="text/javascript">
+    var input = document.querySelector('#submit');
+    var textarea = document.querySelector('#tsv');
+
+    function submitHandler(e){
+        e.preventDefault();
+        var inputString, isHeader, rows, table, thead, tbody;
+        console.log(e, textarea.value, document.querySelector('#is-header'));
+        isHeader = document.querySelector('#is-header').checked;
+        inputString = textarea.value.replace(/\r/g, ''); // rremove /\r/s from Windows text
+        table = document.createElement('table');
+        thead = document.createElement('thead');
+        tbody = document.createElement('tbody');
+        rows = inputString.split(/\n/);
+        rows.forEach((row, i) => {
+            var values = row.split(/\t/);
+            var tr = document.createElement('tr');
+            if ( i === 0 && isHeader ){ // TO DO: add header option. for now true
+                values.forEach(value => {
+                    var th = document.createElement('th');
+                    th.innerHTML = value;
+                    tr.appendChild(th);     
+                });
+                thead.appendChild(tr);
+                table.appendChild(thead);
+            } else {
+
+                values.forEach(value => {
+                    var td = document.createElement('td');
+                    td.innerHTML = value;
+                    tr.appendChild(td)
+                });
+                tbody.appendChild(tr)
+            }
+        });
+        table.appendChild(tbody);
+        document.querySelector('body').appendChild(table);
+        document.querySelector('#results').value = table.outerHTML
+            .replace(/(<\/?(?:thead|tbody)>)/g,'\n    $1')
+            .replace(/(<tr>)/g, '\n        $1')
+            .replace(/(<t[hd]>)(.*?)<\/tr>/g,'\n            $1$2\n        </tr>')
+            .replace('</table>','\n</table>');
+    }
+    input.addEventListener('click', submitHandler);
+</script>
