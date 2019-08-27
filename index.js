@@ -6,7 +6,7 @@ import Highcharts from 'highcharts';
 import 'highcharts/highcharts-more';
 import HCAnnotations from 'highcharts/modules/annotations';
 import HCData from 'highcharts/modules/data';
-import HCSeriesLabel from 'highcharts/modules/series-label';
+import HCSeriesLabel from './series-label-es6';
 
 
 HCAnnotations(Highcharts);
@@ -356,8 +356,8 @@ function useNumericSymbol(config){
                     function parseNondataColumns(nondataColumns, originalArguments){
                         console.log(nondataColumns, config.xAxisAnnotations, config.endColumn);
                         nondataColumns.forEach((column, i) => {
-                            console.log(config.xAxisPlotbands,i + +config.endColumn + 1);
-                            if ( config.xAxisPlotbands == i + +config.endColumn + 1){ // i.e. endColumn = 1; index = 0;
+                            console.log(config.xAxisPlotbandsColumnIndex,i + +config.endColumn + 1);
+                            if ( !config.xAxisPlotbands && config.xAxisPlotbandsColumnIndex == i + +config.endColumn + 1){ // i.e. endColumn = 1; index = 0;
                                 let begin, end, plotBandInProgress = false, plotBands = [];
                                 column.data.forEach((d,j) => {
                                     if ( d[1] === 1 && !plotBandInProgress ){
@@ -410,7 +410,7 @@ function useNumericSymbol(config){
                             }
                         });
                     }
-                    arguments[0].series.forEach((series, i) => { // eslint-disable-line no-unused-vars
+                    arguments[0].series.forEach((series, i, array) => { // eslint-disable-line no-unused-vars
                         var nondataColumns;
                         console.log(config);
                         if ( !config.endColumn || i < parseInt(config.endColumn) ){
@@ -425,11 +425,13 @@ function useNumericSymbol(config){
                            
                             series = _series;
                             console.log('series', series); 
-                        } else {
+                        } else if ( config.endColumn ) {
                             console.log('nondata column',i);
                             nondataColumns = arguments[0].series.splice(i); // HERE. NEED TO TAKE RETURN VALUE OF SPLICE
                                                                                   // AND ITEREATE THROUGH THAT ARRAY LOOKING FOR
                                                                                 // ANNOTATION COLUMNS AND NOTE COLUMNS
+                                                                                // PLOTBANDS CAN BE HANDLED VIA THE TABLE IN COLUMNS OR
+                                                                                // DIRECTLY VIA X-AXIS-PLOTNABDS ATTRIBUTE. DIRECT ONE OVERRIDES
                                                                                 // here logic for handling annotations and plotBands?
                             parseNondataColumns(nondataColumns, arguments);
                             
@@ -452,6 +454,17 @@ function useNumericSymbol(config){
                                 arguments[0].annotations = annotations;
                                 console.log(arguments);
                             }*/
+                        }
+                        if ( config.xAxisPlotbands && ( i === array.length - 1 || i === config.endColumn ) ){
+                            let plotBands = JSON.parse(config.xAxisPlotbands);
+                            arguments[0].xAxis = arguments[0].xAxis || {};
+                            arguments[0].xAxis.plotBands = plotBands.map(band => {
+                                return {
+                                    from: band[0],
+                                    to: band[1]
+                                };
+                            });
+
                         }
                     });
                 }                
@@ -495,7 +508,7 @@ function useNumericSymbol(config){
             },
             yAxis: returnYAxes(),
             xAxis: {
-
+                type: config.xAxisType || 'linear',
                 categories: config.xAxisCategories !== undefined ? JSON.parse(config.xAxisCategories) : undefined,
                 title: {
                     text: config.xAxisTitleText || undefined
@@ -507,7 +520,7 @@ function useNumericSymbol(config){
                 tickmarkPlacement: config.xAxisTickmarkPlacement || 'between',
                 startOnTick: config.xAxisStartOnTick || false,
                 endOnTick: config.xAxisEndOnTick || false,
-                //tickPositions: config.xAxisTickPositions || undefined,
+                tickPositions: config.xAxisTickPositions || undefined,
                 opposite: config.xAxisOpposite || false,
                 tickLength: config.xAxisTickLength !== undefined ? config.xAxisTickLength : 10,
                 labels: {
@@ -581,17 +594,13 @@ function useNumericSymbol(config){
             };
         },
         line(groupDataset){
-           /* function dataLabelsFormatter(config){
-                console.log(this);
-                if ( this.series.points.indexOf(this.point) === 0 || this.series.points.indexOf(this.point) === this.series.points.length - 1){
-                    return useNumericSymbol.call(this, config);
-                } else {
-                    return undefined;
-                }
-            }*/
+           function dataLabelsFormatter(){
+                return groupDataset.dataLabelsType === 'name' ? this.series.name : 'not set';
+            }
             console.log(groupDataset);
             return {
                 dataLabelsEnabled: ( groupDataset.dataLabelsEnabled === 'true' ) || false,
+                dataLabelsFormatter: groupDataset.dataLabelsType ? dataLabelsFormatter : undefined,
                 connectNulls: ( groupDataset.connectNulls === 'true' ) || false,
                 chartType: 'line',
                 dataLabelsAlign: 'left',
@@ -707,7 +716,6 @@ function useNumericSymbol(config){
             })
         }); 
     }*/
-    var griffins = document.querySelectorAll('.griffin-wrapper');
     var styleKeys = ['minWidth','maxWidth'];
     function undoCamelCase(str){
         return str.replace(/([A-Z])/g, function(v){return '-' + v.toLowerCase()});
@@ -718,9 +726,9 @@ function useNumericSymbol(config){
    
 
     export const Griffin = {
-        griffins,
         chartsCollection: [],
         init(config = {}){
+            this.griffins = document.querySelectorAll('.griffin-wrapper');
             this.griffins.forEach((griffin, i) => {
                 griffin.dataset.chartHeight = griffin.dataset.chartHeight || '56%';
                 console.log(griffin.dataset);
