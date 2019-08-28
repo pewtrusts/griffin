@@ -240,11 +240,9 @@ function useNumericSymbol(config){
                 styledMode: true
             },
             credits: {
-                href: null,
-                text: config.showCopyright == true ? '© ' + new Date().getFullYear() + ' The Pew Charitable Trusts' : '',
-                position: {
-                    y: 0
-                }
+               // href: null,
+                text: config.showCopyright === 'true' ? '© ' + new Date().getFullYear() + ' The Pew Charitable Trusts' : ''
+                
             },
             data: {
                 table,

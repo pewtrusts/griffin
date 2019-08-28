@@ -97,14 +97,7 @@ figure.griffin {
             }
          }
 
-         .highcharts-data-label:first-child {
-            visibility: visible;
-            opacity: 1;
-            text {
-                 text-anchor: end;
-                 transform: translateX(-16px);
-             }
-         }
+         
          .highcharts-data-label:last-child {
             visibility: visible;
             opacity: 1;
