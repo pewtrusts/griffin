@@ -154,9 +154,12 @@ function useNumericSymbol(config){
                     labels: {
                         formatter: returnNumberFormatter()
                     },
+                    endOnTick: config.yAxisEndOnTick == 'false' ? false : true,
                     visible: config.yAxisVisible === false ? false : true,
                     max: config.yAxisMax !== undefined ? config.yAxisMax : undefined,
                     min: config.yAxisMin !== undefined ? config.yAxisMin : undefined,
+                    maxPadding: config.yAxisMaxPadding !== undefined ? config.yAxisMaxPadding : 0.05,
+                    minPadding: config.yAxisMinPadding !== undefined ? config.yAxisMinPadding : 0.05,
                     tickInterval: +config.yAxisTickInterval || undefined
                     
                 };
