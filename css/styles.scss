@@ -306,4 +306,15 @@ figure.griffin {
     .highcharts-annotation-label text {
         fill: #000;
     }
+
+    .highcharts-plot-line {
+        stroke-dasharray: 6;
+        stroke: #296EC3;
+    }
+
+    span.highcharts-plot-line-label {
+        width: 265px;
+        white-space: normal !important;
+        color: #296EC3;
+    }
 }

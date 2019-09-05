@@ -309,7 +309,7 @@ function useNumericSymbol(config){
                                 connectorPadding: config.dataLabelsConnectorWidth == 0 ? 0 : undefined, 
                                 padding: config.dataLabelsConnectorWidth == 0 ? 0 : undefined, 
                                 connectorWidth: config.dataLabelsConnectorWidth !== undefined ? config.dataLabelsConnectorWidth : 1,
-                                enabled: config.dataLabelsEnabled || false,
+                                enabled: ( config.dataLabelsEnabled == 'true' ) || false,
                                 formatter:  config.dataLabelsFormat === 'seriesName' ? function(){ return this.series.name; } : function(){ return useNumericSymbol.call(this, config);},
                                 align: config.dataLabelsAlign || 'center',
                                 verticalAlign: config.dataLabelsVerticalAlign || 'bottom',
@@ -354,8 +354,8 @@ function useNumericSymbol(config){
                     function parseNondataColumns(nondataColumns, originalArguments){
                         console.log(nondataColumns, config.xAxisAnnotations, config.endColumn);
                         nondataColumns.forEach((column, i) => {
-                            console.log(config.xAxisPlotbandsColumnIndex,i + +config.endColumn + 1);
-                            if ( !config.xAxisPlotbands && config.xAxisPlotbandsColumnIndex == i + +config.endColumn + 1){ // i.e. endColumn = 1; index = 0;
+                            console.log(config.xAxisPlotBandsColumnIndex,i + +config.endColumn + 1);
+                            if ( !config.xAxisPlotBands && config.xAxisPlotBandsColumnIndex == i + +config.endColumn + 1){ // i.e. endColumn = 1; index = 0;
                                 let begin, end, plotBandInProgress = false, plotBands = [];
                                 column.data.forEach((d,j) => {
                                     if ( d[1] === 1 && !plotBandInProgress ){
@@ -453,8 +453,8 @@ function useNumericSymbol(config){
                                 console.log(arguments);
                             }*/
                         }
-                        if ( config.xAxisPlotbands && ( i === array.length - 1 || i === config.endColumn ) ){
-                            let plotBands = JSON.parse(config.xAxisPlotbands);
+                        if ( config.xAxisPlotBands && ( i === array.length - 1 || i === config.endColumn ) ){
+                            let plotBands = JSON.parse(config.xAxisPlotBands);
                             arguments[0].xAxis = arguments[0].xAxis || {};
                             arguments[0].xAxis.plotBands = plotBands.map(band => {
                                 return {
@@ -462,7 +462,20 @@ function useNumericSymbol(config){
                                     to: band[1]
                                 };
                             });
-
+                        }
+                        if ( config.xAxisPlotLines && ( i === array.length - 1 || i === config.endColumn ) ){
+                            let plotLines = JSON.parse(config.xAxisPlotLines);
+                            arguments[0].xAxis = arguments[0].xAxis || {};
+                            arguments[0].xAxis.plotLines = plotLines.map(line => {
+                                return {
+                                    value: line[0],
+                                    label: {
+                                        text: line[1],
+                                        rotation: 0,
+                                        useHTML: true
+                                    }
+                                };
+                            });
                         }
                     });
                 }                
