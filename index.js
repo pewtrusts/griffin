@@ -310,7 +310,7 @@ function useNumericSymbol(config){
                                 padding: config.dataLabelsConnectorWidth == 0 ? 0 : undefined, 
                                 connectorWidth: config.dataLabelsConnectorWidth !== undefined ? config.dataLabelsConnectorWidth : 1,
                                 enabled: config.dataLabelsEnabled || false,
-                                formatter:  config.dataLabelsFormatter || function(){ return useNumericSymbol.call(this, config);},
+                                formatter:  config.dataLabelsFormat === 'seriesName' ? function(){ return this.series.name; } : function(){ return useNumericSymbol.call(this, config);},
                                 align: config.dataLabelsAlign || 'center',
                                 verticalAlign: config.dataLabelsVerticalAlign || 'bottom',
                                 y: config.dataLabelsY !== undefined ? config.dataLabelsY : -10,
