@@ -6,12 +6,14 @@ import Highcharts from 'highcharts';
 import 'highcharts/highcharts-more';
 import HCAnnotations from 'highcharts/modules/annotations';
 import HCData from 'highcharts/modules/data';
+import HCVariwide from 'highcharts/modules/variwide';
 import HCSeriesLabel from './series-label-es6';
 
 
 HCAnnotations(Highcharts);
 HCData(Highcharts);
 HCSeriesLabel(Highcharts);
+HCVariwide(Highcharts);
 
 const _ = {
     cloneDeep,
@@ -230,6 +232,7 @@ function useNumericSymbol(config){
         return {
             chart: {
                 className,
+                inverted: config.chartInverted === 'true',
                 height: config.chartHeight || '56%', // TO DO: is there an aspect ration that would work with all social channels?
                 type: config.chartType === 'donut' ? 'pie' : config.chartType === 'slope' ? 'line' : config.chartType || 'line',
                 spacingTop: config.spacingTop !== undefined ? + config.spacingTop : 30,
@@ -249,9 +252,30 @@ function useNumericSymbol(config){
             },
             data: {
                 table,
-                parsed: function(columns){
-                    console.log(columns);
-                },
+             /*   parsed: function(columns){
+                    if ( config.chartType === 'variwide' ){
+                        console.log(columns);
+                        columns.forEach(function(column, i){
+                            if ( i > 0 ) {
+                                column = column.map((d, j) => {
+                                    var total = columns.reduce((acc,cur) => {
+                                        if ( !isNaN(cur[j]) ){
+                                            return acc + cur;
+                                        }
+                                        return acc;
+                                    },0);
+                                    return {
+                                        y: total,
+                                        z: d / total
+                                    };
+                                });
+                                console.log(column);
+                            }
+                        });
+                        console.log(columns);
+                    }
+                    return true;
+                },*/
                 
                 complete: function(){
                     /*arguments.forEach(each => {
@@ -413,7 +437,7 @@ function useNumericSymbol(config){
                     }
                     arguments[0].series.forEach((series, i, array) => { // eslint-disable-line no-unused-vars
                         var nondataColumns;
-                        console.log(config);
+                        console.log(config.chartType);
                         if ( !config.endColumn || i < parseInt(config.endColumn) ){
                             let _series = _.defaultsDeep(series, defaults(i));
                             if ( seriesTypes[i].match(/range/) !== null) {
@@ -423,7 +447,11 @@ function useNumericSymbol(config){
                                 });
                                 _series.data = _data;
                             }
-                           
+                            if ( seriesTypes[i] === 'variwide' ) {
+                                //let _data = _series.data.map(each => {
+                                    console.log(_series.data);
+                            //    });
+                            }
                             series = _series;
                             console.log('series', series); 
                         } else if ( config.endColumn ) {
@@ -485,7 +513,13 @@ function useNumericSymbol(config){
 
             },
             legend: {
-                enabled: config.showLegend ? true : false  // to do . no longer reserving space for legends.
+                
+                enabled: config.showLegend ? true : false,  // to do . no longer reserving space for legends.
+                symbolRadius: 10,
+                symbolWidth: 10,
+                symbolHeight: 10,
+
+                
             },
             responsive: config.minHeight ? {
                 rules: [{
@@ -695,6 +729,9 @@ function useNumericSymbol(config){
                 dataLabelsConnectorWidth: groupDataset.dataLabelsConnectorWidth !== undefined ? groupDataset.dataLabelsConnectorWidth : 0
 
             };
+        },
+        variwide(){
+            return {};
         }
     };
     function setProperties(obj, config){
