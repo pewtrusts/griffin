@@ -157,7 +157,7 @@ function useNumericSymbol(config){
                         formatter: returnNumberFormatter()
                     },
                     endOnTick: config.yAxisEndOnTick == 'false' ? false : true,
-                    visible: config.yAxisVisible === false ? false : true,
+                    visible: config.yAxisVisible === 'false' ? false : true,
                     max: config.yAxisMax !== undefined ? config.yAxisMax : undefined,
                     min: config.yAxisMin !== undefined ? config.yAxisMin : undefined,
                     maxPadding: config.yAxisMaxPadding !== undefined ? config.yAxisMaxPadding : 0.05,
@@ -235,7 +235,9 @@ function useNumericSymbol(config){
                 inverted: config.chartInverted === 'true',
                 height: config.chartHeight || '56%', // TO DO: is there an aspect ration that would work with all social channels?
                 type: config.chartType === 'donut' ? 'pie' : config.chartType === 'slope' ? 'line' : config.chartType || 'line',
-                spacingTop: config.spacingTop !== undefined ? + config.spacingTop : 30,
+                marginTop: config.marginTop !== undefined ? +config.marginTop : undefined,
+                marginBottom: config.marginBottom !== undefined ? +config.marginBottom : undefined,
+                spacingTop: config.spacingTop !== undefined ? +config.spacingTop : 30,
                 spacingLeft: config.spacingLeft !== undefined ? +config.spacingLeft : 0,
                 spacingRight: config.spacingRight !== undefined ? +config.spacingRight : 15,
                 spacingBottom: config.spacingBottom !== undefined ? +config.spacingBottom : 30,
@@ -326,6 +328,7 @@ function useNumericSymbol(config){
                         return {
                             animation: config.animation !== undefined ? config.animation : true,
                             type: seriesTypes[i],
+                            enableMouseTracking: config.enableMouseTracking === 'false' ? false : true,
                             connectNulls: config.connectNulls,
                             colorByPoint: config.colorByPoint,
                             colorIndex: config.colorIndeces ? JSON.parse(config.colorIndeces)[i] : undefined,
@@ -337,7 +340,7 @@ function useNumericSymbol(config){
                                 padding: config.dataLabelsConnectorWidth == 0 ? 0 : undefined, 
                                 connectorWidth: config.dataLabelsConnectorWidth !== undefined ? config.dataLabelsConnectorWidth : 1,
                                 enabled: ( config.dataLabelsEnabled == 'true' ) || false,
-                                formatter:  config.dataLabelsFormat === 'seriesName' ? function(){ return this.series.name; } : function(){ return useNumericSymbol.call(this, config);},
+                                formatter:  config.dataLabelsFormat === 'seriesName' ? function(){ console.log(this); return this.series.name; } : config.dataLabelsFormat === 'both' ? function(){ return this.series.name + '<br />' + useNumericSymbol.call(this, config);  } : config.dataLabelsFormat === 'both-reversed' ? function(){ return useNumericSymbol.call(this, config) + '<br />' + this.series.name;  } : config.dataLabelsFormat === 'pointName' ? function(){ return this.key; } : function(){ return useNumericSymbol.call(this, config);},
                                 align: config.dataLabelsAlign || 'center',
                                 verticalAlign: config.dataLabelsVerticalAlign || 'bottom',
                                 y: config.dataLabelsY !== undefined ? config.dataLabelsY : -10,
@@ -544,9 +547,11 @@ function useNumericSymbol(config){
                 }]
             } : {},
             title: {
-                text: table.querySelector('caption') ? table.querySelector('caption').innerHTML : null
+                text: table.querySelector('caption') ? table.querySelector('caption').innerHTML : null,
+                //useHTML: true,
+                align: 'left'
             },
-            tooltip: {
+            tooltip: {  
                 pointFormatter: returnPointFormatter(),
                 positioner: config.tooltipPositioner || undefined,
                 shape: config.tooltipShape || 'callout',
@@ -562,8 +567,8 @@ function useNumericSymbol(config){
                     text: config.xAxisTitleText || undefined
                 },
                 reversed: config.xAxisReversed || false,
-                minPadding: config.xAxisMinPadding || 0.1,
-                maxPadding: config.xAxisMaxPadding || 0.1,
+                minPadding: +config.xAxisMinPadding || 0.1,
+                maxPadding: +config.xAxisMaxPadding || 0.1,
                 tickAmount: config.xAxisTickAmount || undefined,
                 tickmarkPlacement: config.xAxisTickmarkPlacement || 'between',
                 startOnTick: config.xAxisStartOnTick || false,
@@ -572,14 +577,19 @@ function useNumericSymbol(config){
                 opposite: config.xAxisOpposite || false,
                 tickLength: config.xAxisTickLength !== undefined ? config.xAxisTickLength : 10,
                 labels: {
-                    y: config.xAxisLabelY !== undefined ? config.xAxisLabelY : undefined,
+                    align: config.xAxisLabelsAlign,
+                    x: config.xAxisLabelsX !== undefined ? +config.xAxisLabelsX : undefined,
+                    y: config.xAxisLabelsY !== undefined ? +config.xAxisLabelsY : undefined,
                     enabled: config.xAxisLabelsEnabled !== undefined ? config.xAxisLabelsEnabled : true,
                     rotation: config.xAxisLabelsRotation !== undefined ? config.xAxisLabelsRotation : 0,
-                    staggerLines: config.xAxisLabelsStaggerLines || 0
+                    staggerLines: config.xAxisLabelsStaggerLines || 0,
+                    useHTML: config.xAxisLabelsUseHtml === 'true' ? true : false
+
                     
                 },
                 max: config.xAxisMax !== undefined ? +config.xAxisMax : undefined,
-                min: config.xAxisMin !== undefined ? +config.xAxisMin : undefined
+                min: config.xAxisMin !== undefined ? +config.xAxisMin : undefined,
+                visible: config.xAxisVisible === 'false' ? false : true,
 
 
             }
@@ -860,7 +870,7 @@ function useNumericSymbol(config){
                 var container = table.parentNode;
                 var highchartsConfig = returnBaseConfig(table, indivConfig); // TO DO: use defaultsdeep here
                 console.log(highchartsConfig);
-                container.classList.add('griffin-' + griffin.dataset.chartType);
+                container.classList.add('griffin-' + highchartsConfig.chart.type);
                 container.style.width = 100 / array.length + '%';
                 console.log(highchartsConfig);
                 var chart = Highcharts.chart(table.parentNode, highchartsConfig, function(){

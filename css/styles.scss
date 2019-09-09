@@ -12,14 +12,15 @@ figure.griffin {
         }
     }
     figcaption:first-of-type {
-        font-weight: bold;
-        font-size: 1.2rem;
+        font-weight: 600;
+        font-size: 1.75rem;
         line-height: 1.3;
     }
-    figcaption:first-of-type span {
+    figcaption:first-of-type span, .highcharts-title {
         display: block;
-        font-weight: normal;
-        font-size: 1.15rem;
+        font-weight: 400;
+        font-size: 1.5rem;
+        white-space: normal !important;
     }
     figcaption:first-of-type span:first-of-type {
         font-size: 1rem;
@@ -297,10 +298,6 @@ figure.griffin {
         font-size: 10.5px;
         fill: #666;
        }
-    }
-    .highcharts-title {
-        font-size: 1rem;
-        font-weight: bold;
     }
 
     .highcharts-annotation-label text {
