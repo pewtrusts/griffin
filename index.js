@@ -284,9 +284,31 @@ function useNumericSymbol(config){
                         }
                     },
                     condition: {
-                        maxWidth: + config.conditionalXAxisLabelRotationWidth
+                        maxWidth: +config.conditionalXAxisLabelRotationWidth
                     }
                 }])
+            }
+            if ( config.conditionalYAxisTitleWidth ){
+                rules = rules.concat([{
+                    chartOptions: {
+                        chart: {
+                            spacingTop: 50
+                        },
+                        yAxis: {
+                            title: {
+                                rotation: 0,
+                                reserveSpace: false,
+                                align: 'high',
+                                textAlign: 'left',
+                                y: -20
+
+                            }
+                        }
+                    },
+                    condition: {
+                        maxWidth: +config.conditionalYAxisTitleWidth
+                    }
+                }]);
             }
             return rules;
         }
