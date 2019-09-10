@@ -104,6 +104,11 @@ figure.griffin {
             opacity: 1;
             
          }
+        @media screen and (max-width: 510px){
+            .highcharts-markers, .highcharts-legend-item .highcharts-point {
+                display: none;
+            }
+         }
     }
 
     /* highcharts overrides */
@@ -281,7 +286,7 @@ figure.griffin {
         font-size: 13.5px;
     }
     .highcharts-container .highcharts-legend {
-        visibility: hidden;
+     //   visibility: hidden;
     }
     .showLegend .highcharts-legend {
         visibility: visible;
