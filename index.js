@@ -228,6 +228,68 @@ function useNumericSymbol(config){
                 }
             }*/
         }
+        function returnResponsiveRules(){
+            var rules = [];
+            if ( config.minHeight ) {
+                rules = rules.concat([{
+                    chartOptions: {
+                        chart: {
+                            height: +config.minHeight
+                        }
+                    },
+                    condition: {
+                        maxHeight: +config.minHeight
+                    }
+                },
+                {
+                    chartOptions: {
+                        chart: {
+                            height: +config.chartHeight || '56%'
+                        }
+                    },
+                    condition: {
+                        minHeight: +config.minHeight + 1
+                    }
+                }]);
+            }
+            if ( config.conditionalLegendWidth ){
+                rules = rules.concat([{
+                    chartOptions: {
+                        legend: {
+                            enabled: true
+                        }
+                    },
+                    condition: {
+                        maxWidth: +config.conditionalLegendWidth
+                    }
+                },
+                {
+                    chartOptions: {
+                        legend: {
+                            enabled: false
+                        }
+                    },
+                    condition: {
+                        minWidth: +config.conditionalLegendWidth + 1
+                    }
+                }]);
+            }
+            if ( config.conditionalXAxisLabelRotationWidth ){
+                rules = rules.concat([{
+                    chartOptions: {
+                        xAxis: {
+                            labels: {
+                                rotation: -45
+                            }
+                        }
+                    },
+                    condition: {
+                        maxWidth: + config.conditionalXAxisLabelRotationWidth
+                    }
+                }])
+            }
+            return rules;
+        }
         
         return {
             chart: {
@@ -524,28 +586,9 @@ function useNumericSymbol(config){
 
                 
             },
-            responsive: config.minHeight ? {
-                rules: [{
-                    chartOptions: {
-                        chart: {
-                            height: config.minHeight
-                        }
-                    },
-                    condition: {
-                        maxHeight: config.minHeight
-                    }
-                },
-                {
-                    chartOptions: {
-                        chart: {
-                            height: config.chartHeight || '56%'
-                        }
-                    },
-                    condition: {
-                        minHeight: +config.minHeight + 1
-                    }
-                }]
-            } : {},
+            responsive: {
+                rules: returnResponsiveRules()
+            },
             title: {
                 text: table.querySelector('caption') ? table.querySelector('caption').innerHTML : null,
                 //useHTML: true,
