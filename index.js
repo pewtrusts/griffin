@@ -240,16 +240,6 @@ function useNumericSymbol(config){
                     condition: {
                         maxHeight: +config.minHeight
                     }
-                },
-                {
-                    chartOptions: {
-                        chart: {
-                            height: +config.chartHeight || '56%'
-                        }
-                    },
-                    condition: {
-                        minHeight: +config.minHeight + 1
-                    }
                 }]);
             }
             if ( config.conditionalLegendWidth ){
@@ -307,6 +297,26 @@ function useNumericSymbol(config){
                     },
                     condition: {
                         maxWidth: +config.conditionalYAxisTitleWidth
+                    }
+                },
+                {
+                    chartOptions: {
+                        chart: {
+                            spacingTop: config.spacingTop !== undefined ? +config.spacingTop : 30
+                        },
+                        yAxis: {
+                            title: {
+                                rotation: 270,
+                                reserveSpace: true,
+                                align: 'middle',
+                                textAlign: undefined,
+                                y: undefined
+
+                            }
+                        }
+                    },
+                    condition: {
+                        minWidth: +config.conditionalYAxisTitleWidth + 1
                     }
                 }]);
             }
