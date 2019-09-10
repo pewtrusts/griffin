@@ -240,6 +240,16 @@ function useNumericSymbol(config){
                     condition: {
                         maxHeight: +config.minHeight
                     }
+                },
+                {
+                    chartOptions: {
+                        chart: {
+                            height: +config.chartHeight || '56%'
+                        }
+                    },
+                    condition: {
+                        minHeight: +config.minHeight + 1
+                    }
                 }]);
             }
             if ( config.conditionalLegendWidth ){
