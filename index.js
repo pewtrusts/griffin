@@ -578,7 +578,7 @@ function useNumericSymbol(config){
                 tickLength: config.xAxisTickLength !== undefined ? config.xAxisTickLength : 10,
                 labels: {
                     align: config.xAxisLabelsAlign,
-                    x: config.xAxisLabelsX !== undefined ? +config.xAxisLabelsX : undefined,
+                    x: config.xAxisLabelsX !== undefined ? +config.xAxisLabelsX : 0,
                     y: config.xAxisLabelsY !== undefined ? +config.xAxisLabelsY : undefined,
                     enabled: config.xAxisLabelsEnabled !== undefined ? config.xAxisLabelsEnabled : true,
                     rotation: config.xAxisLabelsRotation !== undefined ? config.xAxisLabelsRotation : 0,
