@@ -110,6 +110,13 @@ figure.griffin {
             }
          }
     }
+    .griffin-area {
+         @media screen and (max-width: 510px){
+            .highcharts-legend-item .highcharts-point {
+                display: inline;
+            }
+         }
+    }
 
     /* highcharts overrides */
 

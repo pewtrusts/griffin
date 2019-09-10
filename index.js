@@ -648,7 +648,8 @@ function useNumericSymbol(config){
                     enabled: config.xAxisLabelsEnabled !== undefined ? config.xAxisLabelsEnabled : true,
                     rotation: config.xAxisLabelsRotation !== undefined ? config.xAxisLabelsRotation : 0,
                     staggerLines: config.xAxisLabelsStaggerLines || 0,
-                    useHTML: config.xAxisLabelsUseHtml === 'true' ? true : false
+                    useHTML: config.xAxisLabelsUseHtml === 'true' ? true : false,
+                    padding: config.xAxisLabelsPadding !== undefined ? +config.xAxisLabelsPadding : 5
 
                     
                 },
@@ -939,14 +940,14 @@ function useNumericSymbol(config){
                 container.style.width = 100 / array.length + '%';
                 console.log(highchartsConfig);
                 var chart = Highcharts.chart(table.parentNode, highchartsConfig, function(){
-                    console.log(this);
-                    if ( this.currentResponsive && this.chartHeight < this.currentResponsive.mergedOptions.chart.height ){ //  Highcharts responsive rules seem to only take effect
+                   // console.log(this);
+                   // if ( this.currentResponsive && this.chartHeight < this.currentResponsive.mergedOptions.chart.height ){ //  Highcharts responsive rules seem to only take effect
                                                                                                                            // on window resize, not on load. this checks if the chart's
                                                                                                                            // height is too small and calls reflow if so
                        setTimeout(() => {
                         this.reflow();
-                    });
-                    }
+                    },200);
+                  //  }
                 });
                 chart.collectionIndex = i;
                 chart.indexInCollection = j;
