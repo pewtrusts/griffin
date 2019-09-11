@@ -98,8 +98,8 @@ function useNumericSymbol(config){
         valuePower = Math.floor(Math.log10(this.point.y)),  // ie 52,000 -> 4
         value = Highcharts.numberFormat(this.point.y / 10 ** ( Math.floor(valuePower / numericSymbolPower) * numericSymbolPower), decimals), // 5.2
         symbolIndex = Math.floor(valuePower / numericSymbolPower) - 1, // 4 / 3 -> 1.3 -> 1 -> 0
-        suffix = config.numberFormat === "percentage" ? '%' : '',
-        prefix = config.numberFormat === "currency" ? '$' : '';
+        suffix = config.numberFormat === "percentage" ? '%' : config.suffix || '',
+        prefix = config.numberFormat === "currency" ? '$' : config.prefix ||'';
 
     console.log(this.point.y, numericSymbols,numericSymbolMagnitude,numericSymbolPower,valuePower,value,symbolIndex);
 
@@ -197,8 +197,8 @@ function useNumericSymbol(config){
 
         }
         function returnPointFormatter(){
-            var prefix = config.numberFormat === 'currency' ? '$' : '',
-                suffix = config.numberFormat === 'percentage' ? '%' : '',
+            var prefix = config.numberFormat === 'currency' ? '$' : config.prefix || '',
+                suffix = config.numberFormat === 'percentage' ? '%' : config.suffix || '',
                 decimals = config.decimals !== undefined ? +config.decimals : -1;
 
             return function(){
@@ -227,6 +227,16 @@ function useNumericSymbol(config){
                     };
                 }
             }*/
+        }
+        function returnChartLabels(){
+            if ( config.labels ){
+                return JSON.parse(config.labels).map(each => {
+                    return {
+                        html: each
+                    };
+                });
+            }
+            return [];
         }
         function returnResponsiveRules(){
             var rules = [];
@@ -356,6 +366,9 @@ function useNumericSymbol(config){
                 text: config.showCopyright === 'true' ? '© ' + new Date().getFullYear() + ' The Pew Charitable Trusts' : ''
                 
             },
+            labels: {
+                items: returnChartLabels()
+            },
             data: {
                 table,
              /*   parsed: function(columns){
@@ -413,6 +426,18 @@ function useNumericSymbol(config){
                             };
                         });
                     }
+                    if ( ['pie','donut'].indexOf(config.chartType !== -1 ) && config.slice ){
+                        let slices = JSON.parse(config.slice);
+                        arguments[0].series[0].data.forEach((point, i) => {
+                            if ( slices.some(s => point[0] === s) ){
+                                arguments[0].series[0].data[i] = {
+                                    name: point[0],
+                                    y: point[1],
+                                    sliced: true
+                                };
+                            }
+                        });
+                    }
 
                     console.log('seriesNumberFormats', seriesNumberFormats);
                     var defaults = function(i){
@@ -438,18 +463,24 @@ function useNumericSymbol(config){
                             colorIndex: config.colorIndeces ? JSON.parse(config.colorIndeces)[i] : undefined,
                             innerSize: config.innerSize,
                             dataLabels: {
-                                //allowOverlap: config.datalabelsAllowOverlap || false,
+                                
                                 //distance: -30,
                                 connectorPadding: config.dataLabelsConnectorWidth == 0 ? 0 : undefined, 
                                 padding: config.dataLabelsConnectorWidth == 0 ? 0 : undefined, 
                                 connectorWidth: config.dataLabelsConnectorWidth !== undefined ? config.dataLabelsConnectorWidth : 1,
                                 enabled: ( config.dataLabelsEnabled == 'true' ) || false,
-                                formatter:  config.dataLabelsFormat === 'seriesName' ? function(){ console.log(this); return this.series.name; } : config.dataLabelsFormat === 'both' ? function(){ return this.series.name + '<br />' + useNumericSymbol.call(this, config);  } : config.dataLabelsFormat === 'both-reversed' ? function(){ return useNumericSymbol.call(this, config) + '<br />' + this.series.name;  } : config.dataLabelsFormat === 'pointName' ? function(){ return this.key; } : function(){ return useNumericSymbol.call(this, config);},
+                                formatter:  config.dataLabelsFormat === 'seriesName' ? function(){ console.log(this); return this.series.name; } : 
+                                        config.dataLabelsFormat === 'both' ? function(){ return this.series.name + '<br />' + useNumericSymbol.call(this, config);  } : 
+                                        config.dataLabelsFormat === 'both-reversed' ? function(){ return useNumericSymbol.call(this, config) + '<br />' + this.series.name;  } :
+                                        config.dataLabelsFormat === 'both-point' ? function(){ return this.key + '<br />' + useNumericSymbol.call(this, config);  } : 
+                                        config.dataLabelsFormat === 'both-point-reversed' ? function(){ return useNumericSymbol.call(this, config) + '<br />' + this.key;  } :
+                                        config.dataLabelsFormat === 'pointName' ? function(){ return this.key; } :
+                                    function(){ return useNumericSymbol.call(this, config);},
                                 align: config.dataLabelsAlign || 'center',
                                 verticalAlign: config.dataLabelsVerticalAlign || 'bottom',
                                 y: config.dataLabelsY !== undefined ? config.dataLabelsY : -10,
                                 x: config.dataLabelsX !== undefined ? config.dataLabelsX : 0,
-                                allowOverlap: config.datalabelsAllowOverlap || false,
+                                allowOverlap: config.dataLabelsAllowOverlap === 'true' || false,
                                 overflow: config.dataLabelsOverflow || 'allow',
                                 crop: config.dataLabelsCrop || false,
                                 
@@ -460,13 +491,14 @@ function useNumericSymbol(config){
                             },
                             showInLegend: true,
                             stacking: config.stacking ? config.stacking : undefined,
+                            slicedOffset: 10,
                             startAngle: config.startAngle !== undefined ? +config.startAngle : 0,
                             states: {
                                 hover: {
                                     enabled: false,
                                     halo: {
                                         size: 0
-                                    }
+                                    },
                                 }
                             },
                             yAxis: returnAxisIndex(i),
@@ -559,6 +591,7 @@ function useNumericSymbol(config){
                                     console.log(_series.data);
                             //    });
                             }
+                            
                             series = _series;
                             console.log('series', series); 
                         } else if ( config.endColumn ) {
@@ -625,6 +658,7 @@ function useNumericSymbol(config){
                 symbolRadius: 10,
                 symbolWidth: 10,
                 symbolHeight: 10,
+                reversed: config.legendReversed === 'true'
 
                 
             },
