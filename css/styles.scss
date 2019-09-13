@@ -22,10 +22,10 @@ figure.griffin {
         font-size: 1.5rem;
         white-space: normal !important;
     }
-    figcaption span:first-of-type {
+    figcaption span.figure-label {
         font-size: 1rem;
     }
-    figcaption span:nth-of-type(2) {
+    figcaption span.figure-dek {
         color: inherit;
         opacity: .9;
     }
@@ -141,141 +141,89 @@ figure.griffin {
 
     /* default palette */
 
-    .highcharts-color-0 {
+    .highcharts-color-0, .highcharts-data-label-color-0 text, .highcharts-series-label-color-0 text {
         fill:#296EC3;
         stroke:#296EC3;
     }
-    .highcharts-color-1 {
+    .highcharts-color-1, .highcharts-data-label-color-1 text, .highcharts-series-label-color-1 text {
         fill:#444;
         stroke:#444;
     }
-    .highcharts-color-4 {
+    .highcharts-color-4, .highcharts-data-label-color-4 text, .highcharts-series-label-color-4 text {
         fill:#229DC6;
         stroke:#229DC6;
     }
-    .highcharts-color-3 {
+    .highcharts-color-3, .highcharts-data-label-color-3 text, .highcharts-series-label-color-3 text {
         fill:#5AC7BE;
         stroke:#5AC7BE;
     }
-    .highcharts-color-2 {
+    .highcharts-color-2, .highcharts-data-label-color-2 text, .highcharts-series-label-color-2 text {
         fill:#ff7f49;
         stroke:#ff7f49;
     }
-    .highcharts-color-5 {
+    .highcharts-color-5, .highcharts-data-label-color-5 text, .highcharts-series-label-color-5 text {
         fill:#d55555;
         stroke:#d55555;
     }
 
-    .highcharts-data-label-color-0 text, .highcharts-series-label-0 text {
-        fill:#296EC3;
-    }
-    .highcharts-data-label-color-1 text, .highcharts-series-label-1 text {
-        fill:#444;
-    }
-    .highcharts-data-label-color-4 text, .highcharts-series-label-4 text {
-        fill:#229DC6;
-    }
-    .highcharts-data-label-color-3 text, .highcharts-series-label-3 text {
-        fill:#5AC7BE;
-    }
-    .highcharts-data-label-color-2 text, .highcharts-series-label-2 text {
-        fill:#ff7f49;
-    }
-    .highcharts-data-label-color-5 text, .highcharts-series-label-5 text {
-        fill:#d55555;
-    }
 
 
     /* teal palette */
 
-    .paletteTeal .highcharts-color-0 {
+    .paletteTeal .highcharts-color-0, .paletteTeal .highcharts-data-label-color-0, .paletteTeal .highcharts-series-label-color-0 text {
         fill:#297676;
         stroke:#297676;
     }
-    .paletteTeal .highcharts-color-1 {
+    .paletteTeal .highcharts-color-1, .paletteTeal .highcharts-data-label-color-1, .paletteTeal .highcharts-series-label-color-1 text {
         fill:#B9B082;
         stroke:#B9B082;
     }
-    .paletteTeal .highcharts-color-2 {
+    .paletteTeal .highcharts-color-2, .paletteTeal .highcharts-data-label-color-2, .paletteTeal .highcharts-series-label-color-2 text {
         fill:#9ABEBE;
         stroke:#9ABEBE;
     }
-    .paletteTeal .highcharts-color-3 {
+    .paletteTeal .highcharts-color-3, .paletteTeal .highcharts-data-label-color-3, .paletteTeal .highcharts-series-label-color-3 text {
         fill:#D0CBB5;
         stroke:#D0CBB5;
     }
-    .paletteTeal .highcharts-color-4 {
+    .paletteTeal .highcharts-color-4, .paletteTeal .highcharts-data-label-color-4, .paletteTeal .highcharts-series-label-color-4 text {
         fill:#B4CFCD;
         stroke:#B4CFCD;
     }
-    .paletteTeal .highcharts-color-5 {
+    .paletteTeal .highcharts-color-5, .paletteTeal .highcharts-data-label-color-5, .paletteTeal .highcharts-series-label-color-5 text {
         fill:#E9E6D7;
         stroke:#E9E6D7;
     }
 
-    .paletteTeal .highcharts-data-label-color-0, .paletteTeal .highcharts-series-label-0 text {
-        fill:#297676;
-    }
-    .paletteTeal .highcharts-data-label-color-1, .paletteTeal .highcharts-series-label-1 text {
-        fill:#B9B082;
-    }
-    .paletteTeal .highcharts-data-label-color-2, .paletteTeal .highcharts-series-label-2 text {
-        fill:#9ABEBE;
-    }
-    .paletteTeal .highcharts-data-label-color-3, .paletteTeal .highcharts-series-label-3 text {
-        fill:#D0CBB5;
-    }
-    .paletteTeal .highcharts-data-label-color-4, .paletteTeal .highcharts-series-label-4 text {
-        fill:#B4CFCD;
-    }
-    .paletteTeal .highcharts-data-label-color-5, .paletteTeal .highcharts-series-label-5 text {
-        fill:#E9E6D7;
-    }
 
-    .paletteMonoTeal .highcharts-color-0 {
+    .paletteMonoTeal .highcharts-color-0, .paletteMonoTeal .highcharts-data-label-color-0, .paletteMonoTeal .highcharts-series-label-color-0 text {
         fill:#084744;
         stroke:#084744;
     }
-    .paletteMonoTeal .highcharts-color-1 {
+    .paletteMonoTeal .highcharts-color-1, .paletteMonoTeal .highcharts-data-label-color-1, .paletteMonoTeal .highcharts-series-label-color-1 text {
         fill:desaturate(lighten(#084744, 10%), 10%);
         stroke:desaturate(lighten(#084744, 10%), 10%);
     }
-    .paletteMonoTeal .highcharts-color-2 {
+    .paletteMonoTeal .highcharts-color-2, .paletteMonoTeal .highcharts-data-label-color-2, .paletteMonoTeal .highcharts-series-label-color-2 text {
         fill:desaturate(lighten(#084744, 20%), 20%);
         stroke:desaturate(lighten(#084744, 20%), 20%);
     }
-    .paletteMonoTeal .highcharts-color-3 {
+    .paletteMonoTeal .highcharts-color-3, .paletteMonoTeal .highcharts-data-label-color-3, .paletteMonoTeal .highcharts-series-label-color-3 text {
         fill:desaturate(lighten(#084744, 30%), 30%);
         stroke:desaturate(lighten(#084744, 30%), 30%);  
     }
-    .paletteMonoTeal .highcharts-color-4 {
+    .paletteMonoTeal .highcharts-color-4, .paletteMonoTeal .highcharts-data-label-color-4, .paletteMonoTeal .highcharts-series-label-color-4 text {
         fill:desaturate(lighten(#084744, 40%), 40%);
         stroke:desaturate(lighten(#084744, 40%), 40%);
     }
-    .paletteMonoTeal .highcharts-color-5 {
+    .paletteMonoTeal .highcharts-color-5, .paletteMonoTeal .highcharts-data-label-color-5, .paletteMonoTeal .highcharts-series-label-color-5 text {
         fill:desaturate(lighten(#084744, 50%), 50%);
         stroke:desaturate(lighten(#084744, 50%), 50%);
     }
 
-    .paletteMonoTeal .highcharts-data-label-color-0, .paletteMonoTeal .highcharts-series-label-0 text {
-        fill:#084744;
+    text {
+        stroke: none;
     }
-    .paletteMonoTeal .highcharts-data-label-color-1, .paletteMonoTeal .highcharts-series-label-1 text {
-        fill:desaturate(lighten(#084744, 10%), 10%);
-    }
-    .paletteMonoTeal .highcharts-data-label-color-2, .paletteMonoTeal .highcharts-series-label-2 text {
-        fill:desaturate(lighten(#084744, 20%), 20%);
-    }
-    .paletteMonoTeal .highcharts-data-label-color-3, .paletteMonoTeal .highcharts-series-label-3 text {
-        fill:desaturate(lighten(#084744, 30%), 30%);
-    }
-    .paletteMonoTeal .highcharts-data-label-color-4, .paletteMonoTeal .highcharts-series-label-4 text {
-        fill:desaturate(lighten(#084744, 40%), 40%);
-    }
-    .paletteMonoTeal .highcharts-data-label-color-5, .paletteMonoTeal .highcharts-series-label-5 text {
-        fill:desaturate(lighten(#084744, 50%), 50%);
-    }
-
     /* data labels */
 
     .griffin-donut .highcharts-data-label text {
@@ -334,4 +282,26 @@ figure.griffin {
         position: absolute;
         top: 50%;
     }
+    /* NOTES AND SOURCES */
+
+        .figure-note, .rich-text .figure-note {
+            font-size: 0.8em;
+        }
+        .figure-note--source {
+            color: #767676;
+        }
+    /* FIGURE HEDS AND DEKS */
+
+        figcaption:first-of-type {
+            @media screen and (max-width: 29.375em){
+                font-size: 1.25rem;
+            }
+        }
+        figcaption:first-of-type span, figure.griffin .highcharts-title {
+            @media screen and (max-width: 29.375em){
+                font-size: 1rem;
+            }
+
+        }
+
 }
