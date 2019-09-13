@@ -1,6 +1,6 @@
 export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol, _){
     return function ReturnBaseConfig(table, config){
-        console.log(config);
+
         var className = classNameKeys.reduce((acc, cur) => {
             var addClass = config[cur] === 'true' ? ' ' + cur : '';
             return acc + addClass;
@@ -24,19 +24,14 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 };
             }
         }
+
         function returnYAxes(){
-            console.log(config);
             if ( !config.yAxes ){
                 return {
                     allowDecimals: config.yAxisAllowDecimals === 'false' ? false : true,
                     title: {
                         text: config.yAxisTitleText || undefined,
                         margin: 15,
-                        //align: config.chartType === 'column' ? 'high' : 'middle',
-                        //rotation: config.chartType === 'column' ? 0 : 270,
-                        //offset: config.chartType === 'column' ? -10 : undefined,
-                        //y: config.chartType === 'column' ? -20 : undefined,
-                        //reserveSpace: config.chartType === 'column' ? false : true
                     },
                     reversedStacks: false,
                     labels: {
