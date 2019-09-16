@@ -573,15 +573,17 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 tickmarkPlacement: config.xAxisTickmarkPlacement || 'between',
                 startOnTick: config.xAxisStartOnTick || false,
                 endOnTick: config.xAxisEndOnTick || false,
+                tickInterval: +config.xAxisTickInterval || undefined,
                 tickPositions: config.xAxisTickPositions || undefined,
                 opposite: config.xAxisOpposite || false,
                 tickLength: config.xAxisTickLength !== undefined ? config.xAxisTickLength : 10,
                 labels: {
                     align: config.xAxisLabelsAlign,
+                    autoRotation: [-45],
                     x: config.xAxisLabelsX !== undefined ? +config.xAxisLabelsX : 0,
                     y: config.xAxisLabelsY !== undefined ? +config.xAxisLabelsY : undefined,
                     enabled: config.xAxisLabelsEnabled !== undefined ? config.xAxisLabelsEnabled : true,
-                    rotation: config.xAxisLabelsRotation !== undefined ? config.xAxisLabelsRotation : 0,
+                    rotation: config.xAxisLabelsRotation !== undefined ? config.xAxisLabelsRotation : undefined,
                     staggerLines: config.xAxisLabelsStaggerLines || 0,
                     useHTML: config.xAxisLabelsUseHtml === 'true' ? true : false,
                     padding: config.xAxisLabelsPadding !== undefined ? +config.xAxisLabelsPadding : 5

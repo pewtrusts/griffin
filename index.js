@@ -15,6 +15,7 @@ import HCSeriesLabel from './series-label-es6';
 import relaxLabels from './modules/relax-labels.js';
 import UseNumericSymbol from './modules/numeric-symbol.js';
 import ReturnBaseConfig from './modules/return-base-config.js';
+import buildMultidimensionalConfig from './modules/multidimensional.js';
 import { defaultConfigs } from './modules/default-configs.js';
 
 
@@ -52,14 +53,14 @@ function setProperties(obj, config){
 function undoCamelCase(str){
     return str.replace(/([A-Z])/g, function(v){return '-' + v.toLowerCase()});
 }
-
 export { defaultConfigs };
-
 export const Griffin = {
     chartsCollection: [], // empty array that will hold the Charts as they are created
     init(config = {}){ // config e.g. {lazy: true}
         this.griffins = document.querySelectorAll('.griffin-wrapper'); // find all griffin wrappers in the HTML
         this.griffins.forEach((griffin, i) => {
+            griffin.config = buildMultidimensionalConfig(griffin.dataset);
+            console.log('fff', griffin.config);
             griffin.dataset.chartHeight = griffin.dataset.chartHeight || '56%';
             
             // some data- attributes such as minWidth, maxWidth take effect via CSS style declaration, not by Highcharts config.
@@ -132,6 +133,7 @@ export const Griffin = {
 
         // pass wrapper-level dataset to setProperties fn which returns an obj with own properties
         // from the dataset and prototypical properties from the defaults defined above
+        console.log(griffin.dataset);
         var groupConfig = setProperties(Object.create(defaultConfigs[griffin.dataset.chartType || 'line'](griffin.dataset)), griffin.dataset);
         var tables = griffin.querySelectorAll('.js-griffin-table');
         tables.forEach((table, j) => {
