@@ -53,6 +53,8 @@ function undoCamelCase(str){
     return str.replace(/([A-Z])/g, function(v){return '-' + v.toLowerCase()});
 }
 
+export { defaultConfigs };
+
 export const Griffin = {
     chartsCollection: [], // empty array that will hold the Charts as they are created
     init(config = {}){ // config e.g. {lazy: true}
@@ -136,10 +138,11 @@ export const Griffin = {
             console.log(table.dataset);
             //return an object with own properties those specific to the indiv chart (the <table>); proto is the groupConfig; proto of that is the defaults
             var indivConfig = setProperties(Object.create(groupConfig), table.dataset);
-            var container = table.parentNode;
+            var container = table.parentNode.querySelector('.js-hc-container') || table.parentNode;
+            table.style.display = 'none';     
             var highchartsConfig = returnBaseConfig(table, indivConfig); // TO DO: use defaultsdeep here 
             container.classList.add('griffin-' + highchartsConfig.chart.type);
-            var chart = Highcharts.chart(table.parentNode, highchartsConfig, function(){
+            var chart = Highcharts.chart(container, highchartsConfig, function(){
                // console.log(this);
                // if ( this.currentResponsive && this.chartHeight < this.currentResponsive.mergedOptions.chart.height ){ //  Highcharts responsive rules seem to only take effect
                                                                                                                        // on window resize, not on load. this checks if the chart's
@@ -152,6 +155,7 @@ export const Griffin = {
             chart.collectionIndex = i;
             chart.indexInCollection = j;
             this.chartsCollection[i].push(chart);
+            window.Griffins = this.chartsCollection;
             console.log(chart);
             if ( window.navigator.msPointerEnabled ) { // is >=IE 10
                 document.querySelectorAll('.griffin-line .highcharts-data-label:first-child text').forEach(label => {
@@ -160,5 +164,14 @@ export const Griffin = {
             }
         
         });
+    },
+    reconstruct(index){
+        var griffin = this.griffins[index];
+        console.log(griffin.dataset);
+        this.chartsCollection[index].forEach(chart => {
+            chart.renderTo.className = 'js-hc-container';
+            chart.destroy();
+        });
+        this.construct(griffin, index);
     }
 }
