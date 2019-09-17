@@ -28,6 +28,11 @@ export const defaultConfigs = {
        function dataLabelsFormatter(){
             return groupDataset.dataLabelsType === 'name' ? this.series.name : 'not set';
         }
+       /* return {
+            chart: {
+                type: 'line'
+            }
+        };*/
         return {
             dataLabelsEnabled: ( groupDataset.dataLabelsEnabled === 'true' ) || false,
             dataLabelsFormatter: groupDataset.dataLabelsType ? dataLabelsFormatter : undefined,

@@ -30,7 +30,7 @@ const _ = {
     defaultsDeep
 };
 const styleKeys = ['minWidth','maxWidth'];
-const classNameKeys = ['showLegend','shareTooltip', 'paletteTeal', 'paletteMonoTeal', 'invertDataLabels'];
+const classNameKeys = ['paletteTeal', 'paletteMonoTeal'];
 const useNumericSymbol = UseNumericSymbol(Highcharts);
 const returnBaseConfig = ReturnBaseConfig(Highcharts, classNameKeys, relaxLabels, useNumericSymbol, _);
 
@@ -60,9 +60,8 @@ export const Griffin = {
     init(config = {}){ // config e.g. {lazy: true}
         this.griffins = document.querySelectorAll('.griffin-wrapper'); // find all griffin wrappers in the HTML
         this.griffins.forEach((griffin, i) => {
+            griffin.dataset['chart.height'] = griffin.dataset['chart.height'] || '56%';
             griffin.config = buildMultidimensionalConfig(griffin.dataset);
-            console.log('fff', griffin.config);
-            griffin.dataset.chartHeight = griffin.dataset.chartHeight || '56%';
             
             // some data- attributes such as minWidth, maxWidth take effect via CSS style declaration, not by Highcharts config.
             // reduce those attributes into a style declaration string
@@ -136,14 +135,15 @@ export const Griffin = {
         // from the dataset and prototypical properties from the defaults defined above
         console.log(griffin.dataset);
         var groupConfig = setProperties(Object.create(defaultConfigs[griffin.dataset.chartType || 'line'](griffin.dataset)), griffin.dataset);
+        var groupConfigNEW = setProperties(Object.create(defaultConfigs[griffin.config.chartType || 'line'](griffin.config)), griffin.config);
+        console.log('new', groupConfigNEW);
         var tables = griffin.querySelectorAll('.js-griffin-table');
         tables.forEach((table, j) => {
-            console.log(table.dataset);
-            //return an object with own properties those specific to the indiv chart (the <table>); proto is the groupConfig; proto of that is the defaults
-            var indivConfig = setProperties(Object.create(groupConfig), table.dataset);
             var container = table.parentNode.querySelector('.js-hc-container') || table.parentNode;
             table.style.display = 'none';     
-            var highchartsConfig = returnBaseConfig(table, indivConfig); // TO DO: use defaultsdeep here 
+            table.config = _.defaultsDeep(buildMultidimensionalConfig(table.dataset), griffin.config);
+            var highchartsConfig = _.defaultsDeep(table.config, returnBaseConfig(table)); // TO DO: use defaultsdeep here 
+            console.log('config', highchartsConfig);
             container.classList.add('griffin-' + highchartsConfig.chart.type);
             var chart = Highcharts.chart(container, highchartsConfig, function(){
                // console.log(this);
