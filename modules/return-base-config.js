@@ -1,8 +1,8 @@
 import Complete from './onDataComplete.js';
-export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol, _){
-    return function ReturnBaseConfig(table){
+export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol, _, defaultConfigs){
+    return function ReturnBaseConfig(table, dataset){
 
-        const complete = Complete.bind(undefined, table.config, _)
+        const complete = Complete.bind(undefined, table.config, _, defaultConfigs, dataset)
 
         // return the object to be used as the default when creating a griffin config object using _.defaultsDeep
         // it needs to include only properties that differ from Highcharts defaults

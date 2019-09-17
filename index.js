@@ -16,7 +16,7 @@ import relaxLabels from './modules/relax-labels.js';
 import UseNumericSymbol from './modules/numeric-symbol.js';
 import ReturnBaseConfig from './modules/return-base-config.js';
 import buildMultidimensionalConfig from './modules/multidimensional.js';
-import { defaultConfigs } from './modules/default-configs.js';
+import DefaultConfigs from './modules/default-configs.js';
 
 export { default as returnAPIItem } from './modules/returnAPIItem.js';
 
@@ -32,7 +32,8 @@ const _ = {
 const styleKeys = ['minWidth','maxWidth'];
 const classNameKeys = ['paletteTeal', 'paletteMonoTeal'];
 const useNumericSymbol = UseNumericSymbol(Highcharts);
-const returnBaseConfig = ReturnBaseConfig(Highcharts, classNameKeys, relaxLabels, useNumericSymbol, _);
+const defaultConfigs = DefaultConfigs(Highcharts);
+const returnBaseConfig = ReturnBaseConfig(Highcharts, classNameKeys, relaxLabels, useNumericSymbol, _, defaultConfigs);
 
 
 Highcharts.setOptions({
@@ -42,17 +43,13 @@ Highcharts.setOptions({
     }
 });
 
-function setProperties(obj, config){
-    for ( var key in config ) {
-        if ( config.hasOwnProperty(key) ){
-            obj[key] = config[key];
-        }
-    }
-    return obj;
-}
-
 function undoCamelCase(str){
     return str.replace(/([A-Z])/g, function(v){return '-' + v.toLowerCase()});
+}
+function stripSeriesProperty(configObj){
+    var _config = _.cloneDeep(configObj);
+    delete _config.series;
+    return _config;
 }
 export { defaultConfigs };
 export const Griffin = {
@@ -61,7 +58,9 @@ export const Griffin = {
         this.griffins = document.querySelectorAll('.griffin-wrapper'); // find all griffin wrappers in the HTML
         this.griffins.forEach((griffin, i) => {
             griffin.dataset['chart.height'] = griffin.dataset['chart.height'] || '56%';
-            griffin.config = buildMultidimensionalConfig(griffin.dataset);
+            griffin.dataset['chart.type'] = griffin.dataset['chart.type'] || 'line';
+            griffin.config = _.defaultsDeep(buildMultidimensionalConfig(griffin.dataset).general, stripSeriesProperty(defaultConfigs[griffin.dataset['chart.type']](griffin.dataset)));
+            griffin.seriesConfig = buildMultidimensionalConfig(griffin.dataset).series;
             
             // some data- attributes such as minWidth, maxWidth take effect via CSS style declaration, not by Highcharts config.
             // reduce those attributes into a style declaration string
@@ -134,15 +133,16 @@ export const Griffin = {
         // pass wrapper-level dataset to setProperties fn which returns an obj with own properties
         // from the dataset and prototypical properties from the defaults defined above
         console.log(griffin.dataset);
-        var groupConfig = setProperties(Object.create(defaultConfigs[griffin.dataset.chartType || 'line'](griffin.dataset)), griffin.dataset);
-        var groupConfigNEW = setProperties(Object.create(defaultConfigs[griffin.config.chartType || 'line'](griffin.config)), griffin.config);
-        console.log('new', groupConfigNEW);
+       
         var tables = griffin.querySelectorAll('.js-griffin-table');
         tables.forEach((table, j) => {
             var container = table.parentNode.querySelector('.js-hc-container') || table.parentNode;
             table.style.display = 'none';     
-            table.config = _.defaultsDeep(buildMultidimensionalConfig(table.dataset), griffin.config);
-            var highchartsConfig = _.defaultsDeep(table.config, returnBaseConfig(table)); // TO DO: use defaultsdeep here 
+            table.config = {
+                general: _.defaultsDeep(buildMultidimensionalConfig(table.dataset).general, griffin.config),
+                 series: _.defaultsDeep(buildMultidimensionalConfig(table.dataset).series, griffin.seriesConfig)
+            };
+            var highchartsConfig = _.defaultsDeep(table.config.general, returnBaseConfig(table, griffin.dataset)); // TO DO: use defaultsdeep here 
             console.log('config', highchartsConfig);
             container.classList.add('griffin-' + highchartsConfig.chart.type);
             var chart = Highcharts.chart(container, highchartsConfig, function(){
@@ -170,6 +170,7 @@ export const Griffin = {
     },
     reconstruct(index){
         var griffin = this.griffins[index];
+        griffin.config = buildMultidimensionalConfig(griffin.dataset).general;
         console.log(griffin.dataset);
         this.chartsCollection[index].forEach(chart => {
             chart.renderTo.className = 'js-hc-container';

@@ -1,27 +1,35 @@
 export default function() {
-    // invoked as bound fn with first argument being the table's config object
-    // and the second argument being lodash
-    // the original arguments[0] is now arguments[2]
+    // invoked as bound fn with first argument being the table's config object {general, series}
+    // and the second argument being lodash, and the third being defaultConfigs
+    // the fourth is the original griffin.dataset
+    // the original arguments[0] is now arguments[4]
     console.log(this);
     console.log('arguments', arguments, this);
     var seriesTypes, seriesNumberFormats, zones;
-    const config = arguments[0];
+    const config = arguments[0].general;
+    const seriesConfig = arguments[0].series;
     const _ = arguments[1];
+    const defaultConfigs = arguments[2];
+    const dataset = arguments[3];
 
+    // if a seriesTypes attribute is provided, parse it here for use in the returnAxisConfig function
+    // if none is provided, make all series the same type on basis of chart.type
     if (config.seriesTypes) {
         seriesTypes = JSON.parse(config.seriesTypes);
     } else {
-        seriesTypes = arguments[2].series.map(() => {
+        seriesTypes = arguments[4].series.map(() => {
             return config.chart.type === 'donut' ? 'pie' : config.chart.type === 'slope' ? 'line' : config.chart.type;
         });
     }
+    // do the same for seriesNumberFormats
     if (config.seriesNumberFormats) {
         seriesNumberFormats = JSON.parse(config.seriesNumberFormats);
     } else {
-        seriesNumberFormats = arguments[2].series.map(() => {
+        seriesNumberFormats = arguments[4].series.map(() => {
             return config.numberFormat || 'normal';
         });
     }
+    // zone
     if (config.zoneEnds) {
         zones = JSON.parse(config.zoneEnds).map(function(value, index) {
             return {
@@ -30,11 +38,12 @@ export default function() {
             };
         });
     }
+    // convert point from [x,y] to {name,y, sliced} to support sliced (offset) pie segments
     if (['pie', 'donut'].indexOf(config.chartType !== -1) && config.slice) {
         let slices = JSON.parse(config.slice);
-        arguments[2].series[0].data.forEach((point, i) => {
+        arguments[4].series[0].data.forEach((point, i) => {
             if (slices.some(s => point[0] === s)) {
-                arguments[2].series[0].data[i] = {
+                arguments[4].series[0].data[i] = {
                     name: point[0],
                     y: point[1],
                     sliced: true
@@ -42,8 +51,8 @@ export default function() {
             }
         });
     }
-
     console.log('seriesNumberFormats', seriesNumberFormats);
+
     var defaults = function(i) {
         var numberFormatter;
         console.log(config);
@@ -52,45 +61,26 @@ export default function() {
                 return Highcharts.numberFormat(this.point.y, -1);
             };
         }
-        if (seriesNumberFormats[i] === 'percentage') {
+        if (seriesNumberFormats[i] === 'percentage') { // not sur ethis is right. will percentages be coming in as decimals?
             numberFormatter = function() {
                 return Highcharts.numberFormat(this.point.y, -1) + '%';
             }
         }
-        console.log(numberFormatter);
-        return {
-            animation: config.animation !== undefined ? config.animation : true,
-            type: seriesTypes[i],
-            enableMouseTracking: config.enableMouseTracking === 'false' ? false : true,
-            connectNulls: config.connectNulls,
-            colorByPoint: config.colorByPoint,
+        //here returning only properties that differ form HC defaults or which need non-dot attributes to detrmine
+        var sConfig =  {
             colorIndex: config.colorIndeces ? JSON.parse(config.colorIndeces)[i] : undefined,
-            innerSize: config.innerSize,
             dataLabels: {
-
-                //distance: -30,
-                connectorPadding: config.dataLabelsConnectorWidth == 0 ? 0 : undefined,
-                padding: config.dataLabelsConnectorWidth == 0 ? 0 : undefined,
-                connectorWidth: config.dataLabelsConnectorWidth !== undefined ? config.dataLabelsConnectorWidth : 1,
-                enabled: (config.dataLabelsEnabled == 'true') || false,
                 formatter: config.dataLabelsFormat === 'seriesName' ? function() { console.log(this); return this.series.name; } : config.dataLabelsFormat === 'both' ? function() { return this.series.name + '<br />' + useNumericSymbol.call(this, config); } : config.dataLabelsFormat === 'both-reversed' ? function() { return useNumericSymbol.call(this, config) + '<br />' + this.series.name; } : config.dataLabelsFormat === 'both-point' ? function() { return this.key + '<br />' + useNumericSymbol.call(this, config); } : config.dataLabelsFormat === 'both-point-reversed' ? function() { return useNumericSymbol.call(this, config) + '<br />' + this.key; } : config.dataLabelsFormat === 'pointName' ? function() { return this.key; } : function() { return useNumericSymbol.call(this, config); },
-                align: config.dataLabelsAlign || 'center',
-                verticalAlign: config.dataLabelsVerticalAlign || 'bottom',
-                y: config.dataLabelsY !== undefined ? config.dataLabelsY : -10,
-                x: config.dataLabelsX !== undefined ? config.dataLabelsX : 0,
-                allowOverlap: config.dataLabelsAllowOverlap === 'true' || false,
-                overflow: config.dataLabelsOverflow || 'allow',
-                crop: config.dataLabelsCrop || false,
-
+                y: -10,
             },
             label: {
+                connectorAllowed: config.labelConnectorAllowed || false,
                 enabled: config.labelEnabled || false,
-                connectorAllowed: config.labelConnectorAllowed || false
             },
-            showInLegend: true,
-            stacking: config.stacking ? config.stacking : undefined,
+            marker: {
+                symbol: 'circle'
+            },
             slicedOffset: 10,
-            startAngle: config.startAngle !== undefined ? +config.startAngle : 0,
             states: {
                 hover: {
                     enabled: false,
@@ -99,20 +89,11 @@ export default function() {
                     },
                 }
             },
-            //yAxis: returnAxisIndex(i),
-            lineWidth: config.lineWidth ? parseInt(config.lineWidth) : 4,
-            visible: config.hideSeries && JSON.parse(config.hideSeries).indexOf(i) !== -1 ? false : true,
-            marker: {
-                symbol: config.seriesMarker || 'circle'
-            },
-            maxPointWidth: config.maxPointWidth || undefined,
-            zoneAxis: config.zoneAxis || 'y',
+            type: seriesTypes[i],
             zones: zones || []
-
-
-
-
         }
+        // use the series property only from defaultConfigs as source for defaultsDeep
+        return _.defaultsDeep(sConfig, defaultConfigs[dataset['chart.type']](dataset).series);
     };
     console.log(arguments, this);
 
@@ -138,29 +119,29 @@ export default function() {
                         plotBandInProgress = false;
                     }
                 });
-                originalArguments[2].xAxis = originalArguments[2].xAxis || {};
-                originalArguments[2].xAxis.plotBands = plotBands;
+                originalArguments[4].xAxis = originalArguments[4].xAxis || {};
+                originalArguments[4].xAxis.plotBands = plotBands;
                 console.log(originalArguments, 'plotBands!', plotBands);
             }
             // ie 2                 //0  //1
             if (config.xAxisAnnotations == i + +config.endColumn + 1) { // i.e. endColumn = 1; index = 0;
                 console.log('annotations!');
-                originalArguments[2].annotations = originalArguments[2].annotations || [];
-                originalArguments[2].annotations[0] = originalArguments[2].annotations[0] || {};
-                originalArguments[2].annotations[0].labels = originalArguments[2].annotations[0].labels || [];
-                console.log(originalArguments[2].annotations[0].labels);
+                originalArguments[4].annotations = originalArguments[4].annotations || [];
+                originalArguments[4].annotations[0] = originalArguments[4].annotations[0] || {};
+                originalArguments[4].annotations[0].labels = originalArguments[4].annotations[0].labels || [];
+                console.log(originalArguments[4].annotations[0].labels);
 
                 column.data.forEach((d, j) => {
                     if (d[1] !== null) {
                         console.log(d);
-                        console.log(originalArguments[2].series[0].data[j]);
-                        originalArguments[2].annotations[0].labels.push({
+                        console.log(originalArguments[4].series[0].data[j]);
+                        originalArguments[4].annotations[0].labels.push({
                             align: 'right',
                             text: d[1],
                             point: {
                                 x: d[0],
                                 xAxis: 0,
-                                y: originalArguments[2].series[0].data[j][1],
+                                y: originalArguments[4].series[0].data[j][1],
                                 yAxis: 0
                             }, //TODO: ALLOW FOR MULTIPLE AXES?
                             shape: 'connector',
@@ -174,11 +155,12 @@ export default function() {
             }
         });
     }
-    arguments[2].series.forEach((series, i, array) => { // eslint-disable-line no-unused-vars
+    arguments[4].series.forEach((series, i, array) => { // eslint-disable-line no-unused-vars
+        // here `series` obj has only data (array) and name (string) properties, coming from the Highcharts data module's parsing of the html tabel
         var nondataColumns;
         console.log(config.chartType);
         if (!config.endColumn || i < parseInt(config.endColumn)) {
-            let _series = _.defaultsDeep(series, defaults(i));
+            let _series = _.defaultsDeep(series, seriesConfig, defaults(i)); // defaults return obj should include only those properties that differ from HC defaults
             if (seriesTypes[i].match(/range/) !== null) {
                 let _data = _series.data.map(each => {
                     var range = each[1] === null ? [null, null] : each[1].split('–').map(str => +str);
@@ -196,7 +178,7 @@ export default function() {
             console.log('series', series);
         } else if (config.endColumn) {
             console.log('nondata column', i);
-            nondataColumns = arguments[2].series.splice(i); // HERE. NEED TO TAKE RETURN VALUE OF SPLICE
+            nondataColumns = arguments[4].series.splice(i); // HERE. NEED TO TAKE RETURN VALUE OF SPLICE
             // AND ITEREATE THROUGH THAT ARRAY LOOKING FOR
             // ANNOTATION COLUMNS AND NOTE COLUMNS
             // PLOTBANDS CAN BE HANDLED VIA THE TABLE IN COLUMNS OR
@@ -220,14 +202,14 @@ export default function() {
                          });
                      }
                  });
-                 arguments[2].annotations = annotations;
+                 arguments[4].annotations = annotations;
                  console.log(arguments);
              }*/
         }
         if (config.xAxisPlotBands && (i === array.length - 1 || i === config.endColumn)) {
             let plotBands = JSON.parse(config.xAxisPlotBands);
-            arguments[2].xAxis = arguments[2].xAxis || {};
-            arguments[2].xAxis.plotBands = plotBands.map(band => {
+            arguments[4].xAxis = arguments[4].xAxis || {};
+            arguments[4].xAxis.plotBands = plotBands.map(band => {
                 return {
                     from: band[0],
                     to: band[1]
@@ -236,8 +218,8 @@ export default function() {
         }
         if (config.xAxisPlotLines && (i === array.length - 1 || i === config.endColumn)) {
             let plotLines = JSON.parse(config.xAxisPlotLines);
-            arguments[2].xAxis = arguments[2].xAxis || {};
-            arguments[2].xAxis.plotLines = plotLines.map(line => {
+            arguments[4].xAxis = arguments[4].xAxis || {};
+            arguments[4].xAxis.plotLines = plotLines.map(line => {
                 return {
                     value: line[0],
                     label: {
