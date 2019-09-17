@@ -69,10 +69,11 @@ export default function() {
         //here returning only properties that differ form HC defaults or which need non-dot attributes to detrmine
         var sConfig =  {
             colorIndex: config.colorIndeces ? JSON.parse(config.colorIndeces)[i] : undefined,
-            dataLabels: {
+            // TO DO : DATALABELS FORMATTER SHOULD BE HANDLED IN DEFAULTSCONFIG I THIKN
+            /*dataLabels: {
                 formatter: config.dataLabelsFormat === 'seriesName' ? function() { console.log(this); return this.series.name; } : config.dataLabelsFormat === 'both' ? function() { return this.series.name + '<br />' + useNumericSymbol.call(this, config); } : config.dataLabelsFormat === 'both-reversed' ? function() { return useNumericSymbol.call(this, config) + '<br />' + this.series.name; } : config.dataLabelsFormat === 'both-point' ? function() { return this.key + '<br />' + useNumericSymbol.call(this, config); } : config.dataLabelsFormat === 'both-point-reversed' ? function() { return useNumericSymbol.call(this, config) + '<br />' + this.key; } : config.dataLabelsFormat === 'pointName' ? function() { return this.key; } : function() { return useNumericSymbol.call(this, config); },
                 y: -10,
-            },
+            },*/
             label: {
                 connectorAllowed: config.labelConnectorAllowed || false,
                 enabled: config.labelEnabled || false,

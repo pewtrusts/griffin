@@ -5,7 +5,6 @@ export default function(Highcharts){
     return {
         area() {
             return {
-               
             };
         },
         bar(groupDataset) {
@@ -25,9 +24,6 @@ export default function(Highcharts){
         },
         column(groupDataset){
             return {
-                chartType: 'column',
-                dataLabelsEnabled: ( groupDataset.dataLabelsEnabled === 'true' ) || false,
-                yAxisTitleText: groupDataset.yAxisTitleText ? groupDataset.yAxisTitleText : 'Values'
             };
         },
         line(groupDataset){
@@ -57,61 +53,64 @@ export default function(Highcharts){
                return this.key + '<br>' + this.y.toFixed(fixed) + '%'; // TO DO. cct programmatically for other vale types
             }
             return {
+                chart: { // TODO is this the right place ??
+                    type: 'line'
+                },
                 series: {
                     dataLabels: {
-                        formatter: groupDataset.dataLabelsType ? dataLabelsFormatter : undefined,
+                        align: 'left',
+                        allowOverlap: true, // TO DO: NOT AN HC CONFIG OPTION
+                        enabled: true,
+                        formatter: groupDataset.dataLabelsType ? dataLabelsFormatter : defaultDataLabelFormatter,
+                        verticalAlign: 'middle',
+                        x: 2,
+                        y: -2,
                     }
                 },
-                chartHeight: groupDataset.chartHeight || '56%', 
-                chartType: 'line',
-                dataLabelsEnabled: true,
-                xAxisMinPadding: groupDataset.xAxisMinPadding || 0.7,
-                xAxisMaxPadding: groupDataset.xAxisMaxPadding || 0.7,
-                xAxisLabelsEnabled: false,
-                dataLabelsFormatter,
-                dataLabelsAlign: 'left',
-                dataLabelsVerticalAlign: 'middle',
-                dataLabelsY: -2,
-                dataLabelsX: 2,
-                datalabelsAllowOverlap: groupDataset.datalabelsAllowOverlap === 'false' ? false : true,
-                dataLabelsOverflow: 'allow',
-                dataLabelsCrop: false,
-                yAxisVisible: false,
-                xAxisOpposite: true,
-                seriesMarker: 'circle',
-                xAxisLabelY: groupDataset.xAxisLabelY || 20,
-                xAxisTickLength: 0,
-            }
+                xAxis: {
+                    labels: {
+                        enabled: false,
+                        y: 20
+                    },
+                    maxPadding: 0.7,
+                    minPadding: 0.7,
+                    opposite: true,
+                    tickLength: 0
+                },
+                yAxis: {
+                    visible: false
+                }
+            };
         },
         pie(groupDataset){
             return {
-                chartHeight: '100%',
-                chartType: 'pie',
-                colorByPoint: true,
-                startAngle: groupDataset.startAngle !== undefined ? groupDataset.startAngle : 0
+                chart: {
+                    height: '100%'
+                },
+                series: {
+                    colorByPoint: true
+                }
             };
         },
         donut(groupDataset) {
             function dataLabelsFormatter(){
                var fixed = groupDataset.decimals ? parseInt(groupDataset.decimals) : 0;
-               console.log('donut', this);
                return this.key + '<br>' + this.percentage.toFixed(fixed) + '%';
             }
             return {
-                series: {
-                    dataLabels: {
-                        formatter: groupDataset.dataLabelsType ? dataLabelsFormatter : undefined,
-                    }
+                chart: {
+                    height: '100%',
+                    type: 'pie',
                 },
-                chartHeight: '100%',
-                chartType: 'pie',
-                colorByPoint: true,
-                innerSize: '56%',
-                dataLabelsEnabled: groupDataset.dataLabelsEnabled ? groupDataset.dataLabelsEnabled : true,
-                dataLabelsFormatter,
-                startAngle: groupDataset.startAngle !== undefined ? groupDataset.startAngle : 0,
-                dataLabelsConnectorWidth: groupDataset.dataLabelsConnectorWidth !== undefined ? groupDataset.dataLabelsConnectorWidth : 0
-
+                series: {
+                    colorByPoint: true,
+                    dataLabels: {
+                        enabled: true,
+                        formatter: groupDataset.dataLabelsType ? dataLabelsFormatter : defaultDataLabelFormatter,
+                        connecorWidth: 0, // TODO this soens't seem to be a HC option
+                    },
+                    innersize: '56%',
+                },
             };
         },
         variwide(){
