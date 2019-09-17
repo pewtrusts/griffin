@@ -18,6 +18,7 @@ import ReturnBaseConfig from './modules/return-base-config.js';
 import buildMultidimensionalConfig from './modules/multidimensional.js';
 import { defaultConfigs } from './modules/default-configs.js';
 
+export { default as returnAPIItem } from './modules/returnAPIItem.js';
 
 HCAnnotations(Highcharts);
 HCData(Highcharts);
