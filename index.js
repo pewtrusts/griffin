@@ -6,6 +6,8 @@ import cloneDeep from 'lodash.clonedeep';
 import defaultsDeep from  'lodash.defaultsdeep';
 import Highcharts from 'highcharts';
 import 'highcharts/highcharts-more';
+import HCExporting from 'highcharts/modules/exporting';
+import HCOfflineExporting from 'highcharts/modules/offline-exporting';
 import HCAnnotations from 'highcharts/modules/annotations';
 import HCData from 'highcharts/modules/data';
 import HCVariwide from 'highcharts/modules/variwide';
@@ -24,6 +26,8 @@ HCAnnotations(Highcharts);
 HCData(Highcharts);
 HCSeriesLabel(Highcharts);
 HCVariwide(Highcharts);
+HCExporting(Highcharts);
+HCOfflineExporting(Highcharts);
 
 const _ = {
     cloneDeep,
@@ -144,7 +148,6 @@ export const Griffin = {
             };
             var highchartsConfig = _.defaultsDeep(table.config.general, returnBaseConfig(table, griffin.dataset)); // TO DO: use defaultsdeep here 
             console.log('config', highchartsConfig);
-            container.classList.add('griffin-' + highchartsConfig.chart.type);
             var chart = Highcharts.chart(container, highchartsConfig, function(){
                // console.log(this);
                // if ( this.currentResponsive && this.chartHeight < this.currentResponsive.mergedOptions.chart.height ){ //  Highcharts responsive rules seem to only take effect

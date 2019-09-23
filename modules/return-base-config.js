@@ -1,13 +1,19 @@
 import Complete from './onDataComplete.js';
 export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol, _, defaultConfigs){
     return function ReturnBaseConfig(table, dataset){
-
+        function returnClassName(acc,cur){
+            if ( dataset[cur] ){
+                return acc + ' ' + cur;
+            }
+            return acc;
+        }
         const complete = Complete.bind(undefined, table.config, _, defaultConfigs, dataset)
 
         // return the object to be used as the default when creating a griffin config object using _.defaultsDeep
         // it needs to include only properties that differ from Highcharts defaults
         return {
             chart: {
+                className: classNameKeys.reduce(returnClassName, `griffin griffin-${dataset['chart.type']}`),
                 events: {
                    // render: config.datalabelsAllowOverlap ? relaxLabels : undefined
                 },
@@ -24,6 +30,9 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             data: {
                 complete,
                 table,
+            },
+            exporting: {
+                enabled: false
             },
             legend: {
                 symbolHeight: 10,
