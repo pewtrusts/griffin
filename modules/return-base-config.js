@@ -20,7 +20,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 }
              } else {
                 return function(){
-                    return Highcharts.numberFormat(this.value, -1);
+                    return `${config.yAxisShowPrefix === 'true' && config.prefix ? config.prefix : ''}${Highcharts.numberFormat(this.value, -1)}`;
                 };
             }
         }
@@ -81,7 +81,11 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             var prefix = config.numberFormat === 'currency' ? '$' : config.prefix || '',
                 suffix = config.numberFormat === 'percentage' ? '%' : config.suffix || '',
                 decimals = config.decimals !== undefined ? +config.decimals : -1;
-
+            if ( config.tooltipHideSeries === "true" ){
+                return function(){
+                    return `<b>${prefix + Highcharts.numberFormat(this.y, decimals) + suffix}</b><br/>`;
+                };
+            }
             return function(){
                 console.log(config);
                 return `${this.series.name}: <b>${prefix + Highcharts.numberFormat(this.y, decimals) + suffix}</b><br/>`;
@@ -584,7 +588,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                     rotation: config.xAxisLabelsRotation !== undefined ? config.xAxisLabelsRotation : 0,
                     staggerLines: config.xAxisLabelsStaggerLines || 0,
                     useHTML: config.xAxisLabelsUseHtml === 'true' ? true : false,
-                    padding: config.xAxisLabelsPadding !== undefined ? +config.xAxisLabelsPadding : 5
+                    padding: config.xAxisLabelsPadding !== undefined ? +config.xAxisLabelsPadding : 5,
 
                     
                 },
