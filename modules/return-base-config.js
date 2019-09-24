@@ -5,6 +5,13 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             var addClass = config[cur] === 'true' ? ' ' + cur : '';
             return acc + addClass;
         },config.chartType);
+
+        function returnHeaderFormat(){
+            if ( config.tooltipHideSeries === "true" ){
+               return '';
+            }
+            return '<span style="font-size: 10px">{point.key}</span><br/>';
+        }
         
         function returnNumberFormatter(){
              if ( config.numberFormat && config.numberFormat === 'percentage' && config.stacking !== 'percent' ){
@@ -81,10 +88,10 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             var prefix = config.numberFormat === 'currency' ? '$' : config.prefix || '',
                 suffix = config.numberFormat === 'percentage' ? '%' : config.suffix || '',
                 decimals = config.decimals !== undefined ? +config.decimals : -1;
-            if ( config.tooltipHideSeries === "true" ){
+            if ( config.tooltipHideSeries ){
                 return function(){
-                    return `<b>${prefix + Highcharts.numberFormat(this.y, decimals) + suffix}</b><br/>`;
-                };
+                    return `${this.name}: <b>${prefix + Highcharts.numberFormat(this.y, decimals) + suffix}</b><br/>`;
+                }
             }
             return function(){
                 console.log(config);
@@ -125,6 +132,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
         }
         function returnResponsiveRules(){
             var rules = [];
+            var calculatedWidth = +config.minHeight / ( parseFloat(config.chartHeight) / 100 );
             if ( config.minHeight ) {
                 rules = rules.concat([{
                     chartOptions: {
@@ -133,17 +141,18 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                         }
                     },
                     condition: {
-                        maxHeight: +config.minHeight
+                        maxWidth: calculatedWidth
                     }
                 },
                 {
                     chartOptions: {
                         chart: {
-                            height: +config.chartHeight || '56%'
+                            height: config.chartHeight || '56%'
                         }
                     },
                     condition: {
-                        minHeight: +config.minHeight + 1
+                        minWidth: calculatedWidth
+                        //minHeight: +config.minHeight + 1
                     }
                 }]);
             }
@@ -351,7 +360,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                                 
                                 //distance: -30,
                                 connectorPadding: config.dataLabelsConnectorWidth == 0 ? 0 : undefined, 
-                                padding: config.dataLabelsConnectorWidth == 0 ? 0 : undefined, 
+                                padding: config.dataLabelsPadding == 0 ? 0 : undefined, 
                                 connectorWidth: config.dataLabelsConnectorWidth !== undefined ? config.dataLabelsConnectorWidth : 1,
                                 enabled: ( config.dataLabelsEnabled == 'true' ) || false,
                                 formatter:  config.dataLabelsFormat === 'seriesName' ? function(){ console.log(this); return this.series.name; } : 
@@ -543,7 +552,8 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 symbolRadius: 10,
                 symbolWidth: 10,
                 symbolHeight: 10,
-                reversed: config.legendReversed === 'true'
+                reversed: config.legendReversed === 'true',
+                layout: config.legendLayout || 'horizontal'
 
                 
             },
@@ -560,7 +570,8 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 positioner: config.tooltipPositioner || undefined,
                 shape: config.tooltipShape || 'callout',
                 useHTML: config.tooltipUseHTML || false,
-                shared: config.sharedTooltip || false
+                shared: config.sharedTooltip || false,
+                headerFormat: returnHeaderFormat(),
 
             },
             yAxis: returnYAxes(),
