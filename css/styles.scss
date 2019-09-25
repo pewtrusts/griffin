@@ -123,7 +123,12 @@ figure.griffin {
     }
 
     /* highcharts overrides */
+    .highcharts-plot-band-label {
+     fill: #666;
+     font-weight: bold;
 
+
+    }
     .highcharts-tracker-line {
         display: none;
         @media screen {

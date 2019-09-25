@@ -524,7 +524,11 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                             arguments[0].xAxis.plotBands = plotBands.map(band => {
                                 return {
                                     from: band[0],
-                                    to: band[1]
+                                    to: band[1],
+                                    label: {
+                                        text: band[2] || undefined,
+                                        
+                                    }
                                 };
                             });
                         }
