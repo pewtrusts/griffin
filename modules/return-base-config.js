@@ -361,7 +361,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                                 
                                 //distance: -30,
                                 connectorPadding: config.dataLabelsConnectorWidth == 0 ? 0 : undefined, 
-                                padding: config.dataLabelsPadding == 0 ? 0 : undefined, 
+                                padding: config.dataLabelsConnectorWidth == 0 ? 0 : undefined, 
                                 connectorWidth: config.dataLabelsConnectorWidth !== undefined ? config.dataLabelsConnectorWidth : 1,
                                 enabled: ( config.dataLabelsEnabled == 'true' ) || false,
                                 formatter:  config.dataLabelsFormat === 'seriesName' ? function(){ console.log(this); return this.series.name; } : 
@@ -389,12 +389,12 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                             slicedOffset: 10,
                             startAngle: config.startAngle !== undefined ? +config.startAngle : 0,
                             states: {
-                                hover: {
-                                    enabled: false,
+                                /*hover: {
+                                    enabled: true,
                                     halo: {
                                         size: 0
                                     },
-                                }
+                                }*/
                             },
                             yAxis: returnAxisIndex(i),
                             lineWidth: config.lineWidth ? parseInt(config.lineWidth) : 4,
