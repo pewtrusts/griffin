@@ -27,7 +27,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 }
              } else {
                 return function(){
-                    return `${config.yAxisShowPrefix === 'true' && config.prefix ? config.prefix : ''}${Highcharts.numberFormat(this.value, -1)}`;
+                    return `${config.yAxisShowPrefix === 'true' && config.prefix ? config.prefix : ''}${Highcharts.numberFormat(this.value, -1)}${config.yAxisShowSuffix === 'true' && config.suffix ? config.suffix : ''}`;
                 };
             }
         }
