@@ -234,6 +234,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                     }
                 }]);
             }
+            //NB handling data labels via css because of multiple series difficuly. TODO: is there a better way?
             return rules;
         }
         
@@ -527,8 +528,8 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                                     to: band[1],
                                     label: {
                                         text: band[2] || undefined,
-                                        
-                                    }
+                                        y: -5
+                                    },
                                 };
                             });
                         }
