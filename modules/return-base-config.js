@@ -558,7 +558,10 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 symbolWidth: 10,
                 symbolHeight: 10,
                 reversed: config.legendReversed === 'true',
-                layout: config.legendLayout || 'horizontal'
+                layout: config.legendLayout || 'horizontal',
+                navigation: {
+                    enabled: false
+                }
 
                 
             },
