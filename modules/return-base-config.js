@@ -372,7 +372,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                                         config.dataLabelsFormat === 'pointName' ? function(){ return this.key; } :
                                     function(){ return useNumericSymbol.call(this, config);},
                                 align: config.dataLabelsAlign || 'center',
-                                verticalAlign: config.dataLabelsVerticalAlign || 'bottom',
+                                verticalAlign: config.dataLabelsVerticalAlign || 'middle',
                                 y: config.dataLabelsY !== undefined ? config.dataLabelsY : -10,
                                 x: config.dataLabelsX !== undefined ? config.dataLabelsX : 0,
                                 allowOverlap: config.dataLabelsAllowOverlap === 'true' || false,
