@@ -382,7 +382,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                                 
                             },
                             label: {
-                                enabled: config.labelEnabled || false,
+                                enabled: config.labelEnabled === "true",
                                 connectorAllowed: config.labelConnectorAllowed || false
                             },
                             showInLegend: true,
