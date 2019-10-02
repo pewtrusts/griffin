@@ -370,6 +370,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                                         config.dataLabelsFormat === 'both-point' ? function(){ return this.key + '<br />' + useNumericSymbol.call(this, config);  } : 
                                         config.dataLabelsFormat === 'both-point-reversed' ? function(){ return useNumericSymbol.call(this, config) + '<br />' + this.key;  } :
                                         config.dataLabelsFormat === 'pointName' ? function(){ return this.key; } :
+                                        config.dataLabelsFormat === 'percentage' ? function(){ return this.key + '<br />' + Highcharts.numberFormat(this.percentage, 0) + '%'; } : 
                                     function(){ return useNumericSymbol.call(this, config);},
                                 align: config.dataLabelsAlign || 'center',
                                 verticalAlign: config.dataLabelsVerticalAlign || 'middle',
@@ -389,12 +390,12 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                             slicedOffset: 10,
                             startAngle: config.startAngle !== undefined ? +config.startAngle : 0,
                             states: {
-                                /*hover: {
-                                    enabled: true,
+                                hover: {
+                                    enabled: false,
                                     halo: {
                                         size: 0
                                     },
-                                }*/
+                                }
                             },
                             yAxis: returnAxisIndex(i),
                             lineWidth: config.lineWidth ? parseInt(config.lineWidth) : 4,
