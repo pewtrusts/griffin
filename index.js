@@ -15,6 +15,7 @@ import HCSeriesLabel from './series-label-es6';
 import relaxLabels from './modules/relax-labels.js';
 import UseNumericSymbol from './modules/numeric-symbol.js';
 import ReturnBaseConfig from './modules/return-base-config.js';
+import bringToFront from './modules/bringToFront.js';
 import { defaultConfigs } from './modules/default-configs.js';
 
 
@@ -158,7 +159,9 @@ export const Griffin = {
                     label.setAttribute('transform', 'translate(-16, 0)');
                 });
             }
-        
+            if ( chart.userOptions.enableBringToTop ){
+                bringToFront.call(chart);
+            }
         });
     }
 }

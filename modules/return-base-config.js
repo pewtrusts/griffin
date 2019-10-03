@@ -40,7 +40,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                         text: config.yAxisTitleText || undefined,
                         margin: 15,
                     },
-                    reversedStacks: false,
+                    reversedStacks: config.yAxisReversedStacks === 'true',
                     labels: {
                         formatter: returnNumberFormatter()
                     },
@@ -261,6 +261,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 text: config.showCopyright === 'true' ? '© ' + new Date().getFullYear() + ' The Pew Charitable Trusts' : ''
                 
             },
+            enableBringToTop: config.enableBringToTop === 'true',
             labels: {
                 items: returnChartLabels()
             },
@@ -579,7 +580,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 positioner: config.tooltipPositioner || undefined,
                 shape: config.tooltipShape || 'callout',
                 useHTML: config.tooltipUseHTML || false,
-                shared: config.sharedTooltip || false,
+                shared: config.sharedTooltip === 'true',
                 headerFormat: returnHeaderFormat(),
 
             },
