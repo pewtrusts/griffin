@@ -109,9 +109,9 @@ export const Griffin = {
         function observerCallback(entries){
             entries.forEach(entry => {
                 if ( entry.target.parentElement.isPending && entry.isIntersecting ){
-                    window.requestAnimationFrame(() => {
+                   // window.requestAnimationFrame(() => {
                         this.construct(entry.target.parentElement, Array.from(this.griffins).indexOf(entry.target));
-                    });
+                   // });
                 }
             });
         }
