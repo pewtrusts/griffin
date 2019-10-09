@@ -257,7 +257,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 styledMode: true
             },
             credits: {
-               // href: null,
+                 href: null,
                 text: config.showCopyright === 'true' ? '© ' + new Date().getFullYear() + ' The Pew Charitable Trusts' : ''
                 
             },
