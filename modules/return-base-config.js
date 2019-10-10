@@ -6,6 +6,24 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             return acc + addClass;
         },config.chartType);
 
+        function returnAnnotations(){
+            var annotations = JSON.parse(config.annotations);
+            return annotations.map(note => {
+                return {
+                    labels: [{
+                        allowOverlap: true,
+                        text: note[2],
+                        point: {
+                            x: +note[0],
+                            xAxis: 0,
+                            y: note[1],
+                            yAxis: 0
+                        }
+                    }]
+                };
+            });
+        }
+
         function returnHeaderFormat(){
             if ( config.tooltipHideSeries === "true" ){
                return '';
@@ -239,7 +257,9 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
         }
         
         return {
+            annotations: config.annotations ? returnAnnotations() : [],
             chart: {
+                animation: config.animation !== 'false' ? false : true,
                 className,
                 inverted: config.chartInverted === 'true',
                 height: config.chartHeight || '56%', // TO DO: is there an aspect ration that would work with all social channels?
@@ -351,7 +371,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                         }
                         console.log(numberFormatter);
                         return {
-                            animation: config.animation !== undefined ? config.animation : true,
+                            animation: config.animation !== 'false' ? false : true,
                             type: seriesTypes[i],
                             enableMouseTracking: config.enableMouseTracking === 'false' ? false : true,
                             connectNulls: config.connectNulls,
@@ -439,8 +459,8 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                                 originalArguments[0].xAxis.plotBands = plotBands;
                                 console.log(originalArguments,'plotBands!',plotBands);
                             }
-                                    // ie 2                 //0  //1
-                            if ( config.xAxisAnnotations == i + +config.endColumn + 1){ // i.e. endColumn = 1; index = 0;
+                                                          // ie 2                 //0  //1
+                            if ( !config.annotations && config.xAxisAnnotations == i + +config.endColumn + 1){ // i.e. endColumn = 1; index = 0;
                                 console.log('annotations!');
                                 originalArguments[0].annotations = originalArguments[0].annotations || [];
                                 originalArguments[0].annotations[0] = originalArguments[0].annotations[0] || {};
