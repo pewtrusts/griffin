@@ -108,12 +108,13 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 decimals = config.decimals !== undefined ? +config.decimals : -1;
             if ( config.tooltipHideSeries ){
                 return function(){
-                    return `${this.name}: <b>${prefix + Highcharts.numberFormat(this.y, decimals) + suffix}</b><br/>`;
+                    var value = ['pie','donut'].indexOf(config.chartType) !== -1 ? this.percentage : this.y;
+                    return `${this.name}: <b>${prefix + Highcharts.numberFormat(value, decimals) + suffix}</b><br/>`;
                 }
             }
             return function(){
-                console.log(config);
-                return `${this.series.name}: <b>${prefix + Highcharts.numberFormat(this.y, decimals) + suffix}</b><br/>`;
+                var value = ['pie','donut'].indexOf(config.chartType) !== -1 ? this.percentage : this.y;
+                return `${this.series.name}: <b>${prefix + Highcharts.numberFormat(value, decimals) + suffix}</b><br/>`;
             };
             /*if ( config.numberFormat === 'percentage' ){
                 if ( config.decimals ){
