@@ -592,6 +592,17 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
 
                 
             },
+            plotOptions: {
+             pie: {
+              point: {
+               events: {
+                legendItemClick: function(){
+                 return false;
+                }
+               }
+              }
+             }
+            },
             responsive: {
                 rules: returnResponsiveRules()
             },

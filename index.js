@@ -18,7 +18,6 @@ import ReturnBaseConfig from './modules/return-base-config.js';
 import bringToFront from './modules/bringToFront.js';
 import { defaultConfigs } from './modules/default-configs.js';
 
-
 HCAnnotations(Highcharts);
 HCData(Highcharts);
 HCSeriesLabel(Highcharts);
