@@ -53,6 +53,23 @@ function undoCamelCase(str){
     return str.replace(/([A-Z])/g, function(v){return '-' + v.toLowerCase()});
 }
 
+function disableLegendMouseEvents(){
+    this.series.forEach(series => {
+        series.data.forEach(point => {
+            point.legendItem.element.onmouseover = function(e){
+                e.stopImmediatePropagation();
+                e.stopPropagation();
+                return null;
+            };
+            point.legendItem.element.onmouseleave = function(e){
+                e.stopImmediatePropagation();
+                e.stopPropagation();
+                return null;
+            };
+        });
+    });
+}
+
 export const Griffin = {
     chartsCollection: [], // empty array that will hold the Charts as they are created
     init(config = {}){ // config e.g. {lazy: true}
@@ -160,6 +177,9 @@ export const Griffin = {
             }
             if ( chart.userOptions.enableBringToTop ){
                 bringToFront.call(chart);
+            }
+            if ( chart.userOptions.disableLegendMouseEvents ){
+                disableLegendMouseEvents.call(chart);
             }
         });
     }

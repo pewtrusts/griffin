@@ -287,6 +287,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 
             },
             enableBringToTop: config.enableBringToTop === 'true',
+            disableLegendMouseEvents: config.disableLegendMouseEvents === 'true',
             labels: {
                 items: returnChartLabels()
             },
