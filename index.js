@@ -109,6 +109,7 @@ export const Griffin = {
         if ( config.lazy ){  // set the observers that will call the construct method when charts enter the viewport
             this.setObservers();
         }
+        return this.griffins;
     },
     setObservers(){
         function observerCallback(entries){
