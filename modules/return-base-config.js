@@ -57,7 +57,8 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 },
             },
             xAxis: {
-                maxPadding: 0.1,
+                //endOnTick: true,
+                //maxPadding: 0,
                 minPadding: 0.1,
             }
         };
