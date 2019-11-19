@@ -13,7 +13,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
         // it needs to include only properties that differ from Highcharts defaults
         return {
             chart: {
-                className: classNameKeys.reduce(returnClassName, `griffin griffin-${dataset['chart.type']}`),
+                className: ( window.exportForPrint ? 'for-print ' : '' ) + classNameKeys.reduce(returnClassName, `griffin griffin-${dataset['chart.type']}`),
                 events: {
                    // render: config.datalabelsAllowOverlap ? relaxLabels : undefined
                 },
@@ -25,6 +25,10 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             },
             credits: {
                 href: '',
+                position: {
+                    align: 'left',
+                    x: 0
+                },
                 text: '© ' + new Date().getFullYear() + ' The Pew Charitable Trusts'
             },
             data: {

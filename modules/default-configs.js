@@ -40,6 +40,9 @@ export default function(Highcharts){
                         verticalAlign: 'middle',
                         x: 2,
                         y: -2
+                    },
+                    marker: {
+                        radius: window.exportForPrint ? 3 : 4
                     }
                 },
                 xAxis: {

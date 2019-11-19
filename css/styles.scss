@@ -69,7 +69,10 @@ figure.griffin {
 
         height: auto;
         font-family: lato;
-        font-size: 13.5px;
+        font-size: 13.3333px; // ie 10pt in print (72/96) * 13.333
+        &.for-print {
+            font-size: 12px; // ie 9pt in print
+        }
 
 
     .highcharts-data-label-connector {
@@ -158,7 +161,11 @@ figure.griffin {
     .highcharts-graph {
         stroke-width: 4px;
     }
-
+    &.for-print {
+        .highcharts-graph {
+            stroke-width: 3px;
+        }
+    }
     .highcharts-axis-labels {
         font-size: 1em;
     }
@@ -272,7 +279,7 @@ figure.griffin {
         transform: translate(0,-1px);
     }
     .highcharts-credits {
-       font-size: 10.5px;
+       font-size: 1em;
        fill: #666;
        cursor: default;
        &:hover {
@@ -299,4 +306,5 @@ figure.griffin {
         position: absolute;
         top: 50%;
     }
+    
 } 
