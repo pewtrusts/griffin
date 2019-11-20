@@ -13,7 +13,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
         // it needs to include only properties that differ from Highcharts defaults
         return {
             chart: {
-                className: ( window.exportForPrint ? 'for-print ' : '' ) + classNameKeys.reduce(returnClassName, `griffin griffin-${dataset['chart.type']}`),
+                className: ( window.griffinPalette ? window.griffinPalette + ' ' : '') + ( window.exportForPrint ? 'for-print ' : '' ) + classNameKeys.reduce(returnClassName, `griffin griffin-${dataset['chart.type']}`),
                 events: {
                    // render: config.datalabelsAllowOverlap ? relaxLabels : undefined
                 },
