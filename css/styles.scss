@@ -1,5 +1,8 @@
 @import './vendor/highcharts6_1.css';
-
+@font-face {
+    font-family: 'Whitney';
+    src: local('Whitney-Book-Bas');
+}
 figure.griffin {
     margin: 1em 0;
 
@@ -66,12 +69,22 @@ figure.griffin {
 }
 
 .highcharts-container.griffin {
-
+    &.for-print {
+        text.highcharts-data-label, .highcharts-data-label text {
+            font-family: 'Whitney';
+        }
+        .highcharts-legend text {
+            font-weight: normal;
+            fill: #666;
+        }
+    }
         height: auto;
-        font-family: lato;
+        font-family: 'lato';
         font-size: 13.3333px; // ie 10pt in print (72/96) * 13.333
         &.for-print {
+            font-family: 'Whitney', Webdings;
             font-size: 15.99px; // ie 9pt in print
+            font-weight: 300;
         }
 
 
@@ -87,7 +100,8 @@ figure.griffin {
     }
 
     /* chart specific */
-
+    
+    
     &.griffin-slope {
         .highcharts-grid-line {
             stroke-width: 0;
@@ -110,6 +124,7 @@ figure.griffin {
         text.highcharts-data-label, .highcharts-data-label text {
             fill: #333;
             font-weight:normal;
+
         }
         .highcharts-data-label:first-child text {
             text-anchor: end;

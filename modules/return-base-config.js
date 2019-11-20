@@ -39,6 +39,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 enabled: false
             },
             legend: {
+               // align: window.exportForPrint ? 'left' : 'center',
                 symbolHeight: 10,
                 symbolRadius: 10,
                 symbolWidth: 10,
