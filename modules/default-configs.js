@@ -42,7 +42,7 @@ export default function(Highcharts){
                         y: -2
                     },
                     marker: {
-                        radius: window.exportForPrint ? 3 : 4
+                        radius: 4
                     }
                 },
                 xAxis: {

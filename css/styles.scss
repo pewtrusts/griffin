@@ -71,7 +71,7 @@ figure.griffin {
         font-family: lato;
         font-size: 13.3333px; // ie 10pt in print (72/96) * 13.333
         &.for-print {
-            font-size: 12px; // ie 9pt in print
+            font-size: 15.99px; // ie 9pt in print
         }
 
 
@@ -161,11 +161,11 @@ figure.griffin {
     .highcharts-graph {
         stroke-width: 4px;
     }
-    &.for-print {
+   /* &.for-print {
         .highcharts-graph {
             stroke-width: 3px;
         }
-    }
+    }*/
     .highcharts-axis-labels {
         font-size: 1em;
     }

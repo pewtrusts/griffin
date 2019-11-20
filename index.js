@@ -155,7 +155,7 @@ export const Griffin = {
                                                                                                                        // on window resize, not on load. this checks if the chart's
                                                                                                                        // height is too small and calls reflow if so
                    setTimeout(() => {
-                    this.reflow();
+                   // this.reflow();
                 },200);
               //  }
             });
