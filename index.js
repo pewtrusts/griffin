@@ -59,6 +59,7 @@ export { defaultConfigs };
 export const Griffin = {
     chartsCollection: [], // empty array that will hold the Charts as they are created
     init(config = {}){ // config e.g. {lazy: true}
+        this.instances = [];
         this.griffins = document.querySelectorAll('.griffin-wrapper'); // find all griffin wrappers in the HTML
         this.griffins.forEach((griffin, i) => {
             griffin.dataset['chart.height'] = griffin.dataset['chart.height'] || '56%';
@@ -75,7 +76,7 @@ export const Griffin = {
             griffin.parentNode.setAttribute('style',styleString);
             
             if (!config.lazy){ // if eager mode (not lazy), construct all the charts right away
-                this.construct(griffin,i)
+                this.instances.push(this.construct(griffin,i));
             } else {           // if not, set the padding of the placeholder divs to match the height of the chart so that the page doesn't need to reflow  
                 
                 switch(griffin.dataset.minHeight){
@@ -109,7 +110,7 @@ export const Griffin = {
         if ( config.lazy ){  // set the observers that will call the construct method when charts enter the viewport
             this.setObservers();
         }
-        return this.griffins;
+        return this.instances;
     },
     setObservers(){
         function observerCallback(entries){
@@ -171,6 +172,7 @@ export const Griffin = {
             }
         
         });
+        return this.chartsCollection;
     },
     reconstruct(index){
         var griffin = this.griffins[index];
