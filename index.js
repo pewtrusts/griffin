@@ -182,6 +182,7 @@ export const Griffin = {
             chart.renderTo.className = 'js-hc-container';
             chart.destroy();
         });
-        this.construct(griffin, index);
+        //this.construct(griffin, index);
+        this.init(griffin.config);
     }
 }

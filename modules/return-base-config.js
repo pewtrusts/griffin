@@ -66,6 +66,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 //endOnTick: true,
                 //maxPadding: 0,
                 minPadding: 0.1,
+                //tickLength: 10
             }
         };
     }

@@ -12,13 +12,13 @@ export default function(Highcharts){
                 series: {
                     dataLabels: {
                         enabled: true,
-                        x: 30,
-                        y: 5
+                        //x: 30,
+                        //y: 5
                     }
                 },
                 xAxis: {
-                    tickWidth: 0,
-                    tickLength: 0,
+                    tickWidth: 0
+                    
                 },
             };
         },
