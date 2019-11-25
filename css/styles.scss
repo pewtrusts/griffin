@@ -1,29 +1,42 @@
 @import './vendor/highcharts6_1.css';
 @import './variables.scss';
+
 @font-face {
     font-family: 'Whitney';
     src: local('Whitney-Book-Bas');
 }
+
 :root {
 
     --teal-h: 180;
     --teal-s: 48%;
     --teal-l: 31%;
 
-    --default-color-0: #296ec3;
-    --default-color-1: #333;
-    --default-color-2: #ff7f49;
-    --default-color-3: #5ac7be;
-    --default-color-4: #229dc6;
-    --default-color-5: #d85555;
-// properties above are meant to be changed via js of the chartBuikder tool
-// those below are not to be overwritten, used for resetting
+    --default-color-0: #296ec3; // $pew_blue
+    --default-color-1: #333; // $dark_gray
+    --default-color-2: #ff7f49; // $comp_orange
+    --default-color-3: #5ac7be; // $comp_teal
+    --default-color-4: #229dc6; // $comp_blue
+    --default-color-5: #d85555; // $comp_red
+    --default-color-6: #6d9953; // $comp_green
+    --default-color-7: #b0b0b0; // $sec_gray 
+    --default-color-8: #e1e1e1; // $sec_light_gray
+    --default-color-9: #f0f0f0; // $sec_lightest_gray
+    --default-color-10: #ebf4ff; // $sec_light_blue
+
+    // properties above are meant to be changed via js of the chartBuikder tool
+    // those below are not to be overwritten, used for resetting
     --get-default-color-0: #296ec3;
     --get-default-color-1: #333;
     --get-default-color-2: #ff7f49;
     --get-default-color-3: #5ac7be;
     --get-default-color-4: #229dc6;
     --get-default-color-5: #d85555;
+    --get-default-color-6: #6d9953; // $comp_green
+    --get-default-color-7: #b0b0b0; // $sec_gray 
+    --get-default-color-8: #e1e1e1; // $sec_light_gray
+    --get-default-color-9: #f0f0f0; // $sec_lightest_gray
+    --get-default-color-10: #ebf4ff; // $sec_light_blue
 
     --paletteTeal-color-0: #297676;
     --paletteTeal-color-1: #B9B082;
@@ -48,33 +61,40 @@
 
 
 }
+
 figure.griffin {
     margin: 1em 0;
 
 
     .griffin-pending {
         background-color: #f0f0f0;
+
         table {
             display: none;
         }
     }
+
     figcaption span {
         display: block;
     }
+
     figcaption span.figure-hed {
         font-weight: 600;
         font-size: 1.75rem;
         line-height: 1.3;
     }
+
     figcaption span.figure-label {
         font-size: 1rem;
     }
+
     figcaption span.figure-dek {
         opacity: .9;
         font-weight: 400;
         font-size: 1.5rem;
         white-space: normal !important;
     }
+
     table caption {
         margin-top: 1rem;
     }
@@ -84,73 +104,90 @@ figure.griffin {
         position: relative;
         display: flex;
         flex-wrap: wrap;
-        max-width: 990px; /* TO DO: ALLOW OVERWRITE IN JAVASCRIPT */;
-        > figure {
+        max-width: 990px;
+        /* TO DO: ALLOW OVERWRITE IN JAVASCRIPT */
+        ;
+
+        >figure {
             width: 100%;
             margin: 0;
         }
     }
+
     /* NOTES AND SOURCES */
 
-        .figure-note, .rich-text .figure-note {
-            font-size: 0.8em;
-        }
-        .figure-note--source {
-            color: #767676;
-        }
+    .figure-note,
+    .rich-text .figure-note {
+        font-size: 0.8em;
+    }
+
+    .figure-note--source {
+        color: #767676;
+    }
+
     /* FIGURE HEDS AND DEKS */
 
-        figcaption:first-of-type {
-            @media screen and (max-width: 29.375em){
-                font-size: 1.25rem;
-            }
+    figcaption:first-of-type {
+        @media screen and (max-width: 29.375em) {
+            font-size: 1.25rem;
         }
-        figcaption:first-of-type span, figure.griffin .highcharts-title {
-            @media screen and (max-width: 29.375em){
-                font-size: 1rem;
-            }
+    }
 
+    figcaption:first-of-type span,
+    figure.griffin .highcharts-title {
+        @media screen and (max-width: 29.375em) {
+            font-size: 1rem;
         }
+
+    }
 }
 
 .highcharts-container.griffin {
     &.for-print {
-        text.highcharts-data-label, .highcharts-data-label text {
+
+        text.highcharts-data-label,
+        .highcharts-data-label text {
             font-family: 'Whitney';
         }
+
         .highcharts-legend text {
             font-weight: normal;
             fill: #666;
         }
     }
-        height: auto;
-        font-family: 'lato';
-        font-size: 13.3333px; // ie 10pt in print (72/96) * 13.333
-        &.for-print {
-            font-family: 'Whitney', Webdings;
-            font-size: 15.99px; // ie 9pt in print
-            font-weight: 300;
-        }
+
+    height: auto;
+    font-family: 'lato';
+    font-size: 13.3333px; // ie 10pt in print (72/96) * 13.333
+
+    &.for-print {
+        font-family: 'Whitney', Webdings;
+        font-size: 15.99px; // ie 9pt in print
+        font-weight: 300;
+    }
 
 
     .highcharts-data-label-connector {
         fill: none !important;
     }
+
     .shareTooltip .highcharts-tooltip text {
         font-weight: bold;
         fill: #767676;
     }
-    .shareTooltip .highcharts-tooltip .highcharts-strong  {
+
+    .shareTooltip .highcharts-tooltip .highcharts-strong {
         fill: #000;
     }
 
     /* chart specific */
-    
-    
+
+
     &.griffin-slope {
         .highcharts-grid-line {
             stroke-width: 0;
         }
+
         /*.highcharts-xaxis-labels text {
             display: none;
             &:first-child, &:last-child {
@@ -158,61 +195,73 @@ figure.griffin {
                 font-weight: bold;
             }
         }*/
-        .highcharts-axis-line, .highcharts-tick {
-            display:none;
+        .highcharts-axis-line,
+        .highcharts-tick {
+            display: none;
         }
+
         .highcharts-xaxis-labels {
             font-weight: bold;
             font-size: 1em;
             fill: #000;
         }
-        text.highcharts-data-label, .highcharts-data-label text {
+
+        text.highcharts-data-label,
+        .highcharts-data-label text {
             fill: $dark_gray;
-            font-weight:normal;
+            font-weight: normal;
 
         }
+
         .highcharts-data-label:first-child text {
             text-anchor: end;
             transform: translateX(-16px);
         }
+
         .highcharts-point {
             fill: #fff !important;
             stroke-width: 2px;
         }
-       
+
     }
 
-    &.griffin-line, &.griffin-area {
-         .highcharts-data-label {
+    &.griffin-line,
+    &.griffin-area {
+        .highcharts-data-label {
             @media screen {
                 visibility: hidden;
             }
-         }
+        }
 
-         
-         .highcharts-data-label:last-child {
+
+        .highcharts-data-label:last-child {
             visibility: visible;
             opacity: 1;
-            
-         }
-        @media screen and (max-width: 510px){
-            .highcharts-markers, .highcharts-legend-item .highcharts-point {
+
+        }
+
+        @media screen and (max-width: 510px) {
+
+            .highcharts-markers,
+            .highcharts-legend-item .highcharts-point {
                 display: none;
             }
-         }
+        }
     }
+
     &.griffin-area {
-         @media screen and (max-width: 510px){
+        @media screen and (max-width: 510px) {
             .highcharts-legend-item .highcharts-point {
                 display: inline;
             }
-         }
+        }
     }
 
     /* highcharts overrides */
 
     .highcharts-tracker-line {
         display: none;
+
         @media screen {
             display: block;
         }
@@ -221,7 +270,8 @@ figure.griffin {
     .highcharts-graph {
         stroke-width: 4px;
     }
-   /* &.for-print {
+
+    /* &.for-print {
         .highcharts-graph {
             stroke-width: 3px;
         }
@@ -232,47 +282,64 @@ figure.griffin {
 
     /* default palette */
 
-    .highcharts-color-0, .highcharts-data-label-color-0 text, .highcharts-series-label-color-0 text {
-        fill:$pew_blue;
-        stroke:$pew_blue;
+    .highcharts-color-0,
+    .highcharts-data-label-color-0 text,
+    .highcharts-series-label-color-0 text {
+        fill: $pew_blue;
+        stroke: $pew_blue;
         background-color: $pew_blue;
-        fill:var(--default-color-0, $pew_blue);
-        stroke:var(--default-color-0, $pew_blue);
+        fill: var(--default-color-0, $pew_blue);
+        stroke: var(--default-color-0, $pew_blue);
         background-color: var(--default-color-0, $pew_blue);
     }
-    .highcharts-color-1, .highcharts-data-label-color-1 text, .highcharts-series-label-color-1 text {
-        fill:$dark_gray;
-        stroke:$dark_gray;
+
+    .highcharts-color-1,
+    .highcharts-data-label-color-1 text,
+    .highcharts-series-label-color-1 text {
+        fill: $dark_gray;
+        stroke: $dark_gray;
         background-color: $dark_gray;
-        fill:var(--default-color-1, $dark_gray);
-        stroke:var(--default-color-1, $dark_gray);
+        fill: var(--default-color-1, $dark_gray);
+        stroke: var(--default-color-1, $dark_gray);
         background-color: var(--default-color-1, $dark_gray);
     }
-    .highcharts-color-2, .highcharts-data-label-color-2 text, .highcharts-series-label-color-2 text {
-        fill:$comp_orange;
-        stroke:$comp_orange;
+
+    .highcharts-color-2,
+    .highcharts-data-label-color-2 text,
+    .highcharts-series-label-color-2 text {
+        fill: $comp_orange;
+        stroke: $comp_orange;
         background-color: $comp_orange;
-        fill:var(--default-color-2, $comp_orange);
-        stroke:var(--default-color-2, $comp_orange);
+        fill: var(--default-color-2, $comp_orange);
+        stroke: var(--default-color-2, $comp_orange);
         background-color: var(--default-color-2, $comp_orange);
     }
-    .highcharts-color-3, .highcharts-data-label-color-3 text, .highcharts-series-label-color-3 text {
-        fill:$comp_teal;
-        stroke:$comp_teal;
+
+    .highcharts-color-3,
+    .highcharts-data-label-color-3 text,
+    .highcharts-series-label-color-3 text {
+        fill: $comp_teal;
+        stroke: $comp_teal;
         background-color: $comp_teal;
-        fill:var(--default-color-3, $comp_teal);
-        stroke:var(--default-color-3, $comp_teal);
+        fill: var(--default-color-3, $comp_teal);
+        stroke: var(--default-color-3, $comp_teal);
         background-color: var(--default-color-3, $comp_teal);
     }
-    .highcharts-color-4, .highcharts-data-label-color-4 text, .highcharts-series-label-color-4 text {
-        fill:$comp_blue;
-        stroke:$comp_blue;
+
+    .highcharts-color-4,
+    .highcharts-data-label-color-4 text,
+    .highcharts-series-label-color-4 text {
+        fill: $comp_blue;
+        stroke: $comp_blue;
         background-color: $comp_blue;
-        fill:var(--default-color-4, $comp_blue);
-        stroke:var(--default-color-4, $comp_blue);
+        fill: var(--default-color-4, $comp_blue);
+        stroke: var(--default-color-4, $comp_blue);
         background-color: var(--default-color-4, $comp_blue);
     }
-    .highcharts-color-5, .highcharts-data-label-color-5 text, .highcharts-series-label-color-5 text {
+
+    .highcharts-color-5,
+    .highcharts-data-label-color-5 text,
+    .highcharts-series-label-color-5 text {
         fill: $comp_red;
         stroke: $comp_red;
         background-color: $comp_red;
@@ -281,93 +348,184 @@ figure.griffin {
         background-color: var(--default-color-5, $comp_red);
     }
 
+    .highcharts-color-6,
+    .highcharts-data-label-color-6 text,
+    .highcharts-series-label-color-6 text {
+        fill: $comp_green;
+        stroke: $comp_green;
+        background-color: $comp_green;
+        fill: var(--default-color-6, $comp_green);
+        stroke: var(--default-color-6, $comp_green);
+        background-color: var(--default-color-6, $comp_green);
+    }
+
+    .highcharts-color-7,
+    .highcharts-data-label-color-7 text,
+    .highcharts-series-label-color-7 text {
+        fill: $sec_gray;
+        stroke: $sec_gray;
+        background-color: $sec_gray;
+        fill: var(--default-color-7, $sec_gray);
+        stroke: var(--default-color-7, $sec_gray);
+        background-color: var(--default-color-7, $sec_gray);
+    }
+
+    .highcharts-color-8,
+    .highcharts-data-label-color-8 text,
+    .highcharts-series-label-color-8 text {
+        fill: $sec_light_gray;
+        stroke: $sec_light_gray;
+        background-color: $sec_light_gray;
+        fill: var(--default-color-8, $sec_light_gray);
+        stroke: var(--default-color-8, $sec_light_gray);
+        background-color: var(--default-color-8, $sec_light_gray);
+    }
+
+    .highcharts-color-9,
+    .highcharts-data-label-color-9 text,
+    .highcharts-series-label-color-9 text {
+        fill: $sec_lightest_gray;
+        stroke: $sec_lightest_gray;
+        background-color: $sec_lightest_gray;
+        fill: var(--default-color-9, $sec_lightest_gray);
+        stroke: var(--default-color-9, $sec_lightest_gray);
+        background-color: var(--default-color-9, $sec_lightest_gray);
+    }
+
+    .highcharts-color-10,
+    .highcharts-data-label-color-10 text,
+    .highcharts-series-label-color-10 text {
+        fill: $sec_light_blue;
+        stroke: $sec_light_blue;
+        background-color: $sec_light_blue;
+        fill: var(--default-color-10, $sec_light_blue);
+        stroke: var(--default-color-10, $sec_light_blue);
+        background-color: var(--default-color-10, $sec_light_blue);
+    }
+
 
 
     /* teal palette */
     &.paletteTeal {
-        .highcharts-color-0, .highcharts-data-label-color-0, .highcharts-series-label-color-0 text {
-            fill:#297676;
-            stroke:#297676;
+
+        .highcharts-color-0,
+        .highcharts-data-label-color-0,
+        .highcharts-series-label-color-0 text {
+            fill: #297676;
+            stroke: #297676;
             background-color: #297676;
-            fill:var(--paletteTeal-color-0, #297676);
-            stroke:var(--paletteTeal-color-0, #297676);
+            fill: var(--paletteTeal-color-0, #297676);
+            stroke: var(--paletteTeal-color-0, #297676);
             background-color: var(--paletteTeal-color-0, #297676);
         }
-        .highcharts-color-1, .highcharts-data-label-color-1, .highcharts-series-label-color-1 text {
-            fill:#B9B082;
-            stroke:#B9B082;
+
+        .highcharts-color-1,
+        .highcharts-data-label-color-1,
+        .highcharts-series-label-color-1 text {
+            fill: #B9B082;
+            stroke: #B9B082;
             background-color: #B9B082;
-            fill:var(--paletteTeal-color-1, #B9B082);
-            stroke:var(--paletteTeal-color-1, #B9B082);
+            fill: var(--paletteTeal-color-1, #B9B082);
+            stroke: var(--paletteTeal-color-1, #B9B082);
             background-color: var(--paletteTeal-color-1, #B9B082);
         }
-        .highcharts-color-2, .highcharts-data-label-color-2, .highcharts-series-label-color-2 text {
-            fill:#9ABEBE;
-            stroke:#9ABEBE;
+
+        .highcharts-color-2,
+        .highcharts-data-label-color-2,
+        .highcharts-series-label-color-2 text {
+            fill: #9ABEBE;
+            stroke: #9ABEBE;
             background-color: #9ABEBE;
-            fill:var(--paletteTeal-color-2, #9ABEBE);
-            stroke:var(--paletteTeal-color-2, #9ABEBE);
+            fill: var(--paletteTeal-color-2, #9ABEBE);
+            stroke: var(--paletteTeal-color-2, #9ABEBE);
             background-color: var(--paletteTeal-color-2, #9ABEBE);
         }
-        .highcharts-color-3, .highcharts-data-label-color-3, .highcharts-series-label-color-3 text {
-            fill:#D0CBB5;
-            stroke:#D0CBB5;
+
+        .highcharts-color-3,
+        .highcharts-data-label-color-3,
+        .highcharts-series-label-color-3 text {
+            fill: #D0CBB5;
+            stroke: #D0CBB5;
             background-color: #D0CBB5;
-             fill:var(--paletteTeal-color-3, #D0CBB5);
-            stroke:var(--paletteTeal-color-3, #D0CBB5);
+            fill: var(--paletteTeal-color-3, #D0CBB5);
+            stroke: var(--paletteTeal-color-3, #D0CBB5);
             background-color: var(--paletteTeal-color-3, #D0CBB5);
         }
-        .highcharts-color-4, .highcharts-data-label-color-4, .highcharts-series-label-color-4 text {
-            fill:#B4CFCD;
-            stroke:#B4CFCD;
+
+        .highcharts-color-4,
+        .highcharts-data-label-color-4,
+        .highcharts-series-label-color-4 text {
+            fill: #B4CFCD;
+            stroke: #B4CFCD;
             background-color: #B4CFCD;
-            fill:var(--paletteTeal-color-4, #B4CFCD);
-            stroke:var(--paletteTeal-color-4, #B4CFCD);
+            fill: var(--paletteTeal-color-4, #B4CFCD);
+            stroke: var(--paletteTeal-color-4, #B4CFCD);
             background-color: var(--paletteTeal-color-4, #B4CFCD);
         }
-        .highcharts-color-5, .highcharts-data-label-color-5, .highcharts-series-label-color-5 text {
-            fill:#E9E6D7;
-            stroke:#E9E6D7;
+
+        .highcharts-color-5,
+        .highcharts-data-label-color-5,
+        .highcharts-series-label-color-5 text {
+            fill: #E9E6D7;
+            stroke: #E9E6D7;
             background-color: #E9E6D7;
-            fill:var(--paletteTeal-color-5, #E9E6D7);
-            stroke:var(--paletteTeal-color-5, #E9E6D7);
+            fill: var(--paletteTeal-color-5, #E9E6D7);
+            stroke: var(--paletteTeal-color-5, #E9E6D7);
             background-color: var(--paletteTeal-color-5, #E9E6D7);
         }
     }
 
 
-    &.paletteMonoTeal{
-         .highcharts-color-0,  .highcharts-data-label-color-0,  .highcharts-series-label-color-0 text {
+    &.paletteMonoTeal {
+
+        .highcharts-color-0,
+        .highcharts-data-label-color-0,
+        .highcharts-series-label-color-0 text {
             //fill:#084744;
             //stroke:#084744;
             //background-color: #084744;
-            fill:var(--paletteMonoTeal-color-0);
-            stroke:var(--paletteMonoTeal-color-0);
+            fill: var(--paletteMonoTeal-color-0);
+            stroke: var(--paletteMonoTeal-color-0);
             background-color: var(--paletteMonoTeal-color-0);
         }
-         .highcharts-color-1,  .highcharts-data-label-color-1,  .highcharts-series-label-color-1 text {
-            fill:desaturate(lighten(#084744, 10%), 10%);
-            stroke:desaturate(lighten(#084744, 10%), 10%);
+
+        .highcharts-color-1,
+        .highcharts-data-label-color-1,
+        .highcharts-series-label-color-1 text {
+            fill: desaturate(lighten(#084744, 10%), 10%);
+            stroke: desaturate(lighten(#084744, 10%), 10%);
             background-color: desaturate(lighten(#084744, 10%), 10%);
         }
-         .highcharts-color-2,  .highcharts-data-label-color-2,  .highcharts-series-label-color-2 text {
-            fill:desaturate(lighten(#084744, 20%), 20%);
-            stroke:desaturate(lighten(#084744, 20%), 20%);
+
+        .highcharts-color-2,
+        .highcharts-data-label-color-2,
+        .highcharts-series-label-color-2 text {
+            fill: desaturate(lighten(#084744, 20%), 20%);
+            stroke: desaturate(lighten(#084744, 20%), 20%);
             background-color: desaturate(lighten(#084744, 20%), 20%);
         }
-         .highcharts-color-3,  .highcharts-data-label-color-3,  .highcharts-series-label-color-3 text {
-            fill:desaturate(lighten(#084744, 30%), 30%);
-            stroke:desaturate(lighten(#084744, 30%), 30%);  
-            background-color: desaturate(lighten(#084744, 30%), 30%);  
+
+        .highcharts-color-3,
+        .highcharts-data-label-color-3,
+        .highcharts-series-label-color-3 text {
+            fill: desaturate(lighten(#084744, 30%), 30%);
+            stroke: desaturate(lighten(#084744, 30%), 30%);
+            background-color: desaturate(lighten(#084744, 30%), 30%);
         }
-         .highcharts-color-4,  .highcharts-data-label-color-4,  .highcharts-series-label-color-4 text {
-            fill:desaturate(lighten(#084744, 40%), 40%);
-            stroke:desaturate(lighten(#084744, 40%), 40%);
+
+        .highcharts-color-4,
+        .highcharts-data-label-color-4,
+        .highcharts-series-label-color-4 text {
+            fill: desaturate(lighten(#084744, 40%), 40%);
+            stroke: desaturate(lighten(#084744, 40%), 40%);
             background-color: desaturate(lighten(#084744, 40%), 40%);
         }
-         .highcharts-color-5,  .highcharts-data-label-color-5,  .highcharts-series-label-color-5 text {
-            fill:desaturate(lighten(#084744, 50%), 50%);
-            stroke:desaturate(lighten(#084744, 50%), 50%);
+
+        .highcharts-color-5,
+        .highcharts-data-label-color-5,
+        .highcharts-series-label-color-5 text {
+            fill: desaturate(lighten(#084744, 50%), 50%);
+            stroke: desaturate(lighten(#084744, 50%), 50%);
             background-color: desaturate(lighten(#084744, 50%), 50%);
         }
     }
@@ -375,34 +533,39 @@ figure.griffin {
     text {
         stroke: none;
     }
+
     /* data labels */
 
     &.griffin-donut .highcharts-data-label text {
-        font-size:18px;
+        font-size: 18px;
         font-weight: bold;
-        @media (max-width: 475px){
+
+        @media (max-width: 475px) {
             font-size: 14px;
         }
     }
 
-    &.invertDataLabels .highcharts-data-label text, .invertDataLabels text.highcharts-data-label {
+    &.invertDataLabels .highcharts-data-label text,
+    .invertDataLabels text.highcharts-data-label {
         fill: #fff;
     }
 
 
-    
-    
+
+
     .highcharts-legend-item text {
-        transform: translate(0,-1px);
+        transform: translate(0, -1px);
     }
+
     .highcharts-credits {
-       font-size: 1em;
-       fill: #666;
-       cursor: default;
-       &:hover {
-        font-size: 10.5px;
+        font-size: 1em;
         fill: #666;
-       }
+        cursor: default;
+
+        &:hover {
+            font-size: 10.5px;
+            fill: #666;
+        }
     }
 
     .highcharts-annotation-label text {
@@ -419,9 +582,10 @@ figure.griffin {
         white-space: normal !important;
         color: $pew_blue;
     }
+
     .observer-anchor {
         position: absolute;
         top: 50%;
     }
-    
-} 
+
+}

@@ -14,6 +14,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
         return {
             chart: {
                 className: ( window.griffinPalette ? window.griffinPalette + ' ' : '') + ( window.exportForPrint ? 'for-print ' : '' ) + classNameKeys.reduce(returnClassName, `griffin griffin-${dataset['chart.type']}`),
+                colorCount: 6,
                 events: {
                    // render: config.datalabelsAllowOverlap ? relaxLabels : undefined
                 },
