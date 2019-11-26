@@ -74,9 +74,6 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 align: 'left',
                 text: table.querySelector('caption') ? table.querySelector('caption').innerHTML : null,
             },
-            tooltip: {  
-              //  pointFormatter: returnPointFormatter(),
-            },
             yAxis: //{
 /*                reversedStacks: false,
                 title: {

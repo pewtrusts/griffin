@@ -1,5 +1,6 @@
 import returnNumberFormatter from './returnNumberFormatter.js';
 export default function(Highcharts){
+    
     function defaultDataLabelFormatter(){
         return Highcharts.numberFormat(this.y, -1);
     }

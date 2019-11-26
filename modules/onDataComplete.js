@@ -53,7 +53,7 @@ export default function() {
     }
     console.log('seriesNumberFormats', seriesNumberFormats);
 
-    var defaults = function(i) {
+    var defaults = function(i, numberOfSeries) {
        
         //here returning only properties that differ form HC defaults or which need non-dot attributes to detrmine
         var sConfig =  {
@@ -70,6 +70,7 @@ export default function() {
             marker: {
                 symbol: 'circle'
             },
+            showInLegend: numberOfSeries > 1,
             slicedOffset: 10,
             states: {
                 hover: {
@@ -150,9 +151,10 @@ export default function() {
     arguments[4].series.forEach((series, i, array) => { // eslint-disable-line no-unused-vars
         // here `series` obj has only data (array) and name (string) properties, coming from the Highcharts data module's parsing of the html tabel
         var nondataColumns;
+        var numberOfSeries = config.endColumn || array.length;
         console.log(config.chartType);
         if (!config.endColumn || i < parseInt(config.endColumn)) {
-            let _series = _.defaultsDeep(series, seriesConfig, defaults(i)); // defaults return obj should include only those properties that differ from HC defaults
+            let _series = _.defaultsDeep(series, seriesConfig, defaults(i, numberOfSeries)); // defaults return obj should include only those properties that differ from HC defaults
             if (seriesTypes[i].match(/range/) !== null) {
                 let _data = _series.data.map(each => {
                     var range = each[1] === null ? [null, null] : each[1].split('–').map(str => +str);
