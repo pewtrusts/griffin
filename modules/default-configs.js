@@ -19,6 +19,12 @@ export default function(Highcharts){
                         //y: 5
                     }
                 },
+                tooltip: {
+                    pointFormatter(){ // TO DO SHOULDN'T this be in the onDataComplete. not chart-type-specific, but is series specific?
+                        var valueStr = returnNumberFormatter(Highcharts, groupDataset, groupDataset.tooltipDecimals).call(this);
+                        return `<span class="highcharts-color-${this.colorIndex}">\u25CF</span> ${this.series.name}: ${valueStr}`;
+                    }
+                },
                 xAxis: {
                     tickWidth: 0
                     
@@ -113,7 +119,7 @@ export default function(Highcharts){
                     dataLabels: {
                         enabled: true,
                         formatter: returnNumberFormatter(Highcharts, groupDataset, groupDataset.dataLabelsDecimals),
-                        connecorWidth: 0, // TODO this soens't seem to be a HC option
+                        connectorWidth: 0, // TODO this soens't seem to be a HC option
                     },
                     innersize: '56%',
                 },
