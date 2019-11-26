@@ -54,18 +54,7 @@ export default function() {
     console.log('seriesNumberFormats', seriesNumberFormats);
 
     var defaults = function(i) {
-        var numberFormatter;
-        console.log(config);
-        if (seriesNumberFormats[i] === 'normal') {
-            numberFormatter = function() {
-                return Highcharts.numberFormat(this.point.y, -1);
-            };
-        }
-        if (seriesNumberFormats[i] === 'percentage') { // not sur ethis is right. will percentages be coming in as decimals?
-            numberFormatter = function() {
-                return Highcharts.numberFormat(this.point.y, -1) + '%';
-            }
-        }
+       
         //here returning only properties that differ form HC defaults or which need non-dot attributes to detrmine
         var sConfig =  {
             colorIndex: config.colorIndeces ? JSON.parse(config.colorIndeces)[i] : undefined,
@@ -92,9 +81,11 @@ export default function() {
             },
             type: seriesTypes[i],
             zones: zones || []
-        }
+        };
         // use the series property only from defaultConfigs as source for defaultsDeep
-        return _.defaultsDeep(sConfig, defaultConfigs[dataset['chart.type']](dataset).series);
+        var source = defaultConfigs[dataset['chart.type']](dataset).series; 
+        var rtn = _.defaultsDeep(sConfig, source); // mutates sConfig
+        return rtn;
     };
     console.log(arguments, this);
 

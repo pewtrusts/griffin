@@ -1,6 +1,28 @@
 import Complete from './onDataComplete.js';
+import returnNumberFormatter from './returnNumberFormatter.js';
 export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol, _, defaultConfigs){
     return function ReturnBaseConfig(table, dataset){
+        function returnYAxisConfig(){
+            return {
+                    /*allowDecimals: config.yAxisAllowDecimals === 'false' ? false : true,
+                    reversedStacks: config.yAxisReversedStacks === 'true',*/
+                    labels: {
+                        formatter: returnNumberFormatter(Highcharts, dataset, dataset.yAxisDecimals)
+                    },
+                    title: {
+                        text: dataset.yAxisTitleText || undefined,
+                        margin: 15,
+                    },
+                    /*endOnTick: config.yAxisEndOnTick == 'false' ? false : true,
+                    visible: config.yAxisVisible === 'false' ? false : true,
+                    max: config.yAxisMax !== undefined ? config.yAxisMax : undefined,
+                    min: config.yAxisMin !== undefined ? config.yAxisMin : undefined,
+                    maxPadding: config.yAxisMaxPadding !== undefined ? config.yAxisMaxPadding : 0.05,
+                    minPadding: config.yAxisMinPadding !== undefined ? config.yAxisMinPadding : 0.05,
+                    tickInterval: +config.yAxisTickInterval || undefined*/
+                    
+                };
+        }
         function returnClassName(acc,cur){
             if ( dataset[cur] ){
                 return acc + ' ' + cur;
@@ -55,13 +77,14 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             tooltip: {  
               //  pointFormatter: returnPointFormatter(),
             },
-            yAxis: {
-                reversedStacks: false,
+            yAxis: //{
+/*                reversedStacks: false,
                 title: {
                     margin: 15,
                     text: undefined
-                },
-            },
+                },*/
+                returnYAxisConfig(),
+            //},
             xAxis: {
                 //endOnTick: true,
                 //maxPadding: 0,

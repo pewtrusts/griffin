@@ -1,3 +1,4 @@
+import returnNumberFormatter from './returnNumberFormatter.js';
 export default function(Highcharts){
     function defaultDataLabelFormatter(){
         return Highcharts.numberFormat(this.y, -1);
@@ -12,6 +13,7 @@ export default function(Highcharts){
                 series: {
                     dataLabels: {
                         enabled: true,
+                        formatter: returnNumberFormatter(Highcharts, groupDataset, groupDataset.dataLabelsDecimals), // to do can this be put in default?
                         //x: 30,
                         //y: 5
                     }
@@ -36,7 +38,7 @@ export default function(Highcharts){
                 series: {
                     dataLabels: {
                         align: 'left',
-                        formatter: groupDataset.dataLabelsType ? dataLabelsFormatter : defaultDataLabelFormatter,
+                        formatter: returnNumberFormatter(Highcharts, groupDataset, groupDataset.dataLabelsDecimals),
                         verticalAlign: 'middle',
                         x: 2,
                         y: -2
@@ -64,7 +66,7 @@ export default function(Highcharts){
                         align: 'left',
                         allowOverlap: true, // TO DO: NOT AN HC CONFIG OPTION
                         enabled: true,
-                        formatter: groupDataset.dataLabelsType ? dataLabelsFormatter : defaultDataLabelFormatter,
+                        formatter: returnNumberFormatter(Highcharts, groupDataset, groupDataset.dataLabelsDecimals),
                         verticalAlign: 'middle',
                         x: 2,
                         y: -2,
@@ -109,7 +111,7 @@ export default function(Highcharts){
                     colorByPoint: true,
                     dataLabels: {
                         enabled: true,
-                        formatter: groupDataset.dataLabelsType ? dataLabelsFormatter : defaultDataLabelFormatter,
+                        formatter: returnNumberFormatter(Highcharts, groupDataset, groupDataset.dataLabelsDecimals),
                         connecorWidth: 0, // TODO this soens't seem to be a HC option
                     },
                     innersize: '56%',
