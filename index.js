@@ -7,7 +7,7 @@ import defaultsDeep from  'lodash.defaultsdeep';
 import Highcharts from 'highcharts';
 import 'highcharts/highcharts-more';
 import HCExporting from 'highcharts/modules/exporting';
-import HCOfflineExporting from 'highcharts/modules/offline-exporting';
+import HCOfflineExporting from './modules/offline-exporting.modified.js';
 import HCAnnotations from 'highcharts/modules/annotations';
 import HCData from 'highcharts/modules/data';
 import HCVariwide from 'highcharts/modules/variwide';
