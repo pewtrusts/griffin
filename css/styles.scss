@@ -52,12 +52,19 @@
     --get-paletteTeal-color-4: #B4CFCD;
     --get-paletteTeal-color-5: #E9E6D7;
 
-    --paletteMonoTeal-color-0: #0A4242;
-    --paletteMonoTeal-color-1: #175C5C;
-    --paletteMonoTeal-color-2: #297676;
-    --paletteMonoTeal-color-3: #408F8F;
-    --paletteMonoTeal-color-4: #5DA8A8;
-    --paletteMonoTeal-color-5: #7EC2C2;
+    --paletteMonochrome-color-0: #0A4242;
+    --paletteMonochrome-color-1: #175C5C;
+    --paletteMonochrome-color-2: #297676;
+    --paletteMonochrome-color-3: #408F8F;
+    --paletteMonochrome-color-4: #5DA8A8;
+    --paletteMonochrome-color-5: #7EC2C2;
+
+    --get-paletteMonochrome-color-0: #0A4242;
+    --get-paletteMonochrome-color-1: #175C5C;
+    --get-paletteMonochrome-color-2: #297676;
+    --get-paletteMonochrome-color-3: #408F8F;
+    --get-paletteMonochrome-color-4: #5DA8A8;
+    --get-paletteMonochrome-color-5: #7EC2C2;
 
 
 }
@@ -409,7 +416,7 @@ figure.griffin {
     &.paletteTeal {
 
         .highcharts-color-0,
-        .highcharts-data-label-color-0,
+        .highcharts-data-label-color-0 text,
         .highcharts-series-label-color-0 text {
             fill: #297676;
             stroke: #297676;
@@ -420,7 +427,7 @@ figure.griffin {
         }
 
         .highcharts-color-1,
-        .highcharts-data-label-color-1,
+        .highcharts-data-label-color-1 text,
         .highcharts-series-label-color-1 text {
             fill: #B9B082;
             stroke: #B9B082;
@@ -431,7 +438,7 @@ figure.griffin {
         }
 
         .highcharts-color-2,
-        .highcharts-data-label-color-2,
+        .highcharts-data-label-color-2 text,
         .highcharts-series-label-color-2 text {
             fill: #9ABEBE;
             stroke: #9ABEBE;
@@ -442,7 +449,7 @@ figure.griffin {
         }
 
         .highcharts-color-3,
-        .highcharts-data-label-color-3,
+        .highcharts-data-label-color-3 text,
         .highcharts-series-label-color-3 text {
             fill: #D0CBB5;
             stroke: #D0CBB5;
@@ -453,7 +460,7 @@ figure.griffin {
         }
 
         .highcharts-color-4,
-        .highcharts-data-label-color-4,
+        .highcharts-data-label-color-4 text,
         .highcharts-series-label-color-4 text {
             fill: #B4CFCD;
             stroke: #B4CFCD;
@@ -464,7 +471,7 @@ figure.griffin {
         }
 
         .highcharts-color-5,
-        .highcharts-data-label-color-5,
+        .highcharts-data-label-color-5 text,
         .highcharts-series-label-color-5 text {
             fill: #E9E6D7;
             stroke: #E9E6D7;
@@ -476,57 +483,57 @@ figure.griffin {
     }
 
 
-    &.paletteMonoTeal {
+    &.paletteMonochrome {
 
         .highcharts-color-0,
-        .highcharts-data-label-color-0,
+        .highcharts-data-label-color-0 text,
         .highcharts-series-label-color-0 text {
             //fill:#084744;
             //stroke:#084744;
             //background-color: #084744;
-            fill: var(--paletteMonoTeal-color-0);
-            stroke: var(--paletteMonoTeal-color-0);
-            background-color: var(--paletteMonoTeal-color-0);
+            fill: var(--paletteMonochrome-color-0);
+            stroke: var(--paletteMonochrome-color-0);
+            background-color: var(--paletteMonochrome-color-0);
         }
 
         .highcharts-color-1,
-        .highcharts-data-label-color-1,
+        .highcharts-data-label-color-1 text,
         .highcharts-series-label-color-1 text {
-            fill: desaturate(lighten(#084744, 10%), 10%);
-            stroke: desaturate(lighten(#084744, 10%), 10%);
-            background-color: desaturate(lighten(#084744, 10%), 10%);
+            fill: var(--paletteMonochrome-color-1);
+            stroke: var(--paletteMonochrome-color-1);
+            background-color: var(--paletteMonochrome-color-1);
         }
 
         .highcharts-color-2,
-        .highcharts-data-label-color-2,
+        .highcharts-data-label-color-2 text,
         .highcharts-series-label-color-2 text {
-            fill: desaturate(lighten(#084744, 20%), 20%);
-            stroke: desaturate(lighten(#084744, 20%), 20%);
-            background-color: desaturate(lighten(#084744, 20%), 20%);
+            fill: var(--paletteMonochrome-color-2);
+            stroke: var(--paletteMonochrome-color-2);
+            background-color: var(--paletteMonochrome-color-2);
         }
 
         .highcharts-color-3,
-        .highcharts-data-label-color-3,
+        .highcharts-data-label-color-3 text,
         .highcharts-series-label-color-3 text {
-            fill: desaturate(lighten(#084744, 30%), 30%);
-            stroke: desaturate(lighten(#084744, 30%), 30%);
-            background-color: desaturate(lighten(#084744, 30%), 30%);
+            fill: var(--paletteMonochrome-color-3);
+            stroke: var(--paletteMonochrome-color-3);
+            background-color: var(--paletteMonochrome-color-3);
         }
 
         .highcharts-color-4,
-        .highcharts-data-label-color-4,
+        .highcharts-data-label-color-4 text,
         .highcharts-series-label-color-4 text {
-            fill: desaturate(lighten(#084744, 40%), 40%);
-            stroke: desaturate(lighten(#084744, 40%), 40%);
-            background-color: desaturate(lighten(#084744, 40%), 40%);
+            fill: var(--paletteMonochrome-color-4);
+            stroke: var(--paletteMonochrome-color-4);
+            background-color: var(--paletteMonochrome-color-4);
         }
 
         .highcharts-color-5,
-        .highcharts-data-label-color-5,
+        .highcharts-data-label-color-5 text,
         .highcharts-series-label-color-5 text {
-            fill: desaturate(lighten(#084744, 50%), 50%);
-            stroke: desaturate(lighten(#084744, 50%), 50%);
-            background-color: desaturate(lighten(#084744, 50%), 50%);
+            fill: var(--paletteMonochrome-color-5);
+            stroke: var(--paletteMonochrome-color-5);
+            background-color: var(--paletteMonochrome-color-5);
         }
     }
 
