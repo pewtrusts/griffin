@@ -28,7 +28,10 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             var hash = dataset.hash;
             var styleString = colors.reduce(function(acc,cur,i){
                 return acc + `
-                .highcharts-container.griffin.${hash} .highcharts-color-${i} {
+                .highcharts-container.griffin.${hash} .highcharts-color-${i},
+                .highcharts-container.griffin.${hash} .highcharts-data-label-color-${i} text,
+                .highcharts-container.griffin.${hash} .highcharts-series-label-color-${i} text
+                 {
                     fill: ${cur};
                     stroke: ${cur};
                     background-color: ${cur};
