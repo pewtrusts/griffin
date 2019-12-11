@@ -38,33 +38,20 @@
     --get-default-color-9: #f0f0f0; // $sec_lightest_gray
     --get-default-color-10: #ebf4ff; // $sec_light_blue
 
-    --paletteTeal-color-0: #297676;
-    --paletteTeal-color-1: #B9B082;
-    --paletteTeal-color-2: #9ABEBE;
-    --paletteTeal-color-3: #D0CBB5;
-    --paletteTeal-color-4: #B4CFCD;
-    --paletteTeal-color-5: #E9E6D7;
 
-    --get-paletteTeal-color-0: #297676;
-    --get-paletteTeal-color-1: #B9B082;
-    --get-paletteTeal-color-2: #9ABEBE;
-    --get-paletteTeal-color-3: #D0CBB5;
-    --get-paletteTeal-color-4: #B4CFCD;
-    --get-paletteTeal-color-5: #E9E6D7;
+    --monochrome-color-0: #0A4242;
+    --monochrome-color-1: #175C5C;
+    --monochrome-color-2: #297676;
+    --monochrome-color-3: #408F8F;
+    --monochrome-color-4: #5DA8A8;
+    --monochrome-color-5: #7EC2C2;
 
-    --paletteMonochrome-color-0: #0A4242;
-    --paletteMonochrome-color-1: #175C5C;
-    --paletteMonochrome-color-2: #297676;
-    --paletteMonochrome-color-3: #408F8F;
-    --paletteMonochrome-color-4: #5DA8A8;
-    --paletteMonochrome-color-5: #7EC2C2;
-
-    --get-paletteMonochrome-color-0: #0A4242;
-    --get-paletteMonochrome-color-1: #175C5C;
-    --get-paletteMonochrome-color-2: #297676;
-    --get-paletteMonochrome-color-3: #408F8F;
-    --get-paletteMonochrome-color-4: #5DA8A8;
-    --get-paletteMonochrome-color-5: #7EC2C2;
+    --get-monochrome-color-0: #0A4242;
+    --get-monochrome-color-1: #175C5C;
+    --get-monochrome-color-2: #297676;
+    --get-monochrome-color-3: #408F8F;
+    --get-monochrome-color-4: #5DA8A8;
+    --get-monochrome-color-5: #7EC2C2;
 
 
 }
@@ -411,79 +398,7 @@ figure.griffin {
     }
 
 
-
-    /* teal palette */
-    &.paletteTeal {
-
-        .highcharts-color-0,
-        .highcharts-data-label-color-0 text,
-        .highcharts-series-label-color-0 text {
-            fill: #297676;
-            stroke: #297676;
-            background-color: #297676;
-            fill: var(--paletteTeal-color-0, #297676);
-            stroke: var(--paletteTeal-color-0, #297676);
-            background-color: var(--paletteTeal-color-0, #297676);
-        }
-
-        .highcharts-color-1,
-        .highcharts-data-label-color-1 text,
-        .highcharts-series-label-color-1 text {
-            fill: #B9B082;
-            stroke: #B9B082;
-            background-color: #B9B082;
-            fill: var(--paletteTeal-color-1, #B9B082);
-            stroke: var(--paletteTeal-color-1, #B9B082);
-            background-color: var(--paletteTeal-color-1, #B9B082);
-        }
-
-        .highcharts-color-2,
-        .highcharts-data-label-color-2 text,
-        .highcharts-series-label-color-2 text {
-            fill: #9ABEBE;
-            stroke: #9ABEBE;
-            background-color: #9ABEBE;
-            fill: var(--paletteTeal-color-2, #9ABEBE);
-            stroke: var(--paletteTeal-color-2, #9ABEBE);
-            background-color: var(--paletteTeal-color-2, #9ABEBE);
-        }
-
-        .highcharts-color-3,
-        .highcharts-data-label-color-3 text,
-        .highcharts-series-label-color-3 text {
-            fill: #D0CBB5;
-            stroke: #D0CBB5;
-            background-color: #D0CBB5;
-            fill: var(--paletteTeal-color-3, #D0CBB5);
-            stroke: var(--paletteTeal-color-3, #D0CBB5);
-            background-color: var(--paletteTeal-color-3, #D0CBB5);
-        }
-
-        .highcharts-color-4,
-        .highcharts-data-label-color-4 text,
-        .highcharts-series-label-color-4 text {
-            fill: #B4CFCD;
-            stroke: #B4CFCD;
-            background-color: #B4CFCD;
-            fill: var(--paletteTeal-color-4, #B4CFCD);
-            stroke: var(--paletteTeal-color-4, #B4CFCD);
-            background-color: var(--paletteTeal-color-4, #B4CFCD);
-        }
-
-        .highcharts-color-5,
-        .highcharts-data-label-color-5 text,
-        .highcharts-series-label-color-5 text {
-            fill: #E9E6D7;
-            stroke: #E9E6D7;
-            background-color: #E9E6D7;
-            fill: var(--paletteTeal-color-5, #E9E6D7);
-            stroke: var(--paletteTeal-color-5, #E9E6D7);
-            background-color: var(--paletteTeal-color-5, #E9E6D7);
-        }
-    }
-
-
-    &.paletteMonochrome {
+    &.monochrome {
 
         .highcharts-color-0,
         .highcharts-data-label-color-0 text,
@@ -491,49 +406,49 @@ figure.griffin {
             //fill:#084744;
             //stroke:#084744;
             //background-color: #084744;
-            fill: var(--paletteMonochrome-color-0);
-            stroke: var(--paletteMonochrome-color-0);
-            background-color: var(--paletteMonochrome-color-0);
+            fill: var(--monochrome-color-0);
+            stroke: var(--monochrome-color-0);
+            background-color: var(--monochrome-color-0);
         }
 
         .highcharts-color-1,
         .highcharts-data-label-color-1 text,
         .highcharts-series-label-color-1 text {
-            fill: var(--paletteMonochrome-color-1);
-            stroke: var(--paletteMonochrome-color-1);
-            background-color: var(--paletteMonochrome-color-1);
+            fill: var(--monochrome-color-1);
+            stroke: var(--monochrome-color-1);
+            background-color: var(--monochrome-color-1);
         }
 
         .highcharts-color-2,
         .highcharts-data-label-color-2 text,
         .highcharts-series-label-color-2 text {
-            fill: var(--paletteMonochrome-color-2);
-            stroke: var(--paletteMonochrome-color-2);
-            background-color: var(--paletteMonochrome-color-2);
+            fill: var(--monochrome-color-2);
+            stroke: var(--monochrome-color-2);
+            background-color: var(--monochrome-color-2);
         }
 
         .highcharts-color-3,
         .highcharts-data-label-color-3 text,
         .highcharts-series-label-color-3 text {
-            fill: var(--paletteMonochrome-color-3);
-            stroke: var(--paletteMonochrome-color-3);
-            background-color: var(--paletteMonochrome-color-3);
+            fill: var(--monochrome-color-3);
+            stroke: var(--monochrome-color-3);
+            background-color: var(--monochrome-color-3);
         }
 
         .highcharts-color-4,
         .highcharts-data-label-color-4 text,
         .highcharts-series-label-color-4 text {
-            fill: var(--paletteMonochrome-color-4);
-            stroke: var(--paletteMonochrome-color-4);
-            background-color: var(--paletteMonochrome-color-4);
+            fill: var(--monochrome-color-4);
+            stroke: var(--monochrome-color-4);
+            background-color: var(--monochrome-color-4);
         }
 
         .highcharts-color-5,
         .highcharts-data-label-color-5 text,
         .highcharts-series-label-color-5 text {
-            fill: var(--paletteMonochrome-color-5);
-            stroke: var(--paletteMonochrome-color-5);
-            background-color: var(--paletteMonochrome-color-5);
+            fill: var(--monochrome-color-5);
+            stroke: var(--monochrome-color-5);
+            background-color: var(--monochrome-color-5);
         }
     }
 

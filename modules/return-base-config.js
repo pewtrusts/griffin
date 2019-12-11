@@ -25,7 +25,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
         }
         function returnClassName(acc,cur){
             if ( dataset[cur] ){
-                return acc + ' ' + cur;
+                return acc + ' ' + dataset[cur];
             }
             return acc;
         }
