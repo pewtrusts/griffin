@@ -34,7 +34,7 @@ const _ = {
     defaultsDeep
 };
 const styleKeys = ['minWidth','maxWidth'];
-const classNameKeys = ['palette'];
+const classNameKeys = ['palette', 'hash'];
 const useNumericSymbol = UseNumericSymbol(Highcharts);
 const defaultConfigs = DefaultConfigs(Highcharts);
 const returnBaseConfig = ReturnBaseConfig(Highcharts, classNameKeys, relaxLabels, useNumericSymbol, _, defaultConfigs);

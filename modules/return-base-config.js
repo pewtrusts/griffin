@@ -23,8 +23,28 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                     
                 };
         }
+        function addCustomColorDeclarations(){
+            var colors = JSON.parse(dataset.customColors);
+            var hash = dataset.hash;
+            var styleString = colors.reduce(function(acc,cur,i){
+                return acc + `
+                .highcharts-container.griffin.${hash} .highcharts-color-${i} {
+                    fill: ${cur};
+                    stroke: ${cur};
+                    background-color: ${cur};
+                }`;
+            },'');
+            var styleSheet = document.createElement('style');
+            styleSheet.type = 'text/css';
+            styleSheet.innerText = styleString;
+            document.head.appendChild(styleSheet)
+        }
+        
         function returnClassName(acc,cur){
             if ( dataset[cur] ){
+                if ( cur === 'hash' ){
+                    addCustomColorDeclarations();
+                }
                 return acc + ' ' + dataset[cur];
             }
             return acc;
@@ -35,7 +55,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
         // it needs to include only properties that differ from Highcharts defaults
         return {
             chart: {
-                className: ( window.griffinPalette ? window.griffinPalette + ' ' : '') + ( window.exportForPrint ? 'for-print ' : '' ) + classNameKeys.reduce(returnClassName, `griffin griffin-${dataset['chart.type']}`),
+                className: ( window.exportForPrint ? 'for-print ' : '' ) + classNameKeys.reduce(returnClassName, `griffin griffin-${dataset['chart.type']}`),
                 colorCount: 6,
                 events: {
                    // render: config.datalabelsAllowOverlap ? relaxLabels : undefined
