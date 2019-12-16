@@ -183,6 +183,6 @@ export const Griffin = {
             chart.destroy();
         });
         //this.construct(griffin, index);
-        this.init(griffin.config);
+        return this.init(griffin.config);
     }
 }
