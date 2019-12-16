@@ -97,6 +97,11 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 align: 'left',
                 text: table.querySelector('caption') ? table.querySelector('caption').innerHTML : null,
             },
+            tooltip: {
+                borderRadius: 0,
+                distance: 8,
+                shadow: false,
+            },
             yAxis: //{
 /*                reversedStacks: false,
                 title: {

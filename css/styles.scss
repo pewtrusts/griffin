@@ -510,4 +510,21 @@ figure.griffin {
         top: 50%;
     }
 
+    /* tooltips */
+    .highcharts-tooltip {
+        filter: none;
+        .highcharts-header {
+            font-size: .75em;
+            fill: #767676;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+    }
+    .highcharts-tooltip-box {
+        fill: #fff;
+        fill-opacity: 1;
+        stroke-width: 2.5px;
+    }
+
 }
