@@ -513,6 +513,9 @@ figure.griffin {
     /* tooltips */
     .highcharts-tooltip {
         filter: none;
+        text {
+            transform: translateY(-2px);
+        }
         .highcharts-header {
             font-size: .75em;
             fill: #767676;
@@ -525,6 +528,7 @@ figure.griffin {
         fill: #fff;
         fill-opacity: 1;
         stroke-width: 2.5px;
+        stroke-linecap: round;
     }
 
 }

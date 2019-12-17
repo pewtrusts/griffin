@@ -22,7 +22,7 @@ export default function(Highcharts){
                 tooltip: {
                     pointFormatter(){ // TO DO SHOULDN'T this be in the onDataComplete. not chart-type-specific, but is series specific?
                         var valueStr = returnNumberFormatter(Highcharts, groupDataset, groupDataset.tooltipDecimals).call(this);
-                        return `${this.series.name}: ${valueStr}`;
+                        return `${this.series.name}: <b>${valueStr}</b>`;
                     }
                 },
                 xAxis: {
