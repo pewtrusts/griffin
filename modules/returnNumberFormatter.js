@@ -1,9 +1,9 @@
 export default function returnNumberFormatter(Highcharts, config, decimals){
+    var str = decimals !== undefined ? decimals : config.decimals !== undefined ? config.decimals : undefined;
     switch (config.numberFormat){
 
         case 'percentage':
-            if ( decimals || config.decimals ) {
-                let str = config.yAxisDecimals || config.decimals;
+            if ( str !== undefined ) {
                 return function(){
                     var value = this.value !== undefined ? this.value : this.y;
                     return Highcharts.numberFormat(value * 100, parseInt(str)) + '%';
@@ -17,8 +17,7 @@ export default function returnNumberFormatter(Highcharts, config, decimals){
             }
             break;
         case 'currency':
-            if ( decimals || config.decimals ) {
-                let str = config.yAxisDecimals || config.decimals;
+            if ( str !== undefined ) {
                 return function(){
                     var value = this.value !== undefined ? this.value : this.y;
                     return '$' + Highcharts.numberFormat(value, parseInt(str));
@@ -31,8 +30,7 @@ export default function returnNumberFormatter(Highcharts, config, decimals){
             }
             break;
         default:
-            if ( decimals || config.decimals ) {
-                let str = config.yAxisDecimals || config.decimals;
+            if ( str !== undefined ) {
                 return function(){
                     var value = this.value !== undefined ? this.value : this.y;
                     return Highcharts.numberFormat(value, parseInt(str));
@@ -40,7 +38,7 @@ export default function returnNumberFormatter(Highcharts, config, decimals){
             } else {
                 return function(){
                     var value = this.value !== undefined ? this.value : this.y;
-                    return value;
+                    return Highcharts.numberFormat(value, -1);
                 };
             }
             break;

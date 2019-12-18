@@ -13,16 +13,11 @@ export default function(Highcharts){
             return {
                 series: {
                     dataLabels: {
-                        enabled: true,
+                        enabled: false,
                         formatter: returnNumberFormatter(Highcharts, groupDataset, groupDataset.dataLabelsDecimals), // to do can this be put in default?
+                        
                         //x: 30,
                         //y: 5
-                    }
-                },
-                tooltip: {
-                    pointFormatter(){ // TO DO SHOULDN'T this be in the onDataComplete. not chart-type-specific, but is series specific?
-                        var valueStr = returnNumberFormatter(Highcharts, groupDataset, groupDataset.tooltipDecimals).call(this);
-                        return `${this.series.name}: <b>${valueStr}</b>`;
                     }
                 },
                 xAxis: {

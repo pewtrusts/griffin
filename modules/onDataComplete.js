@@ -1,8 +1,9 @@
+import returnNumberFormatter from './returnNumberFormatter.js';
 export default function() {
     // invoked as bound fn with first argument being the table's config object {general, series}
     // and the second argument being lodash, and the third being defaultConfigs
-    // the fourth is the original griffin.dataset
-    // the original arguments[0] is now arguments[4]
+    // the fourth is the original griffin.dataset, fifth is Highcharts
+    // the original arguments[0] is now arguments[5]
     console.log(this);
     console.log('arguments', arguments, this);
     var seriesTypes, seriesNumberFormats, zones;
@@ -11,13 +12,14 @@ export default function() {
     const _ = arguments[1];
     const defaultConfigs = arguments[2];
     const dataset = arguments[3];
+    const Highcharts = arguments[4];
 
     // if a seriesTypes attribute is provided, parse it here for use in the returnAxisConfig function
     // if none is provided, make all series the same type on basis of chart.type
     if (config.seriesTypes) {
         seriesTypes = JSON.parse(config.seriesTypes);
     } else {
-        seriesTypes = arguments[4].series.map(() => {
+        seriesTypes = arguments[5].series.map(() => {
             return config.chart.type === 'donut' ? 'pie' : config.chart.type === 'slope' ? 'line' : config.chart.type;
         });
     }
@@ -25,7 +27,7 @@ export default function() {
     if (config.seriesNumberFormats) {
         seriesNumberFormats = JSON.parse(config.seriesNumberFormats);
     } else {
-        seriesNumberFormats = arguments[4].series.map(() => {
+        seriesNumberFormats = arguments[5].series.map(() => {
             return config.numberFormat || 'normal';
         });
     }
@@ -41,9 +43,9 @@ export default function() {
     // convert point from [x,y] to {name,y, sliced} to support sliced (offset) pie segments
     if (['pie', 'donut'].indexOf(config.chartType !== -1) && config.slice) {
         let slices = JSON.parse(config.slice);
-        arguments[4].series[0].data.forEach((point, i) => {
+        arguments[5].series[0].data.forEach((point, i) => {
             if (slices.some(s => point[0] === s)) {
-                arguments[4].series[0].data[i] = {
+                arguments[5].series[0].data[i] = {
                     name: point[0],
                     y: point[1],
                     sliced: true
@@ -57,12 +59,16 @@ export default function() {
        
         //here returning only properties that differ form HC defaults or which need non-dot attributes to detrmine
         var sConfig =  {
+            colorByPoint: seriesConfig.series[seriesTypes[i]].colorbypoint === 'true',
             colorIndex: config.colorIndeces ? JSON.parse(config.colorIndeces)[i] : undefined,
             // TO DO : DATALABELS FORMATTER SHOULD BE HANDLED IN DEFAULTSCONFIG I THIKN
             /*dataLabels: {
                 formatter: config.dataLabelsFormat === 'seriesName' ? function() { console.log(this); return this.series.name; } : config.dataLabelsFormat === 'both' ? function() { return this.series.name + '<br />' + useNumericSymbol.call(this, config); } : config.dataLabelsFormat === 'both-reversed' ? function() { return useNumericSymbol.call(this, config) + '<br />' + this.series.name; } : config.dataLabelsFormat === 'both-point' ? function() { return this.key + '<br />' + useNumericSymbol.call(this, config); } : config.dataLabelsFormat === 'both-point-reversed' ? function() { return useNumericSymbol.call(this, config) + '<br />' + this.key; } : config.dataLabelsFormat === 'pointName' ? function() { return this.key; } : function() { return useNumericSymbol.call(this, config); },
                 y: -10,
             },*/
+            dataLabels: {
+                allowOverlap: true
+            },
             label: {
                 connectorAllowed: config.labelConnectorAllowed || false,
                 enabled: config.labelEnabled || false,
@@ -78,6 +84,13 @@ export default function() {
                     halo: {
                         size: 0
                     },
+                }
+            },
+            tooltip: {
+                pointFormatter(){ 
+                    var valueStr = returnNumberFormatter(Highcharts, config, config.tooltipDecimals).call(this);
+                    return `${this.series.name}: <b>${valueStr}</b>`;
+                    //return 'foobar';
                 }
             },
             type: seriesTypes[i],
@@ -112,29 +125,29 @@ export default function() {
                         plotBandInProgress = false;
                     }
                 });
-                originalArguments[4].xAxis = originalArguments[4].xAxis || {};
-                originalArguments[4].xAxis.plotBands = plotBands;
+                originalArguments[5].xAxis = originalArguments[5].xAxis || {};
+                originalArguments[5].xAxis.plotBands = plotBands;
                 console.log(originalArguments, 'plotBands!', plotBands);
             }
             // ie 2                 //0  //1
             if (config.xAxisAnnotations == i + +config.endColumn + 1) { // i.e. endColumn = 1; index = 0;
                 console.log('annotations!');
-                originalArguments[4].annotations = originalArguments[4].annotations || [];
-                originalArguments[4].annotations[0] = originalArguments[4].annotations[0] || {};
-                originalArguments[4].annotations[0].labels = originalArguments[4].annotations[0].labels || [];
-                console.log(originalArguments[4].annotations[0].labels);
+                originalArguments[5].annotations = originalArguments[5].annotations || [];
+                originalArguments[5].annotations[0] = originalArguments[5].annotations[0] || {};
+                originalArguments[5].annotations[0].labels = originalArguments[5].annotations[0].labels || [];
+                console.log(originalArguments[5].annotations[0].labels);
 
                 column.data.forEach((d, j) => {
                     if (d[1] !== null) {
                         console.log(d);
-                        console.log(originalArguments[4].series[0].data[j]);
-                        originalArguments[4].annotations[0].labels.push({
+                        console.log(originalArguments[5].series[0].data[j]);
+                        originalArguments[5].annotations[0].labels.push({
                             align: 'right',
                             text: d[1],
                             point: {
                                 x: d[0],
                                 xAxis: 0,
-                                y: originalArguments[4].series[0].data[j][1],
+                                y: originalArguments[5].series[0].data[j][1],
                                 yAxis: 0
                             }, //TODO: ALLOW FOR MULTIPLE AXES?
                             shape: 'connector',
@@ -148,7 +161,7 @@ export default function() {
             }
         });
     }
-    arguments[4].series.forEach((series, i, array) => { // eslint-disable-line no-unused-vars
+    arguments[5].series.forEach((series, i, array) => { // eslint-disable-line no-unused-vars
         // here `series` obj has only data (array) and name (string) properties, coming from the Highcharts data module's parsing of the html tabel
         var nondataColumns;
         var numberOfSeries = config.endColumn || array.length;
@@ -172,7 +185,7 @@ export default function() {
             console.log('series', series);
         } else if (config.endColumn) {
             console.log('nondata column', i);
-            nondataColumns = arguments[4].series.splice(i); // HERE. NEED TO TAKE RETURN VALUE OF SPLICE
+            nondataColumns = arguments[5].series.splice(i); // HERE. NEED TO TAKE RETURN VALUE OF SPLICE
             // AND ITEREATE THROUGH THAT ARRAY LOOKING FOR
             // ANNOTATION COLUMNS AND NOTE COLUMNS
             // PLOTBANDS CAN BE HANDLED VIA THE TABLE IN COLUMNS OR
@@ -196,14 +209,14 @@ export default function() {
                          });
                      }
                  });
-                 arguments[4].annotations = annotations;
+                 arguments[5].annotations = annotations;
                  console.log(arguments);
              }*/
         }
         if (config.xAxisPlotBands && (i === array.length - 1 || i === config.endColumn)) {
             let plotBands = JSON.parse(config.xAxisPlotBands);
-            arguments[4].xAxis = arguments[4].xAxis || {};
-            arguments[4].xAxis.plotBands = plotBands.map(band => {
+            arguments[5].xAxis = arguments[5].xAxis || {};
+            arguments[5].xAxis.plotBands = plotBands.map(band => {
                 return {
                     from: band[0],
                     to: band[1]
@@ -212,8 +225,8 @@ export default function() {
         }
         if (config.xAxisPlotLines && (i === array.length - 1 || i === config.endColumn)) {
             let plotLines = JSON.parse(config.xAxisPlotLines);
-            arguments[4].xAxis = arguments[4].xAxis || {};
-            arguments[4].xAxis.plotLines = plotLines.map(line => {
+            arguments[5].xAxis = arguments[5].xAxis || {};
+            arguments[5].xAxis.plotLines = plotLines.map(line => {
                 return {
                     value: line[0],
                     label: {

@@ -3,11 +3,12 @@ import returnNumberFormatter from './returnNumberFormatter.js';
 export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol, _, defaultConfigs){
     return function ReturnBaseConfig(table, dataset){
         function returnYAxisConfig(){
+            var decimals = dataset.yAxisDecimals !== undefined ? dataset.yAxisDecimals : '0';
             return {
                     /*allowDecimals: config.yAxisAllowDecimals === 'false' ? false : true,
                     reversedStacks: config.yAxisReversedStacks === 'true',*/
                     labels: {
-                        formatter: returnNumberFormatter(Highcharts, dataset, dataset.yAxisDecimals)
+                        formatter: returnNumberFormatter(Highcharts, dataset, decimals)
                     },
                     title: {
                         text: dataset.yAxisTitleText || undefined,
@@ -52,7 +53,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             }
             return acc;
         }
-        const complete = Complete.bind(undefined, table.config, _, defaultConfigs, dataset)
+        const complete = Complete.bind(undefined, table.config, _, defaultConfigs, dataset, Highcharts)
 
         // return the object to be used as the default when creating a griffin config object using _.defaultsDeep
         // it needs to include only properties that differ from Highcharts defaults
