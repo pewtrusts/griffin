@@ -61,7 +61,31 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             styleSheet.innerText = styleString;
             document.head.appendChild(styleSheet);
         }
-        
+        function addLabelStyles(){
+            var labelStyles = JSON.parse(dataset.labelStyles);
+            var hash = dataset.lhash;
+            var styleString = labelStyles.reduce(function(acc1,cur){
+                return acc1 + `
+                    .highcharts-xaxis-labels text:nth-child(${+cur.index + 1}){
+                        ${cur.styles.reduce((acc,cur2) => {
+                            if (cur2 === 'b'){
+                                return acc + `    font-weight: bold;
+                                `;
+                            }
+                            if  (cur2 === 'i'){
+                                return acc + `    font-style: italic;
+                                `;
+                            }
+                            return acc;
+                        },'')}
+                    }
+                `
+            },'');
+            var styleSheet = document.createElement('style');
+            styleSheet.type = 'text/css';
+            styleSheet.innerText = styleString;
+            document.head.appendChild(styleSheet);
+        }
         function returnClassName(acc,cur){
             if ( dataset[cur] ){
                 console.log(cur);
@@ -70,6 +94,9 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 }
                 if ( cur === 'orhash' ){
                     addOverrideDeclarations();
+                }
+                if ( cur === 'lhash' ){
+                    addLabelStyles();
                 }
                 return acc + ' ' + dataset[cur];
             }
