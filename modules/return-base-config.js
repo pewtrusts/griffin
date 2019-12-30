@@ -43,11 +43,33 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             styleSheet.innerText = styleString;
             document.head.appendChild(styleSheet)
         }
+        function addOverrideDeclarations(){
+            var overrides = JSON.parse(dataset.overrides);
+            var hash = dataset.orhash;
+            var styleString = overrides.reduce(function(acc1,series,i){
+                return acc1 + series.reduce(function(acc,cur){
+                    return acc + `
+                        .highcharts-container.griffin.${hash} .highcharts-series-${i} ${cur.nodeName}:nth-child(${+cur.index + 1}) {
+                            fill: ${cur.overrideColor};
+                            stroke: ${cur.overrideColor};
+                        }
+                    `;
+                },'');
+            },'');
+            var styleSheet = document.createElement('style');
+            styleSheet.type = 'text/css';
+            styleSheet.innerText = styleString;
+            document.head.appendChild(styleSheet);
+        }
         
         function returnClassName(acc,cur){
             if ( dataset[cur] ){
+                console.log(cur);
                 if ( cur === 'hash' ){
                     addCustomColorDeclarations();
+                }
+                if ( cur === 'orhash' ){
+                    addOverrideDeclarations();
                 }
                 return acc + ' ' + dataset[cur];
             }
