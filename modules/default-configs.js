@@ -24,6 +24,9 @@ export default function(Highcharts){
                     tickWidth: 0
                     
                 },
+                yAxis: {
+                    maxPadding: 0.1
+                }
             };
         },
         column(groupDataset){

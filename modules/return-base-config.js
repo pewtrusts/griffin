@@ -13,7 +13,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                     title: {
                         text: dataset.yAxisTitleText || undefined,
                         margin: 15,
-                    },
+                    }
                     /*endOnTick: config.yAxisEndOnTick == 'false' ? false : true,
                     visible: config.yAxisVisible === 'false' ? false : true,
                     max: config.yAxisMax !== undefined ? config.yAxisMax : undefined,

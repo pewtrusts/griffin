@@ -59,7 +59,7 @@ export default function() {
        
         //here returning only properties that differ form HC defaults or which need non-dot attributes to detrmine
         var sConfig =  {
-            colorByPoint: seriesConfig.series[seriesTypes[i]].colorbypoint === 'true',
+            colorByPoint: seriesConfig.series[seriesTypes[i]] && seriesConfig.series[seriesTypes[i]].colorbypoint === 'true',
             colorIndex: config.colorIndeces ? JSON.parse(config.colorIndeces)[i] : undefined,
             // TO DO : DATALABELS FORMATTER SHOULD BE HANDLED IN DEFAULTSCONFIG I THIKN
             /*dataLabels: {

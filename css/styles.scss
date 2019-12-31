@@ -3,7 +3,31 @@
 
 @font-face {
     font-family: 'Whitney';
-    src: local('Whitney-Book-Bas');
+    src: local('Whitney-Book-Bas'),
+         local('Whitney Book');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Whitney';
+    src: local('Whitney-BookItal-Bas'),
+         local('Whitney Book Italic');
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Whitney';
+    src: local('Whitney-Semibold-Bas'),
+         local('Whitney Semibold');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Whitney';
+    src: local('Whitney-SemiboldItal-Bas'),
+         local('Whitney Semibold Italic');
+    font-weight: bold;
+    font-style: italic;
 }
 
 :root {
@@ -147,6 +171,9 @@ figure.griffin {
         .highcharts-legend text {
             font-weight: normal;
             fill: #666;
+        }
+        .highcharts-axis-labels {
+            fill: #231f20;
         }
     }
 
