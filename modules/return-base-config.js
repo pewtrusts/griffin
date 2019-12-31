@@ -24,7 +24,14 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                     
                 };
         }
+        function removeStylesheet(id){
+            var stylesheet = document.getElementById(id);
+            if ( stylesheet ){
+                document.head.removeChild(stylesheet);
+            }
+        }
         function addCustomColorDeclarations(){
+            removeStylesheet('customColorStylesheet');
             var colors = JSON.parse(dataset.customColors);
             var hash = dataset.hash;
             var styleString = colors.reduce(function(acc,cur,i){
@@ -38,12 +45,14 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                     background-color: ${cur};
                 }`;
             },'');
-            var styleSheet = document.createElement('style');
-            styleSheet.type = 'text/css';
-            styleSheet.innerText = styleString;
-            document.head.appendChild(styleSheet)
+            var customColorStylesheet = document.createElement('style');
+            customColorStylesheet.type = 'text/css';
+            customColorStylesheet.id = 'customColorStylesheet';
+            customColorStylesheet.innerText = styleString;
+            document.head.appendChild(customColorStylesheet)
         }
         function addOverrideDeclarations(){
+            removeStylesheet('overrideColorStylesheet');
             var overrides = JSON.parse(dataset.overrides);
             var hash = dataset.orhash;
             var styleString = overrides.reduce(function(acc1,series,i){
@@ -56,35 +65,29 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                     `;
                 },'');
             },'');
-            var styleSheet = document.createElement('style');
-            styleSheet.type = 'text/css';
-            styleSheet.innerText = styleString;
-            document.head.appendChild(styleSheet);
+            var overrideColorStylesheet = document.createElement('style');
+            overrideColorStylesheet.type = 'text/css';
+            overrideColorStylesheet.id = 'overrideColorStylesheet';
+            overrideColorStylesheet.innerText = styleString;
+            document.head.appendChild(overrideColorStylesheet);
         }
         function addLabelStyles(){
+            removeStylesheet('labelStylesheet');
             var labelStyles = JSON.parse(dataset.labelStyles);
             var hash = dataset.lhash;
             var styleString = labelStyles.reduce(function(acc1,cur){
                 return acc1 + `
                     .highcharts-xaxis-labels text:nth-child(${+cur.index + 1}){
-                        ${cur.styles.reduce((acc,cur2) => {
-                            if (cur2 === 'b'){
-                                return acc + `    font-weight: bold;
-                                `;
-                            }
-                            if  (cur2 === 'i'){
-                                return acc + `    font-style: italic;
-                                `;
-                            }
-                            return acc;
-                        },'')}
+                        font-weight: ${cur.styles.includes('b') ? 'bold' : 'normal'};
+                        font-style: ${cur.styles.includes('i') ? 'italic' : 'normal'};
                     }
                 `
             },'');
-            var styleSheet = document.createElement('style');
-            styleSheet.type = 'text/css';
-            styleSheet.innerText = styleString;
-            document.head.appendChild(styleSheet);
+            var labelStylesheet = document.createElement('style');
+            labelStylesheet.type = 'text/css';
+            labelStylesheet.id = 'labelStylesheet';
+            labelStylesheet.innerText = styleString;
+            document.head.appendChild(labelStylesheet);
         }
         function returnClassName(acc,cur){
             if ( dataset[cur] ){
