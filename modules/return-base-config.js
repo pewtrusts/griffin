@@ -58,8 +58,8 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             var styleString = overrides.reduce(function(acc1,series,i){
                 return acc1 + series.reduce(function(acc,cur){
                     return acc + `
-                        .highcharts-container.griffin.${hash} .highcharts-series-${i} ${cur.nodeName}:nth-child(${+cur.index + 1}) {
-                            fill: ${cur.overrideColor};
+                        .highcharts-container.griffin.${hash} .highcharts-series-${i} .${cur.className}:nth-child(${+cur.index + 1}) {
+                            fill: ${cur.className === 'highcharts-point' ? cur.overrideColor : 'none'};
                             stroke: ${cur.overrideColor};
                         }
                     `;
