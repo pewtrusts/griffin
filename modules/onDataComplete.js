@@ -78,6 +78,7 @@ export default function() {
             },
             showInLegend: numberOfSeries > 1,
             slicedOffset: 10,
+            stacking: seriesConfig.series[seriesTypes[i]] && seriesConfig.series[seriesTypes[i]].stacking && seriesConfig.series[seriesTypes[i]].stacking !== 'undefined' ? seriesConfig.series[seriesTypes[i]].stacking : undefined,
             states: {
                 hover: {
                     enabled: false,
