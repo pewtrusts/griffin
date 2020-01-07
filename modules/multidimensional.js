@@ -2,6 +2,15 @@ export default function buildMultidimensionalConfig(dataset){
     // data- attributes that have dots will result be placed as nested properties in an object
     // attributes without dots will be top-level properties of the object
     function tryToCoerce(string){
+        if ( string === 'true' ){
+            return true;
+        }
+        if ( string === 'false' ){
+            return false;
+        }
+        if (string === 'undefined'){
+            return undefined;
+        }
         if ( isNaN(+string) || string === '' || string === null || string === 'null') {
             return string;
         }
