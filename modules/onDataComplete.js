@@ -114,14 +114,20 @@ export default function() {
                 column.data.forEach((d, j) => {
                     if (d[1] === 1 && !plotBandInProgress) {
                         console.log(d);
-                        begin = j;
+                        //begin = j;
+                        begin = d[0];
                         plotBandInProgress = true;
                     }
                     if (d[1] === 0 && plotBandInProgress) {
-                        end = j
+                        end = d[0]
                         plotBands.push({
                             from: begin,
-                            to: end
+                            to: end,
+                            label: {
+                                align: 'left',
+                                text: column.name,
+                                y: -10,
+                            }
                         });
                         plotBandInProgress = false;
                     }
