@@ -72,6 +72,9 @@ export default function() {
             dataLabels: {
                 allowOverlap: true,
                 enabled: seriesConfig.series[seriesTypes[i]] && seriesConfig.series[seriesTypes[i]].dataLabels && seriesConfig.series[seriesTypes[i]].dataLabels.enabled === true,
+                formatter(){
+                    return returnNumberFormatter(Highcharts, config, config.tooltipDecimals).call(this);
+                } 
             },
             label: {
                 connectorAllowed: config.labelConnectorAllowed || false,
