@@ -72,6 +72,23 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             overrideColorStylesheet.innerText = styleString;
             document.head.appendChild(overrideColorStylesheet);
         }
+        function addStrokeWidthOverrides(){
+            removeStylesheet('strokeWidthStylesheet');
+            var overrides = JSON.parse(dataset.strokeWidths);
+            var hash = dataset.sthash;
+            var styleString = overrides.reduce(function(acc,cur,i){
+                return acc + `
+                    .highcharts-container.griffin.${hash} .highcharts-series.highcharts-series-${i} path.highcharts-graph {
+                        stroke-width: ${cur}px;
+                    }
+                `;
+            },'');
+            var strokeWidthStylesheet = document.createElement('style');
+            strokeWidthStylesheet.type = 'text/css';
+            strokeWidthStylesheet.id = 'strokeWidthStylesheet';
+            strokeWidthStylesheet.innerText = styleString;
+            document.head.appendChild(strokeWidthStylesheet);   
+        }
         function addLabelStyles(){
             removeStylesheet('labelStylesheet');
             var labelStyles = JSON.parse(dataset.labelStyles);
@@ -101,6 +118,9 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 }
                 if ( cur === 'lhash' ){
                     addLabelStyles();
+                }
+                if ( cur === 'sthash' ){
+                    addStrokeWidthOverrides();
                 }
                 return acc + ' ' + dataset[cur];
             }

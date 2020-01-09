@@ -77,7 +77,10 @@
     --get-monochrome-color-4: #5DA8A8;
     --get-monochrome-color-5: #7EC2C2;
 
+    // stroke widths for lines
+    --get-stroke-width: 4px;
 
+    --stroke-width: 4px;
 }
 
 figure.griffin {
@@ -292,7 +295,7 @@ figure.griffin {
     }
 
     .highcharts-graph {
-        stroke-width: 4px;
+        stroke-width: var(--stroke-width);
     }
 
     /* &.for-print {
