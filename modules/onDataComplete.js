@@ -70,7 +70,8 @@ export default function() {
                 y: -10,
             },*/
             dataLabels: {
-                allowOverlap: true
+                allowOverlap: true,
+                enabled: seriesConfig.series[seriesTypes[i]] && seriesConfig.series[seriesTypes[i]].dataLabels && seriesConfig.series[seriesTypes[i]].dataLabels.enabled === true,
             },
             label: {
                 connectorAllowed: config.labelConnectorAllowed || false,
