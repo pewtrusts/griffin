@@ -57,7 +57,7 @@ export default function(Highcharts){
                 }
             };
         },
-        slope(groupDataset){
+      /*  slope(groupDataset){
              function dataLabelsFormatter(){
                var fixed = groupDataset.decimals ? parseInt(groupDataset.decimals) : 0;
                return this.key + '<br>' + this.y.toFixed(fixed) + '%'; // TO DO. cct programmatically for other vale types
@@ -91,18 +91,19 @@ export default function(Highcharts){
                     visible: false
                 }
             };
-        },
+        },*/
         pie(groupDataset){
             return {
                 chart: {
                     height: '100%'
                 },
                 series: {
-                    colorByPoint: true
+                    colorByPoint: true,
+                    innerSize: '56%',
                 }
             };
         },
-        donut(groupDataset) {
+        /*donut(groupDataset) {
             function dataLabelsFormatter(){
                var fixed = groupDataset.decimals ? parseInt(groupDataset.decimals) : 0;
                return this.key + '<br>' + this.percentage.toFixed(fixed) + '%';
@@ -125,7 +126,7 @@ export default function(Highcharts){
         },
         variwide(){
             return {};
-        }
+        }*/
     };
 
 }
