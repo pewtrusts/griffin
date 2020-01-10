@@ -233,8 +233,8 @@ export default function() {
                  arguments[5].annotations = annotations;
                  console.log(arguments);
              }*/
-      /*  }
-        if (config.xAxisPlotBands && (i === array.length - 1 || i === config.endColumn)) {
+      /*  } */
+        if (config.xAxisPlotBands && i === array.length - 1 ) {
             let plotBands = JSON.parse(config.xAxisPlotBands);
             arguments[5].xAxis = arguments[5].xAxis || {};
             arguments[5].xAxis.plotBands = plotBands.map(band => {
@@ -244,7 +244,7 @@ export default function() {
                 };
             });
         }
-        if (config.xAxisPlotLines && (i === array.length - 1 || i === config.endColumn)) {
+        if (config.xAxisPlotLines && i === array.length - 1 ) {
             let plotLines = JSON.parse(config.xAxisPlotLines);
             arguments[5].xAxis = arguments[5].xAxis || {};
             arguments[5].xAxis.plotLines = plotLines.map(line => {
@@ -257,7 +257,7 @@ export default function() {
                     }
                 };
             });
-        }*/
+        }
     });
     parseNondataColumns(arguments);
 }
