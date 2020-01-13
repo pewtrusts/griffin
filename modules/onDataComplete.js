@@ -74,7 +74,8 @@ export default function() {
                 enabled: seriesConfig.series[seriesTypes[i]] && seriesConfig.series[seriesTypes[i]].dataLabels && seriesConfig.series[seriesTypes[i]].dataLabels.enabled === true,
                 formatter(){
                     return returnNumberFormatter(Highcharts, config, config.tooltipDecimals).call(this);
-                } 
+                },
+                inside: seriesConfig.series[seriesTypes[i]] && seriesConfig.series[seriesTypes[i]].dataLabels ? seriesConfig.series[seriesTypes[i]].dataLabels.inside : undefined
             },
             label: {
                 connectorAllowed: config.labelConnectorAllowed || false,
