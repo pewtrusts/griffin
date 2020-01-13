@@ -241,7 +241,12 @@ export default function() {
             arguments[5].xAxis.plotBands = plotBands.map(band => {
                 return {
                     from: band[0],
-                    to: band[1]
+                    to: band[1],
+                    label: {
+                        align: 'left',
+                        text: band[2],
+                        y: -10
+                    }
                 };
             });
         }
