@@ -70,12 +70,13 @@ export default function() {
                 y: -10,
             },*/
             dataLabels: {
-                allowOverlap: true,
+               // allowOverlap: true,
                 enabled: seriesConfig.series[seriesTypes[i]] && seriesConfig.series[seriesTypes[i]].dataLabels && seriesConfig.series[seriesTypes[i]].dataLabels.enabled === true,
                 formatter(){
                     return returnNumberFormatter(Highcharts, config, config.tooltipDecimals).call(this);
                 },
-                inside: seriesConfig.series[seriesTypes[i]] && seriesConfig.series[seriesTypes[i]].dataLabels ? seriesConfig.series[seriesTypes[i]].dataLabels.inside : undefined
+                inside: seriesConfig.series[seriesTypes[i]] && seriesConfig.series[seriesTypes[i]].dataLabels ? seriesConfig.series[seriesTypes[i]].dataLabels.inside : undefined,
+                padding: 5
             },
             label: {
                 connectorAllowed: config.labelConnectorAllowed || false,
@@ -114,7 +115,7 @@ export default function() {
 
     function parseNondataColumns(originalArguments) {
         nondataColumns.forEach((column, i) => {
-            if (!config.xAxisPlotBands && config.xAxisPlotBandsColumnIndex == column.originalIndex) { // i.e. plotbands not set directly (from data column) and original index equals one specified in config
+            if ((!config.xAxisPlotBands || config.xAxisPlotBands === '[]' ) && config.xAxisPlotBandsColumnIndex == column.originalIndex) { // i.e. plotbands not set directly (from data column) and original index equals one specified in config
                 let begin, end, plotBandInProgress = false,
                     plotBands = [];
                 column.data.forEach((d, j) => {
@@ -259,7 +260,9 @@ export default function() {
                     label: {
                         text: line[1],
                         rotation: 0,
-                        useHTML: true
+                        useHTML: true,
+                        y: -10,
+                        x: 0
                     }
                 };
             });

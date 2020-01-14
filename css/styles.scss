@@ -205,8 +205,9 @@ figure.griffin {
     .shareTooltip .highcharts-tooltip .highcharts-strong {
         fill: #000;
     }
-    .highcharts-plot-band-label {
+    .highcharts-plot-band-label, span.highcharts-plot-line-label {
         fill: #666;
+        color: #666;
     }
 
     /* chart specific */
@@ -537,7 +538,6 @@ figure.griffin {
     span.highcharts-plot-line-label {
         width: 265px;
         white-space: normal !important;
-        color: $pew_blue;
     }
 
     .observer-anchor {
