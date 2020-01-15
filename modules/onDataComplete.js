@@ -1,4 +1,10 @@
 import returnNumberFormatter from './returnNumberFormatter.js';
+function returnDataLabel(Highcharts, config, tooltipDecimals){
+    return function(){
+        console.log(this);
+        return this.key + '<br />' + returnNumberFormatter(Highcharts, config, tooltipDecimals).call(this);
+    }
+}
 export default function() {
     // invoked as bound fn with first argument being the table's config object {general, series}
     // and the second argument being lodash, and the third being defaultConfigs
@@ -71,9 +77,12 @@ export default function() {
             },*/
             dataLabels: {
                // allowOverlap: true,
+
+                connectorShape: 'straight',
+                distance: 15,
                 enabled: seriesConfig.series[seriesTypes[i]] && seriesConfig.series[seriesTypes[i]].dataLabels && seriesConfig.series[seriesTypes[i]].dataLabels.enabled === true,
                 formatter(){
-                    return returnNumberFormatter(Highcharts, config, config.tooltipDecimals).call(this);
+                    return seriesTypes[i] === 'pie' ? returnDataLabel(Highcharts, config, config.tooltipDecimals).call(this) : returnNumberFormatter(Highcharts, config, config.tooltipDecimals).call(this);
                 },
                 inside: seriesConfig.series[seriesTypes[i]] && seriesConfig.series[seriesTypes[i]].dataLabels ? seriesConfig.series[seriesTypes[i]].dataLabels.inside : undefined,
                 padding: 5
