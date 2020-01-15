@@ -39,6 +39,7 @@ const useNumericSymbol = UseNumericSymbol(Highcharts);
 const defaultConfigs = DefaultConfigs(Highcharts);
 const returnBaseConfig = ReturnBaseConfig(Highcharts, classNameKeys, relaxLabels, useNumericSymbol, _, defaultConfigs);
 
+Highcharts.seriesTypes.line.prototype.drawLegendSymbol = Highcharts.seriesTypes.area.prototype.drawLegendSymbol;
 
 Highcharts.setOptions({
     lang: {

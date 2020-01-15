@@ -161,8 +161,8 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             legend: {
                // align: window.exportForPrint ? 'left' : 'center',
                 symbolHeight: 10,
-                symbolRadius: 10,
-                symbolWidth: 10,
+                symbolRadius: 0,
+                squareSymbol: true
             },
            /* responsive: {
                 rules: returnResponsiveRules()
@@ -188,7 +188,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 //endOnTick: true,
                 //maxPadding: 0,
                 minPadding: 0.1,
-                //tickLength: 10
+                tickLength: 0
             }
         };
     }

@@ -291,6 +291,10 @@ figure.griffin {
     .highcharts-graph {
         stroke-width: var(--stroke-width);
     }
+    .highcharts-legend-item.highcharts-line-series .highcharts-graph {
+        stroke-width: 10px;
+        stroke-linecap: butt;
+    }
 
     /* &.for-print {
         .highcharts-graph {
@@ -503,7 +507,7 @@ figure.griffin {
 
 
     .highcharts-legend-item text {
-        transform: translate(0, -1px);
+        transform: translate(0, 1px);
     }
 
     .highcharts-credits {
