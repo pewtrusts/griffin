@@ -42,11 +42,11 @@ export default function(Highcharts){
                 // and remove the series property before using as a source for defaultsDeep
                 series: {
                     dataLabels: {
-                        align: 'left',
+                        align: 'center',
                         formatter: returnNumberFormatter(Highcharts, groupDataset, groupDataset.dataLabelsDecimals),
                         verticalAlign: 'middle',
-                        x: 2,
-                        y: -2
+                        x: 0,
+                        y: -15
                     },
                     marker: {
                         radius: 4

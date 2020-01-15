@@ -260,19 +260,7 @@ figure.griffin {
 
     &.griffin-line,
     &.griffin-area {
-        .highcharts-data-label {
-            @media screen {
-                visibility: hidden;
-            }
-        }
-
-
-        .highcharts-data-label:last-child {
-            visibility: visible;
-            opacity: 1;
-
-        }
-
+        
         @media screen and (max-width: 510px) {
 
             .highcharts-markers,
