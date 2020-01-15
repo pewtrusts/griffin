@@ -8,7 +8,8 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                     /*allowDecimals: config.yAxisAllowDecimals === 'false' ? false : true,
                     reversedStacks: config.yAxisReversedStacks === 'true',*/
                     labels: {
-                        formatter: returnNumberFormatter(Highcharts, dataset, decimals)
+                        formatter: returnNumberFormatter(Highcharts, dataset, decimals),
+                        //padding: 3
                     },
                     title: {
                         text: dataset.yAxisTitleText || undefined,
@@ -122,7 +123,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 if ( cur === 'sthash' ){
                     addStrokeWidthOverrides();
                 }
-                if ( cur === 'lastDataLabelOnly' && dataset[cur] === 'true'){
+                if ( ['lastDataLabelOnly','xAxisSmallerLabels'].indexOf(cur) !== -1 && dataset[cur] === 'true'){
                     return acc + ' ' + cur;
                 }
                 return acc + ' ' + dataset[cur];
@@ -186,7 +187,10 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 //endOnTick: true,
                 //maxPadding: 0,
                 minPadding: 0.1,
-                tickLength: 0
+                tickLength: 0,
+                labels: {
+                    padding: 0
+                }
             }
         };
     }

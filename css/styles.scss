@@ -311,7 +311,9 @@ figure.griffin {
     .highcharts-axis-labels {
         font-size: 1em;
     }
-
+    &.xAxisSmallerLabels .highcharts-axis-labels.highcharts-xaxis-labels {
+        font-size: 0.65em;
+    }
     /* default palette */
 
     .highcharts-color-0,
