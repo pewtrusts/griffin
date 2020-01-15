@@ -92,7 +92,8 @@ export default function() {
                 enabled: config.labelEnabled || false,
             },
             marker: {
-                symbol: 'circle'
+                symbol: 'circle',
+                radius: seriesTypes[i] === 'line' && ( seriesConfig.series[seriesTypes[i]] && seriesConfig.series[seriesTypes[i]].dataLabels && seriesConfig.series[seriesTypes[i]].dataLabels.enabled === true ) ? undefined : 0
             },
             showInLegend: numberOfSeries > 1,
             slicedOffset: 10,
