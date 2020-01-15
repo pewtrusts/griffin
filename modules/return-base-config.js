@@ -3,7 +3,7 @@ import returnNumberFormatter from './returnNumberFormatter.js';
 export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol, _, defaultConfigs){
     return function ReturnBaseConfig(table, dataset){
         function returnYAxisConfig(){
-            var decimals = dataset.yAxisDecimals !== undefined ? dataset.yAxisDecimals : '0';
+            var decimals = dataset.yAxisDecimals !== undefined ? dataset.yAxisDecimals : dataset.decimals !== undefined ? dataset.decimals : '0';
             return {
                     /*allowDecimals: config.yAxisAllowDecimals === 'false' ? false : true,
                     reversedStacks: config.yAxisReversedStacks === 'true',*/
