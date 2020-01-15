@@ -122,6 +122,9 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 if ( cur === 'sthash' ){
                     addStrokeWidthOverrides();
                 }
+                if ( cur === 'lastDataLabelOnly' && dataset[cur] === 'true'){
+                    return acc + ' ' + cur;
+                }
                 return acc + ' ' + dataset[cur];
             }
             return acc;
@@ -137,19 +140,14 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 events: {
                    // render: config.datalabelsAllowOverlap ? relaxLabels : undefined
                 },
-                spacingBottom: 30,
+                spacingBottom: 0,
                 spacingLeft: 0,
                 spacingRight: 15,
                 spacingTop: 30,
                 styledMode: true
             },
             credits: {
-                href: '',
-                position: {
-                    align: 'left',
-                    x: 0
-                },
-                text: '© ' + new Date().getFullYear() + ' The Pew Charitable Trusts'
+                enabled: false
             },
             data: {
                 complete,

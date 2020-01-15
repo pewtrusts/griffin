@@ -260,6 +260,13 @@ figure.griffin {
 
     &.griffin-line,
     &.griffin-area {
+
+        &.lastDataLabelOnly {
+            .highcharts-point, .highcharts-data-label:not(:last-child) {
+                display: none;
+            }
+
+        }
         
         @media screen and (max-width: 510px) {
 

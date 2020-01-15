@@ -17,7 +17,7 @@ export default function(Highcharts){
                         formatter: returnNumberFormatter(Highcharts, groupDataset, groupDataset.dataLabelsDecimals), // to do can this be put in default?
                         
                         //x: 30,
-                        //y: 5
+                        y: 5
                     }
                 },
                 xAxis: {

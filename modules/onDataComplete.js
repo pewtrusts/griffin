@@ -76,7 +76,7 @@ export default function() {
                 y: -10,
             },*/
             dataLabels: {
-               // allowOverlap: true,
+                allowOverlap: true,
 
                 connectorShape: 'straight',
                 distance: 15,
@@ -85,7 +85,7 @@ export default function() {
                     return seriesTypes[i] === 'pie' ? returnDataLabel(Highcharts, config, config.tooltipDecimals).call(this) : returnNumberFormatter(Highcharts, config, config.tooltipDecimals).call(this);
                 },
                 inside: seriesConfig.series[seriesTypes[i]] && seriesConfig.series[seriesTypes[i]].dataLabels ? seriesConfig.series[seriesTypes[i]].dataLabels.inside : undefined,
-                padding: 5
+                padding: 3
             },
             label: {
                 connectorAllowed: config.labelConnectorAllowed || false,
