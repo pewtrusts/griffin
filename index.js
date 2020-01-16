@@ -21,7 +21,7 @@ import buildMultidimensionalConfig from './modules/multidimensional.js';
 import DefaultConfigs from './modules/default-configs.js';
 
 export { default as returnAPIItem } from './modules/returnAPIItem.js';
-
+console.log(Highcharts);
 HCAnnotations(Highcharts);
 HCData(Highcharts);
 HCSeriesLabel(Highcharts);

@@ -10,8 +10,6 @@ export default function() {
     // and the second argument being lodash, and the third being defaultConfigs
     // the fourth is the original griffin.dataset, fifth is Highcharts
     // the original arguments[0] is now arguments[5]
-    console.log(this);
-    console.log('arguments', arguments, this);
     var seriesTypes, seriesNumberFormats, zones;
     const config = arguments[0].general;
     const seriesConfig = arguments[0].series;
@@ -23,6 +21,14 @@ export default function() {
     var nondataColumns = [];
     const nonDataIndeces = [];
 
+    if ( config.showAllTicks ){
+        let maxCategories = Math.max(...arguments[5].series.map(s => s.data.length));
+        let arr = [];
+        for ( let i = 0; i < maxCategories; i++ ){
+            arr.push(i);
+        }
+        config.xAxis.tickPositions = arr;
+    }
     // if a seriesTypes attribute is provided, parse it here for use in the returnAxisConfig function
     // if none is provided, make all series the same type on basis of chart.type
     if (config.seriesTypes) {
