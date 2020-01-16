@@ -21,7 +21,7 @@ export default function() {
     var nondataColumns = [];
     const nonDataIndeces = [];
 
-    if ( config.showAllTicks ){
+    if ( config.showAllTicks === 'category' ){
         let maxCategories = Math.max(...arguments[5].series.map(s => s.data.length));
         let arr = [];
         for ( let i = 0; i < maxCategories; i++ ){
