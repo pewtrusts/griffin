@@ -100,6 +100,11 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                         font-weight: ${cur.styles.includes('b') ? 'bold' : 'normal'};
                         font-style: ${cur.styles.includes('i') ? 'italic' : 'normal'};
                     }
+                    .for-print .highcharts-xaxis-labels text:nth-child(${+cur.index + 1}){
+                        font-family: ${cur.styles.includes('b') ? 'WhitneySemibold, "Whitney Semibold"' : 'WhitneyBook, "Whitney Book"'};
+                        font-style: ${cur.styles.includes('i') ? 'italic' : 'normal'};
+                        font-weight: normal;
+                    }
                 `
             },'');
             var labelStylesheet = document.createElement('style');
