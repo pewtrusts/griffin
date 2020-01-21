@@ -195,6 +195,17 @@ figure.griffin {
         text {
             fill: #231f20;
         }
+        .highcharts-xaxis .highcharts-axis-line {
+            stroke: #808285;
+            stroke-width: 0.39px;
+        }
+        .highcharts-yaxis-grid .highcharts-grid-line {
+            stroke: #e1e1e1;
+            stroke-width: 0.39px;
+        }
+        .highcharts-yaxis-grid .highcharts-grid-line:first-child {
+            display: none;
+        }
     }
 
     height: auto;
