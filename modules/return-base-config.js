@@ -163,7 +163,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 enabled: false
             },
             legend: {
-               // align: window.exportForPrint ? 'left' : 'center',
+                align: window.exportForPrint ? 'left' : 'center',
                 symbolHeight: 10,
                 symbolRadius: 0,
                 squareSymbol: true
