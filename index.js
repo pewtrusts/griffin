@@ -39,7 +39,7 @@ const useNumericSymbol = UseNumericSymbol(Highcharts);
 const defaultConfigs = DefaultConfigs(Highcharts);
 const returnBaseConfig = ReturnBaseConfig(Highcharts, classNameKeys, relaxLabels, useNumericSymbol, _, defaultConfigs);
 
-Highcharts.seriesTypes.line.prototype.drawLegendSymbol = Highcharts.seriesTypes.area.prototype.drawLegendSymbol;
+//Highcharts.seriesTypes.line.prototype.drawLegendSymbol = Highcharts.seriesTypes.area.prototype.drawLegendSymbol;
 
 Highcharts.setOptions({
     lang: {
@@ -63,6 +63,10 @@ export const Griffin = {
         this.instances = [];
         this.griffins = document.querySelectorAll('.griffin-wrapper'); // find all griffin wrappers in the HTML
         this.griffins.forEach((griffin, i) => {
+            console.log(Object.keys(griffin.dataset),'dataset');
+            Object.keys(griffin.dataset).forEach(key => {
+                griffin.dataset[key] = griffin.dataset[key].replace(/'/g, '"');
+            });
             griffin.dataset['chart.height'] = griffin.dataset['chart.height'] || '56%';
             griffin.dataset['chart.type'] = griffin.dataset['chart.type'] || 'line';
             griffin.config = _.defaultsDeep(buildMultidimensionalConfig(griffin.dataset).general, stripSeriesProperty(defaultConfigs[griffin.dataset['chart.type']](griffin.dataset)));

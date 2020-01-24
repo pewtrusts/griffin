@@ -286,7 +286,7 @@ figure.griffin {
     &.griffin-area {
 
         &.lastDataLabelOnly {
-            .highcharts-point, .highcharts-data-label:not(:last-child) {
+            .highcharts-markers .highcharts-point, .highcharts-data-label:not(:last-child) {
                 display: none;
             }
 
@@ -322,9 +322,14 @@ figure.griffin {
     .highcharts-graph {
         stroke-width: var(--stroke-width);
     }
+    .highcharts-legend-item .highcharts-point {
+        transform: translate(0,1px);
+        stroke: none;
+    }
     .highcharts-legend-item.highcharts-line-series .highcharts-graph {
-        stroke-width: 10px;
+        stroke-width: 16px;
         stroke-linecap: butt;
+        transform: translate(0,-2px);
     }
 
     /* &.for-print {
@@ -542,7 +547,6 @@ figure.griffin {
     .highcharts-legend-item text {
         fill: #666;
         font-weight: normal;
-        transform: translate(0, 1px);
     }
 
     .highcharts-credits {
