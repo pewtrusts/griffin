@@ -165,6 +165,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             },
             legend: {
                 align: window.exportForPrint ? 'left' : 'center',
+                itemMarginBottom: 5,
                 symbolHeight: 16,
                 symbolRadius: 0,
                 squareSymbol: true,
