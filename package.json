@@ -23,10 +23,21 @@
     "url": "https://github.com/pewtrusts/griffin/issues"
   },
   "homepage": "https://github.com/pewtrusts/griffin#readme",
-  "dependencies": {
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.4.2",
+    "fiber": "^1.0.4",
     "highcharts": "^7.0.3",
     "lodash.clonedeep": "^4.5.0",
-    "lodash.defaultsdeep": "^4.6.1"
-  },
-  "devDependencies": {}
+    "lodash.defaultsdeep": "^4.6.1",
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.13.1",
+    "postcss-loader": "^3.0.0",
+    "sass": "^1.25.0",
+    "sass-loader": "^8.0.2",
+    "webpack": "^4.41.5"
+  }
 }
