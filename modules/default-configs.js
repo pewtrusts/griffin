@@ -100,6 +100,29 @@ export default function(Highcharts){
                 series: {
                     colorByPoint: true,
                     innerSize: '56%',
+                },
+                responsive: {
+                    rules: [{
+                        chartOptions: {
+                            chart: {
+                                height: '100%'
+                            },
+                            legend: {
+                                enabled: true
+                            },
+                            plotOptions: {
+                                pie: {
+                                    dataLabels: [{
+                                        enabled: false
+                                    }]
+                                }
+                            }
+                        },
+                        condition: {
+                            maxWidth: 510
+                        }
+
+                    }]
                 }
             };
         },

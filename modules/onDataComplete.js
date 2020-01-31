@@ -101,7 +101,7 @@ export default function() {
                 symbol: 'circle',
                 radius: seriesTypes[i] === 'line' && ( seriesConfig.series[seriesTypes[i]] && seriesConfig.series[seriesTypes[i]].dataLabels && seriesConfig.series[seriesTypes[i]].dataLabels.enabled === true ) ? undefined : 0
             },
-            showInLegend: numberOfSeries > 1,
+            showInLegend: numberOfSeries > 1 || config.chart.type === 'pie',
             slicedOffset: 10,
             stacking: seriesConfig.series[seriesTypes[i]] && seriesConfig.series[seriesTypes[i]].stacking && seriesConfig.series[seriesTypes[i]].stacking !== 'undefined' ? seriesConfig.series[seriesTypes[i]].stacking : undefined,
             states: {
