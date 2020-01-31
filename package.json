@@ -4,7 +4,7 @@
   "description": "Library for creating charts from HTML table data",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.4.2",
+    "cssnano": "^4.1.10",
     "fiber": "^1.0.4",
     "highcharts": "^7.0.3",
     "lodash.clonedeep": "^4.5.0",
@@ -36,8 +37,12 @@
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.13.1",
     "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.7.0",
     "sass": "^1.25.0",
     "sass-loader": "^8.0.2",
-    "webpack": "^4.41.5"
-  }
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.2"
+  },
+  "dependencies": {}
 }

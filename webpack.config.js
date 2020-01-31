@@ -1,12 +1,12 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
     mode: 'production',
     devtool: 'source-map',
     entry: {
-        'index': './src/index.js'
+        'js/index': './index.js'
     },
     output: {
         path: path.resolve(__dirname, './dist'),
@@ -19,7 +19,7 @@ module.exports = {
     module: {
         rules: [{
                 test: /\.(js)$/,
-                exclude: /(node_modules)/,
+                exclude: /(node_modules)|HighchartsAPI/,
                 use: 'babel-loader'
             },
             {
@@ -29,18 +29,23 @@ module.exports = {
                     },
                     {
                         loader: 'css-loader',
-                       /* options: {
-                            modules: true,
-                            localIdentName: '[local]-[hash:6]',
+                        options: {
+                          //  modules: true,
+                          //  localIdentName: '[local]-[hash:6]',
                             sourceMap: true,
                             importLoaders: 1
-                        }*/
+                        }
                     },
                     {
                         loader: 'postcss-loader',
                         options: {
                             sourceMap: true,
                             ident: 'postcss',
+                            plugins: [
+                                require('cssnano'),
+                                require('postcss-preset-env')(),
+                                require('autoprefixer'),
+                            ],
                         }
                     },
                     {

@@ -100,7 +100,9 @@
 figure.griffin {
     margin: 1em 0;
 
-
+    .griffin-table {
+        display: none;
+    }
     .griffin-pending {
         background-color: #f0f0f0;
 
