@@ -34,9 +34,9 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             }
         }
         function addCustomColorDeclarations(){
-            removeStylesheet('customColorStylesheet');
-            var colors = JSON.parse(dataset.customColors);
             var hash = dataset.hash;
+            removeStylesheet('customColorStylesheet-' + hash);
+            var colors = JSON.parse(dataset.customColors);
             var styleString = colors.reduce(function(acc,cur,i){
                 return acc + `
                 .highcharts-container.griffin.${hash} .highcharts-color-${i},
@@ -50,14 +50,14 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             },'');
             var customColorStylesheet = document.createElement('style');
             customColorStylesheet.type = 'text/css';
-            customColorStylesheet.id = 'customColorStylesheet';
+            customColorStylesheet.id = 'customColorStylesheet-' + hash;
             customColorStylesheet.innerText = styleString;
             document.head.appendChild(customColorStylesheet)
         }
         function addOverrideDeclarations(){
-            removeStylesheet('overrideColorStylesheet');
-            var overrides = JSON.parse(dataset.overrides);
             var hash = dataset.orhash;
+            removeStylesheet('overrideColorStylesheet-' + hash);
+            var overrides = JSON.parse(dataset.overrides);
             var styleString = overrides.reduce(function(acc1,series,i){
                 return acc1 + series.reduce(function(acc,cur){
                     return acc + `
@@ -70,14 +70,14 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             },'');
             var overrideColorStylesheet = document.createElement('style');
             overrideColorStylesheet.type = 'text/css';
-            overrideColorStylesheet.id = 'overrideColorStylesheet';
+            overrideColorStylesheet.id = 'overrideColorStylesheet-' + hash;
             overrideColorStylesheet.innerText = styleString;
             document.head.appendChild(overrideColorStylesheet);
         }
         function addStrokeWidthOverrides(){
-            removeStylesheet('strokeWidthStylesheet');
-            var overrides = JSON.parse(dataset.strokeWidths);
             var hash = dataset.sthash;
+            removeStylesheet('strokeWidthStylesheet-' + hash);
+            var overrides = JSON.parse(dataset.strokeWidths);
             var styleString = overrides.reduce(function(acc,cur,i){
                 return acc + `
                     .highcharts-container.griffin.${hash} .highcharts-series.highcharts-series-${i} path.highcharts-graph {
@@ -87,14 +87,14 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             },'');
             var strokeWidthStylesheet = document.createElement('style');
             strokeWidthStylesheet.type = 'text/css';
-            strokeWidthStylesheet.id = 'strokeWidthStylesheet';
+            strokeWidthStylesheet.id = 'strokeWidthStylesheet-' + hash;
             strokeWidthStylesheet.innerText = styleString;
             document.head.appendChild(strokeWidthStylesheet);   
         }
         function addLabelStyles(){
-            removeStylesheet('labelStylesheet');
-            var labelStyles = JSON.parse(dataset.labelStyles);
             var hash = dataset.lhash;
+            removeStylesheet('labelStylesheet-' + hash);
+            var labelStyles = JSON.parse(dataset.labelStyles);
             var styleString = labelStyles.reduce(function(acc1,cur){
                 return acc1 + `
                     .highcharts-xaxis-labels text:nth-child(${+cur.index + 1}){
@@ -110,7 +110,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             },'');
             var labelStylesheet = document.createElement('style');
             labelStylesheet.type = 'text/css';
-            labelStylesheet.id = 'labelStylesheet';
+            labelStylesheet.id = 'labelStylesheet-' + hash;
             labelStylesheet.innerText = styleString;
             document.head.appendChild(labelStylesheet);
         }
