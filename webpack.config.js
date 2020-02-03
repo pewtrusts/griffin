@@ -1,10 +1,11 @@
+const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
     mode: 'production',
-    devtool: 'source-map',
+    devtool: false,
     entry: {
         'js/index': './index.js'
     },
@@ -20,12 +21,15 @@ module.exports = {
         rules: [{
                 test: /\.(js)$/,
                 exclude: /(node_modules)|HighchartsAPI/,
-                use: {
+                use: [{
                     loader: 'babel-loader',
                     options: {
                         presets: ['@babel/preset-env']
                     }
-                }
+                },
+                {
+                    loader: 'eslint-loader'
+                }]
             },
             {
                 test: /\.scss$/,
@@ -78,6 +82,19 @@ module.exports = {
             // both options are optional
             filename: "css/styles.css",
             chunkFilename: "[id].css",
-        })
+        }),
+        new webpack.SourceMapDevToolPlugin({
+            test: /\.js$/,
+            filename: 'js/indexjs.map'
+        }),
+        new webpack.SourceMapDevToolPlugin({
+            test: /\.css$/,
+            filename: 'css/stylescss.map'
+        }),
+       /* new webpack.SourceMapDevToolPlugin({
+            test: /\.css$/,
+            filename: 'css/[name]css.map', // bc sitecore database renames assets
+          //  fileContext: 'css'
+        })*/
     ],
 };
