@@ -1,49 +1,6 @@
 @import './vendor/highcharts6_1.css';
 @import './variables.scss';
 
-@font-face {
-    font-family: 'WhitneyBook';
-    src: local('WhitneyBook-Regular'),
-         local('WhitneyBook Regular');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'WhitneyBook';
-    src: local('WhitneyBook-Italic'),
-         local('WhitneyBook Italic');
-    font-weight: normal;
-    font-style: italic;
-}
-@font-face {
-    font-family: 'WhitneyBook';
-    src: local('WhitneySemibold-Regular'),
-         local('WhitneySemibold Regular');
-    font-weight: bold;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'WhitneyBook';
-    src: local('WhitneySemibold-Italic'),
-         local('WhitneySemibold Italic');
-    font-weight: bold;
-    font-style: italic;
-}
-@font-face {
-    font-family: 'WhitneySemibold';
-    src: local('WhitneySemibold-Regular'),
-         local('WhitneySemibold Regular');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'WhitneySemibold';
-    src: local('WhitneySemibold-Italic'),
-         local('WhitneySemibold Italic');
-    font-weight: normal;
-    font-style: italic;
-}
-
 :root {
 
     --teal-h: 180;
@@ -180,35 +137,6 @@ figure.griffin {
 }
 
 .highcharts-container.griffin {
-    &.for-print {
-        font-family: WhitneyBook, 'Whitney Book', Webdings;
-        font-size: 15.99px; // ie 9pt in print
-
-        /*text.highcharts-data-label,
-        .highcharts-data-label text {
-            font-family: 'Whitney';
-        }*/
-
-        .highcharts-legend text {
-            font-weight: normal;
-            fill: #808285;
-            font-size: 14.2222px; // ie 8 pt in print
-        }
-        text {
-            fill: #231f20;
-        }
-        .highcharts-xaxis .highcharts-axis-line {
-            stroke: #808285;
-            stroke-width: 0.39px;
-        }
-        .highcharts-yaxis-grid .highcharts-grid-line {
-            stroke: #e1e1e1;
-            stroke-width: 0.39px;
-        }
-        .highcharts-yaxis-grid .highcharts-grid-line:first-child {
-            display: none;
-        }
-    }
 
     height: auto;
     font-family: 'lato';
