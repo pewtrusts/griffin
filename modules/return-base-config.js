@@ -41,7 +41,10 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 return acc + `
                 .highcharts-container.griffin.${hash} .highcharts-color-${i},
                 .highcharts-container.griffin.${hash} .highcharts-data-label-color-${i} text,
-                .highcharts-container.griffin.${hash} .highcharts-series-label-color-${i} text
+                .highcharts-container.griffin.${hash} .highcharts-series-label-color-${i} text,
+                .highcharts-container.griffin.monochrome.${hash} .highcharts-color-${i},
+                .highcharts-container.griffin.monochrome.${hash} .highcharts-data-label-color-${i} text,
+                .highcharts-container.griffin.monochrome.${hash} .highcharts-series-label-color-${i} text
                  {
                     fill: ${cur};
                     stroke: ${cur};
@@ -51,8 +54,8 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             var customColorStylesheet = document.createElement('style');
             customColorStylesheet.type = 'text/css';
             customColorStylesheet.id = 'customColorStylesheet-' + hash;
+            document.head.appendChild(customColorStylesheet); // appending first seems to work in IE11. doesn't otherwise
             customColorStylesheet.innerText = styleString;
-            document.head.appendChild(customColorStylesheet)
         }
         function addOverrideDeclarations(){
             var hash = dataset.orhash;
@@ -61,7 +64,8 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             var styleString = overrides.reduce(function(acc1,series,i){
                 return acc1 + series.reduce(function(acc,cur){
                     return acc + `
-                        .highcharts-container.griffin.${hash} .highcharts-series-${i} .${cur.className}:nth-child(${+cur.index + 1}) {
+                        .highcharts-container.griffin.${hash} .highcharts-series-${i} .${cur.className}:nth-child(${+cur.index + 1}),
+                        .highcharts-container.griffin.monochrome.${hash} .highcharts-series-${i} .${cur.className}:nth-child(${+cur.index + 1}) {
                             fill: ${cur.className === 'highcharts-point' ? cur.overrideColor : 'none'};
                             stroke: ${cur.overrideColor};
                         }
@@ -71,8 +75,8 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             var overrideColorStylesheet = document.createElement('style');
             overrideColorStylesheet.type = 'text/css';
             overrideColorStylesheet.id = 'overrideColorStylesheet-' + hash;
-            overrideColorStylesheet.innerText = styleString;
             document.head.appendChild(overrideColorStylesheet);
+            overrideColorStylesheet.innerText = styleString;
         }
         function addStrokeWidthOverrides(){
             var hash = dataset.sthash;
@@ -80,7 +84,8 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             var overrides = JSON.parse(dataset.strokeWidths);
             var styleString = overrides.reduce(function(acc,cur,i){
                 return acc + `
-                    .highcharts-container.griffin.${hash} .highcharts-series.highcharts-series-${i} path.highcharts-graph {
+                    .highcharts-container.griffin.${hash} .highcharts-series.highcharts-series-${i} path.highcharts-graph,
+                    .highcharts-container.griffin.monochrome.${hash} .highcharts-series.highcharts-series-${i} path.highcharts-graph {
                         stroke-width: ${cur}px;
                     }
                 `;
@@ -88,8 +93,8 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             var strokeWidthStylesheet = document.createElement('style');
             strokeWidthStylesheet.type = 'text/css';
             strokeWidthStylesheet.id = 'strokeWidthStylesheet-' + hash;
-            strokeWidthStylesheet.innerText = styleString;
             document.head.appendChild(strokeWidthStylesheet);   
+            strokeWidthStylesheet.innerText = styleString;
         }
         function addLabelStyles(){
             var hash = dataset.lhash;
@@ -111,8 +116,8 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             var labelStylesheet = document.createElement('style');
             labelStylesheet.type = 'text/css';
             labelStylesheet.id = 'labelStylesheet-' + hash;
-            labelStylesheet.innerText = styleString;
             document.head.appendChild(labelStylesheet);
+            labelStylesheet.innerText = styleString;
         }
         function returnClassName(acc,cur){
             if ( dataset[cur] ){
