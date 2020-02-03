@@ -15,7 +15,7 @@ export default function returnNumberFormatter(Highcharts, config, decimals){
                     return rtn;
                 };
             }
-            break;
+          //  break;
         case 'currency':
             if ( str !== undefined ) {
                 return function(){
@@ -28,7 +28,7 @@ export default function returnNumberFormatter(Highcharts, config, decimals){
                     return '$' + Highcharts.numberFormat(value, 2);
                 };
             }
-            break;
+          //  break;
         default:
             if ( str !== undefined ) {
                 return function(){
@@ -41,7 +41,7 @@ export default function returnNumberFormatter(Highcharts, config, decimals){
                     return Highcharts.numberFormat(value, -1);
                 };
             }
-            break;
+          //  break;
 
     }
      /*

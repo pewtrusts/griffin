@@ -1,3 +1,4 @@
+/*eslint prefer-exponentiation-operator: "error"*/
 export default function(Highcharts){
     return function UseNumericSymbol(config){
 

@@ -1,3 +1,4 @@
+/* global module, define, Highcharts */
 /**
  * @license Highcharts JS v7.0.3 (2019-02-06)
  * Client side exporting module
@@ -526,10 +527,10 @@
                         var canvas = doc.createElement('canvas'),
                             ctx = canvas.getContext('2d'),
                             imageWidth = svg.match(
-                                /^<svg[^>]*width\s*=\s*\"?(\d+)\"?[^>]*>/
+                                /^<svg[^>]*width\s*=\s*"?(\d+)"?[^>]*>/
                             )[1] * scale,
                             imageHeight = svg.match(
-                                /^<svg[^>]*height\s*=\s*\"?(\d+)\"?[^>]*>/
+                                /^<svg[^>]*height\s*=\s*"?(\d+)"?[^>]*>/
                             )[1] * scale,
                             downloadWithCanVG = function () {
                                 ctx.drawSvg(svg, 0, 0, imageWidth, imageHeight);

@@ -4,10 +4,11 @@ module.exports = {
         "es6": true,
         "browser": true
     },
-    "parser": "babel-eslint", 
+    //"parser": "babel-eslint", 
     "parserOptions": {
         "sourceType": "module", // allows import and export
-        "allowImportExportEverywhere": true
+        "allowImportExportEverywhere": true,
+        "ecmaVersion": 7
     },
     "rules": {
          "no-console": "off"

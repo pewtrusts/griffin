@@ -138,7 +138,7 @@
                 if (a.xAxis || a.yAxis) {
                     var e, f, b, h = [],
                         k, q, n = a.options.label,
-                        t = (b = d.inverted) ? a.yAxis.pos : a.xAxis.pos,
+                        t = (b == d.inverted) ? a.yAxis.pos : a.xAxis.pos,
                         l = b ? a.xAxis.pos : a.yAxis.pos,
                         r = d.inverted ? a.yAxis.len : a.xAxis.len,
                         w = d.inverted ? a.xAxis.len :

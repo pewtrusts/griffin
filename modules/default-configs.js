@@ -1,9 +1,6 @@
 import returnNumberFormatter from './returnNumberFormatter.js';
 export default function(Highcharts){
     
-    function defaultDataLabelFormatter(){
-        return Highcharts.numberFormat(this.y, -1);
-    }
     return {
         area() {
             return {
@@ -29,14 +26,11 @@ export default function(Highcharts){
                 }
             };
         },
-        column(groupDataset){
+        column(/*groupDataset*/){
             return {
             };
         },
         line(groupDataset){
-           function dataLabelsFormatter(){
-                return groupDataset.dataLabelsType === 'name' ? this.series.name : 'not set';
-            }
             return {
                 //series property is handled differently, in the data onComplete function. griffin index.js will clone deep this obj
                 // and remove the series property before using as a source for defaultsDeep
@@ -92,7 +86,7 @@ export default function(Highcharts){
                 }
             };
         },*/
-        pie(groupDataset){
+        pie(/*groupDataset*/){
             return {
                 chart: {
                     height: '100%'

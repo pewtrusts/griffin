@@ -130,11 +130,11 @@ export default function() {
     console.log(arguments, this);
 
     function parseNondataColumns(originalArguments) {
-        nondataColumns.forEach((column, i) => {
+        nondataColumns.forEach((column) => {
             if ((!config.xAxisPlotBands || config.xAxisPlotBands === '[]' ) && config.xAxisPlotBandsColumnIndex == column.originalIndex) { // i.e. plotbands not set directly (from data column) and original index equals one specified in config
                 let begin, end, plotBandInProgress = false,
                     plotBands = [];
-                column.data.forEach((d, j) => {
+                column.data.forEach((d) => {
                     if (d[1] === 1 && !plotBandInProgress) {
                         begin = d[0];
                         plotBandInProgress = true;
@@ -198,7 +198,7 @@ export default function() {
     nonDataIndeces.sort(function(a,b){ // sort the indeces in descending order so that splicing one from the the original array doesn't affect the index of the next to be spliced
         return a < b ? 1 : a > b ? -1 : 0;
     });
-    nonDataIndeces.forEach(i => {
+    nonDataIndeces.forEach(() => {
         nondataColumns = nonDataIndeces.map(idx => {
             var column = arguments[5].series.splice(idx, 1)[0];
             column.originalIndex = idx;
