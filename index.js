@@ -22,7 +22,6 @@ import DefaultConfigs from './modules/default-configs.js';
 
 import './polyfills.js';
 
-export { default as returnAPIItem } from './modules/returnAPIItem.js';
 console.log(Highcharts);
 HCAnnotations(Highcharts);
 HCData(Highcharts);
