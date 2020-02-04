@@ -31,7 +31,7 @@ HCVariwide(Highcharts);
 HCExporting(Highcharts);
 HCOfflineExporting(Highcharts);
 HCBullet(Highcharts);
-HighchartsMore(Highcharts);
+
 
 const _ = {
     cloneDeep,
