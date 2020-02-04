@@ -5,8 +5,9 @@ import './css/styles.scss';
 import cloneDeep from 'lodash.clonedeep';
 import defaultsDeep from  'lodash.defaultsdeep';
 import Highcharts from 'highcharts';
-import 'highcharts/highcharts-more';
+import HighchartsMore from 'highcharts/highcharts-more';
 import HCExporting from 'highcharts/modules/exporting';
+import HCBullet from 'highcharts/modules/bullet';
 import HCOfflineExporting from './modules/offline-exporting.modified.js';
 import HCAnnotations from 'highcharts/modules/annotations';
 import HCData from 'highcharts/modules/data';
@@ -29,6 +30,8 @@ HCSeriesLabel(Highcharts);
 HCVariwide(Highcharts);
 HCExporting(Highcharts);
 HCOfflineExporting(Highcharts);
+HCBullet(Highcharts);
+HighchartsMore(Highcharts);
 
 const _ = {
     cloneDeep,
@@ -57,7 +60,7 @@ function stripSeriesProperty(configObj){
     delete _config.series;
     return _config;
 }
-export { defaultConfigs };
+export { defaultConfigs, Highcharts, HighchartsMore };
 export const Griffin = {
     chartsCollection: [], // empty array that will hold the Charts as they are created
     init(config = {}){ // config e.g. {lazy: true}
