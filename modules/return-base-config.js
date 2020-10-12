@@ -36,6 +36,7 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
         function addCustomColorDeclarations(){
             var hash = dataset.hash;
             removeStylesheet('customColorStylesheet-' + hash);
+            if ( dataset.customColors == undefined ) return;
             var colors = JSON.parse(dataset.customColors);
             var styleString = colors.reduce(function(acc,cur,i){
                 return acc + `
