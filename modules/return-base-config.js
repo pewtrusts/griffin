@@ -200,6 +200,10 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
             xAxis: {
                 //endOnTick: true,
                 //maxPadding: 0,
+                dateTimeLabelFormats: {
+                    day: '%b. %e', // Mar. 30
+                    week: '%b. %e'
+                },
                 minPadding: 0.1,
                 tickLength: 0,
                 tickPositioner: function(){
