@@ -51,7 +51,12 @@ Highcharts.setOptions({
         numericSymbols: ['K','M','B','T']
     }
 });
-
+Highcharts.dateFormats.X = function (timestamp) {
+    var months = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'];
+    var date = new Date(timestamp);
+    var month = date.getUTCMonth(date);
+    return months[month];
+}
 function undoCamelCase(str){
     return str.replace(/([A-Z])/g, function(v){return '-' + v.toLowerCase()});
 }
