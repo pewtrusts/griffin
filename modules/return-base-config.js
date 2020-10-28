@@ -201,8 +201,8 @@ export default function(Highcharts, classNameKeys, relaxLabels, useNumericSymbol
                 //endOnTick: true,
                 //maxPadding: 0,
                 dateTimeLabelFormats: {
-                    day: '%X %e', // Mar. 30 but May 30. 'X' is custom, defined in index.js
-                    week: '%X %e'
+                    day: '%b. %e', // Mar. 30
+                    week: '%b. %e'
                 },
                 minPadding: 0.1,
                 tickLength: 0,
